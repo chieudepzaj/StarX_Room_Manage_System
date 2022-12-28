@@ -51,7 +51,7 @@
                                         $this->db->where('year', $year);
 
                                         $overall_amount = $this->db->get()->row()->amount;
-                                        echo $overall_amount > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($overall_amount) : '-';
+                                        echo $overall_amount > 0 ? number_format($overall_amount) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
                                         ?>
                                     </td>
                                     <td>
@@ -63,11 +63,11 @@
                                         $this->db->where('year', $year);
 
                                         $paid_amount = $this->db->get()->row()->amount;
-                                        echo $paid_amount > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($paid_amount) : '-';
+                                        echo $paid_amount > 0 ? number_format($paid_amount) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo ($overall_amount - $paid_amount) > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($overall_amount - $paid_amount) : '-'; ?>
+                                        <?php echo ($overall_amount - $paid_amount) > 0 ? number_format($overall_amount - $paid_amount) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; ?>
                                     </td>
                                     <td>
                                         <?php
@@ -78,7 +78,7 @@
                                         $this->db->where('year', $year);
 
                                         $staff_salary = $this->db->get()->row()->amount;
-                                        echo $staff_salary > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($staff_salary) : '-';
+                                        echo $staff_salary > 0 ? number_format($staff_salary) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
                                         ?>
                                     </td>
                                     <td>
@@ -90,7 +90,7 @@
                                         $this->db->where('year', $year);
 
                                         $utility_bills = $this->db->get()->row()->amount;
-                                        echo $utility_bills > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($utility_bills) : '-';
+                                        echo $utility_bills > 0 ? number_format($utility_bills) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
                                         ?>
                                     </td>
                                     <td>
@@ -101,11 +101,11 @@
                                         $this->db->where('year', $year);
 
                                         $expenses = $this->db->get()->row()->amount;
-                                        echo $expenses > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($expenses) : '-';
+                                        echo $expenses > 0 ? number_format($expenses) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo ($paid_amount - $staff_salary - $utility_bills - $expenses) ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($paid_amount - $staff_salary - $utility_bills - $expenses) : '-'; ?>
+                                        <?php echo ($paid_amount - $staff_salary - $utility_bills - $expenses) ? number_format($paid_amount - $staff_salary - $utility_bills - $expenses) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

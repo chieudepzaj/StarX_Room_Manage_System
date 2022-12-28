@@ -45,7 +45,7 @@
                                         <td><?php echo $utility['year']; ?></td>
                                         <td><?php echo $utility['amount']; ?></td>
                                         <td><?php echo $utility['status'] ? $this->lang->line('paid') : $this->lang->line('due'); ?></td>
-                                        <td><?php echo date('d M, Y', $utility['timestamp']); ?></td>
+                                        <td><?php echo date('d/m/Y', $utility['timestamp']); ?></td>
                                         <td><?php echo $this->db->get_where('utility_bill_category', array('utility_bill_category_id' => $utility['utility_bill_category_id']))->row()->name; ?></td>
                                     </tr>
                                 <?php endforeach; ?>

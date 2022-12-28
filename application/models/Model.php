@@ -1064,7 +1064,7 @@ class Model extends CI_Model
 		. $this->lang->line('sms_invoice_2') 
 		. date('d M, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->due_date) 
 		. '. '
-		. $this->lang->line('sms_invoice_3') . $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($grand_total) 
+		. $this->lang->line('sms_invoice_3') . number_format($grand_total) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content 
 		. ' - '
 		. $this->lang->line('from')
 		. $this->db->get_where('setting', array('setting_id' => 1))->row()->content;
@@ -1255,6 +1255,10 @@ class Model extends CI_Model
 			$data['complaint_picture_1']	= 	$data['complaint_number'] . '_complaint_picture_1.' . $ext1;
 
 			move_uploaded_file($_FILES['complaint_picture_1']['tmp_name'], 'uploads/complaints/' . $data['complaint_picture_1']);
+		}
+		else{
+			
+		$this->session->set_flashdata('error', $this->lang->line('complaint_added_successfully'));
 		}
 
 		if ($ext2 == 'pdf' || $ext2 == 'PDF' || $ext2 == 'jpeg' || $ext2 == 'JPEG' || $ext2 == 'png' || $ext2 == 'PNG' || $ext2 == 'jpg' || $ext2 == 'JPG') {

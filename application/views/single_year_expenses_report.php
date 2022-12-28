@@ -44,7 +44,7 @@
                                         <td><?php echo $expense['month']; ?></td>
                                         <td><?php echo $expense['year']; ?></td>
                                         <td><?php echo $expense['amount']; ?></td>
-                                        <td><?php echo date('d M, Y', $expense['timestamp']); ?></td>
+                                        <td><?php echo date('d/m/Y', $expense['timestamp']); ?></td>
                                         <td><?php echo $expense['name']; ?></td>
                                         <td><?php echo $expense['description'] ? $expense['description'] : '-'; ?></td>
                                     </tr>
