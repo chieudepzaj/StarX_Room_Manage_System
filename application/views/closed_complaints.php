@@ -71,7 +71,7 @@
 									<?php if ($this->session->userdata('user_type') != 3) : ?>
 										<td><?php echo $this->db->get_where('tenant', array('tenant_id' => $row['tenant_id']))->row()->name; ?></td>
 									<?php endif; ?>
-									<td><?php echo date('d/m/Y', $row['created_on']); ?></td>
+									<td><?php echo date('d M, Y', $row['created_on']); ?></td>
 									<td>
 										<?php
 										$user_type =  $this->db->get_where('user', array('user_id' => $row['created_by']))->row()->user_type;
@@ -86,7 +86,7 @@
 										}
 										?>
 									</td>
-									<td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
+									<td><?php echo date('d M, Y', $row['timestamp']); ?></td>
 									<td>
 										<?php
 										$user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;

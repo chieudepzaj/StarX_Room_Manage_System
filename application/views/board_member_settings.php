@@ -52,7 +52,7 @@
                                     <td><?php echo html_escape($row['name']); ?></td>
                                     <td><?php echo html_escape($row['position']); ?></td>
                                     <td><?php echo html_escape($row['serial']); ?></td>
-                                    <td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
+                                    <td><?php echo date('d M, Y', $row['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;

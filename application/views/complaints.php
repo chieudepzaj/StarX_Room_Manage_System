@@ -1,5 +1,4 @@
 <!-- begin #content -->
-<?php error_reporting(0); ?>
 <div id="content" class="content">
 	<!-- begin breadcrumb -->
 	<ol class="breadcrumb pull-right">
@@ -13,11 +12,6 @@
 			<button type="button" class="btn btn-inverse"><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_complaint'); ?></button>
 		</a>
 	</h1>
-	<?php if ($this->session->flashdata('warning')) : ?>
-						<div class="alert alert-warning fade show">
-							<?php echo $this->session->flashdata('warning'); ?>
-						</div>
-					<?php endif; ?>
 	<!-- end page-header -->
 
 	<!-- begin row -->
@@ -77,7 +71,7 @@
 									<?php if ($this->session->userdata('user_type') != 3) : ?>
 										<td><?php echo $this->db->get_where('tenant', array('tenant_id' => $row['tenant_id']))->row()->name; ?></td>
 									<?php endif; ?>
-									<td><?php echo date('d/m/Y', $row['created_on']); ?></td>
+									<td><?php echo date('d M, Y', $row['created_on']); ?></td>
 									<td>
 										<?php
 										$user_type =  $this->db->get_where('user', array('user_id' => $row['created_by']))->row()->user_type;
@@ -92,7 +86,7 @@
 										}
 										?>
 									</td>
-									<td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
+									<td><?php echo date('d M, Y', $row['timestamp']); ?></td>
 									<td>
 										<?php
 										$user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;

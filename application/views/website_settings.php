@@ -50,7 +50,6 @@
 						<label><?php echo $this->lang->line('system_font'); ?> *</label>
 						<select style="width: 100%" class="form-control default-select2" name="font" data-parsley-required="true">
 							<option value=""><?php echo $this->lang->line('select_font'); ?></option>
-                            <option <?php if ('Helvetica' == $this->security->xss_clean($this->db->get_where('setting', array('name' => 'font_family'))->row()->content)) echo 'selected'; ?> value="Helvetica">Helvetica</option>
 							<option <?php if ('PT Sans Narrow' == $this->security->xss_clean($this->db->get_where('setting', array('name' => 'font_family'))->row()->content)) echo 'selected'; ?> value="PT Sans Narrow">PT Sans Narrow</option>
 							<option <?php if ('Josefin Sans' == $this->security->xss_clean($this->db->get_where('setting', array('name' => 'font_family'))->row()->content)) echo 'selected'; ?> value="Josefin Sans">Josefin Sans</option>
 							<option <?php if ('Titillium Web' == $this->security->xss_clean($this->db->get_where('setting', array('name' => 'font_family'))->row()->content)) echo 'selected'; ?> value="Titillium Web">Titillium Web</option>
@@ -88,7 +87,6 @@
                         <div>
                             <select style="width: 100%" class="form-control default-select2" data-parsley-required="true" name="language">
                                 <option value=""><?php echo $this->lang->line('select_language'); ?></option>
-                                <option <?php if ($this->db->get_where('setting', array('name' => 'language'))->row()->content == 'vietnamese') echo 'selected'; ?> value="<?php echo html_escape('vietnamese'); ?>"><?php echo html_escape($this->lang->line('vietnamese')); ?></option>
                                 <option <?php if ($this->db->get_where('setting', array('name' => 'language'))->row()->content == 'dutch') echo 'selected'; ?> value="<?php echo html_escape('dutch'); ?>"><?php echo html_escape($this->lang->line('dutch')); ?></option>
                                 <option <?php if ($this->db->get_where('setting', array('name' => 'language'))->row()->content == 'english') echo 'selected'; ?> value="<?php echo html_escape('english'); ?>"><?php echo html_escape($this->lang->line('english')); ?></option>
                                 <option <?php if ($this->db->get_where('setting', array('name' => 'language'))->row()->content == 'french') echo 'selected'; ?> value="<?php echo html_escape('french'); ?>"><?php echo html_escape($this->lang->line('french')); ?></option>

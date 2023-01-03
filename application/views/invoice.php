@@ -28,13 +28,13 @@
 					<i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> <?php echo $this->lang->line('print'); ?>
 				</a>
 			</span>
-			<?php echo html_escape($this->db->get_where('setting', array('name' => 'system_name'))->row()->content. ' - ' .$this->db->get_where('setting', array('name' => 'tagline'))->row()->content); ?>
+			<?php echo html_escape($this->db->get_where('setting', array('name' => 'tagline'))->row()->content); ?>
 		</div>
 		<!-- end invoice-company -->
 		<!-- begin invoice-header -->
 		<div class="invoice-header">
 			<div class="invoice-from">
-				<?php echo 'Tên người bán:'; ?>
+				<small><?php echo $this->lang->line('from'); ?></small>
 				<address class="m-t-5 m-b-5">
 					<strong class="text-inverse">
 						<?php echo html_escape($this->db->get_where('setting', array('name' => 'system_name'))->row()->content); ?>
@@ -43,7 +43,7 @@
 				</address>
 			</div>
 			<div class="invoice-to">
-				<?php echo 'Tên người mua:'; ?>
+				<small><?php echo $this->lang->line('to'); ?></small>
 				<address class="m-t-5 m-b-5">
 					<strong class="text-inverse">
 						<?php echo $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->tenant_name; ?>
@@ -52,6 +52,7 @@
 				</address>
 			</div>
 			<div class="invoice-date">
+				<small>
 					<?php
 						echo $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->status ? $this->lang->line('paid') : $this->lang->line('due');
 						if ($this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->payment_method_id) {
@@ -61,13 +62,14 @@
 							}
 						}
 					?>
+				</small>
 				<div class="date text-inverse m-t-5">
 					#<?php echo $invoice_number; ?>
 				</div>
 				<div class="invoice-detail">
-					<?php echo $this->lang->line('due_date'); ?>: <b><?php echo date('d/m/Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->due_date); ?></b>
+					<?php echo $this->lang->line('due_date'); ?>: <b><?php echo date('d M, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->due_date); ?></b>
 					<br />
-					<?php echo $this->lang->line('late_fee'); ?>: <b><?php echo number_format($this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->late_fee) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?></b>
+					<?php echo $this->lang->line('late_fee'); ?>: <b><?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->late_fee); ?></b>
 					<?php $late_fee = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->late_fee; ?>
 				</div>
 			</div>
@@ -80,15 +82,15 @@
 				<table class="table table-invoice">
 					<thead>
 						<tr>
-							<th><?php echo $this->lang->line('description'); ?></th>
+							<th><?php echo strtoupper($this->lang->line('description')); ?></th>
 							<?php if ($this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->invoice_type == 0) : ?>
-								<th class="text-center" width="20%"><?php echo $this->lang->line('starting_date'); ?></th>
-								<th class="text-center" width="20%"><?php echo $this->lang->line('ending_date'); ?></th>
+								<th class="text-center" width="20%"><?php echo strtoupper($this->lang->line('starting_date')); ?></th>
+								<th class="text-center" width="20%"><?php echo strtoupper($this->lang->line('ending_date')); ?></th>
 							<?php else : ?>
-								<th class="text-center" width="10%"><?php echo $this->lang->line('month'); ?></th>
-								<th class="text-center" width="10%"><?php echo $this->lang->line('year'); ?></th>
+								<th class="text-center" width="10%"><?php echo strtoupper($this->lang->line('month')); ?></th>
+								<th class="text-center" width="10%"><?php echo strtoupper($this->lang->line('year')); ?></th>
 							<?php endif; ?>
-							<th class="text-right" width="20%"><?php echo $this->lang->line('row_total'); ?></th>
+							<th class="text-right" width="20%"><?php echo strtoupper($this->lang->line('row_total')); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -97,18 +99,18 @@
 						?>
 							<tr>
 								<td><span class="text-inverse"><?php echo $this->lang->line('date_range_rent'); ?></span></td>
-								<td class="text-center"><?php echo date('d/m/Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->start_date); ?></td>
-								<td class="text-center"><?php echo date('d/m/Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->end_date); ?></td>
+								<td class="text-center"><?php echo date('d M, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->start_date); ?></td>
+								<td class="text-center"><?php echo date('d M, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->end_date); ?></td>
 								<td class="text-right">
+									<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 									<?php
 										$this->db->select_sum('amount');
 										$this->db->from('tenant_rent');
 										$this->db->where('invoice_id', $invoice_id);
 										$query = $this->db->get();
-										
+
 										echo number_format($query->row()->amount);
 										?>
-										<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 								</td>
 							</tr>
 							<?php
@@ -121,8 +123,8 @@
 									<td class="text-center"><?php echo $invoice_service['month'] . ', ' . $invoice_service['year']; ?></td>
 									<td class="text-center"><?php echo $invoice_service['month'] . ', ' . $invoice_service['year']; ?></td>
 									<td class="text-right">
-										<?php echo number_format($this->db->get_where('service', array('service_id' => $invoice_service['service_id']))->row()->cost); ?>
 										<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+										<?php echo number_format($this->db->get_where('service', array('service_id' => $invoice_service['service_id']))->row()->cost); ?>
 										<?php $invoice_services_total += $this->db->get_where('service', array('service_id' => $invoice_service['service_id']))->row()->cost; ?>
 									</td>
 								</tr>
@@ -139,8 +141,8 @@
 									<td class="text-center"><?php echo $month_total['month']; ?></td>
 									<td class="text-center"><?php echo $month_total['year']; ?></td>
 									<td class="text-right">
-										<?php echo number_format($month_total['amount']); ?>
 										<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+										<?php echo number_format($month_total['amount']); ?>
 									</td>
 								</tr>
 							<?php
@@ -156,8 +158,8 @@
 									<td class="text-center"><?php echo $invoice_service['month']; ?></td>
 									<td class="text-center"><?php echo $invoice_service['year']; ?></td>
 									<td class="text-right">
-										<?php echo number_format($this->db->get_where('service', array('service_id' => $invoice_service['service_id']))->row()->cost); ?>
 										<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+										<?php echo number_format($this->db->get_where('service', array('service_id' => $invoice_service['service_id']))->row()->cost); ?>
 										<?php $invoice_services_total += $this->db->get_where('service', array('service_id' => $invoice_service['service_id']))->row()->cost; ?>
 									</td>
 								</tr>
@@ -174,8 +176,8 @@
 								<td class="text-center">-</td>
 								<td class="text-center">-</td>
 								<td class="text-right">
-									<?php echo number_format($late_fee); ?>
 									<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+									<?php echo number_format($late_fee); ?>
 								</td>
 							</tr>
 						<?php endif; ?>
@@ -188,33 +190,33 @@
 				<div class="invoice-price-left">
 					<div class="invoice-price-row">
 						<div class="sub-price">
-							<small><?php echo $this->lang->line('subtotal'); ?></small>
+							<small><?php echo strtoupper($this->lang->line('subtotal')); ?></small>
 							<span class="text-inverse">
+								<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 								<?php
 								$this->db->select_sum('amount');
 								$this->db->from('tenant_rent');
 								$this->db->where('invoice_id', $invoice_id);
 								$query = $this->db->get();
-								
+
 								echo ($late_fee > 0) ? number_format($query->row()->amount + $invoice_services_total + $late_fee) : number_format($query->row()->amount + $invoice_services_total);
 								?>
-								<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 							</span>
 						</div>
 					</div>
 				</div>
 				<div class="invoice-price-right">
-					<small style="opacity: 100;"><?php echo $this->lang->line('total'); ?></small>
+					<small><?php echo strtoupper($this->lang->line('total')); ?></small>
 					<span class="f-w-600">
+						<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 						<?php
 						$this->db->select_sum('amount');
 						$this->db->from('tenant_rent');
 						$this->db->where('invoice_id', $invoice_id);
 						$query = $this->db->get();
-						
+
 						echo ($late_fee > 0) ? number_format($query->row()->amount + $invoice_services_total + $late_fee) : number_format($query->row()->amount + $invoice_services_total);
 						?>
-						<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 					</span>
 				</div>
 			</div>

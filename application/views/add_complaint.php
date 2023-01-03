@@ -47,14 +47,14 @@
                         <span class="btn btn-primary fileinput-button">
                             <i class="fa fa-plus"></i>
                             <span><?php echo $this->lang->line('add_picture_1'); ?></span>
-                            <input class="form-control" type="file" name="complaint_picture_1" accept=".pdf,.jpeg,.jpg,.png">
+                            <input class="form-control" type="file" name="complaint_picture_1">
                         </span>
                         <br>
                         <br>
                         <span class="btn btn-primary fileinput-button">
                             <i class="fa fa-plus"></i>
                             <span><?php echo $this->lang->line('add_picture_2'); ?></span>
-                            <input class="form-control" type="file" name="complaint_picture_2" accept=".pdf,.jpeg,.jpg,.png" >
+                            <input class="form-control" type="file" name="complaint_picture_2">
                         </span>
                     </div>
                     <div class="form-group">
@@ -63,7 +63,7 @@
                         <span class="btn btn-primary fileinput-button">
                             <i class="fa fa-plus"></i>
                             <span><?php echo $this->lang->line('add_video'); ?></span>
-                            <input class="form-control" type="file" name="complaint_video" accept="video/mp4">
+                            <input class="form-control" type="file" name="complaint_video">
                         </span>
                     </div>
                     <div class="form-group">

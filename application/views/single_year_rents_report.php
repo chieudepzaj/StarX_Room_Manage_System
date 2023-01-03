@@ -47,7 +47,7 @@
                                         <td><?php echo $tenant_rent['month']; ?></td>
                                         <td><?php echo $tenant_rent['year']; ?></td>
                                         <td><?php echo number_format($tenant_rent['amount']); ?></td>
-                                        <td><?php echo date('d/m/Y', $tenant_rent['timestamp']); ?></td>
+                                        <td><?php echo date('d M, Y', $tenant_rent['timestamp']); ?></td>
                                         <td><?php echo $this->db->get_where('invoice', array('invoice_id' => $tenant_rent['invoice_id']))->row()->invoice_number; ?></td>
                                         <td><?php echo $this->db->get_where('tenant', array('tenant_id' => $tenant_rent['tenant_id']))->row()->name; ?></td>
                                         <td><?php echo $tenant_rent['status'] ? $this->lang->line('paid') : $this->lang->line('due'); ?></td>

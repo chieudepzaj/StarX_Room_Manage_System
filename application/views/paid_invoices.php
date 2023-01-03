@@ -80,9 +80,9 @@
                                         echo ($row['late_fee'] > 0) ? number_format($query->row()->amount + $row['late_fee']) : number_format($query->row()->amount);
                                         ?>
                                     </td>
-                                    <td><?php echo date('d/m/Y', $row['due_date']); ?></td>
+                                    <td><?php echo date('d M, Y', $row['due_date']); ?></td>
                                     <td><?php echo html_escape($this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($row['late_fee'])); ?></td>
-                                    <td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
+                                    <td><?php echo date('d M, Y', $row['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;

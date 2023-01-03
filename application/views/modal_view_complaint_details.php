@@ -8,7 +8,7 @@
         <span class="badge badge-primary"><?php echo $this->lang->line('closed'); ?></span>
     <?php endif; ?>
 </h3>
-<p><?php echo $this->lang->line('published_on'); ?>: <?php echo date('d/m/Y H:i:s', $this->db->get_where('complaint', array('complaint_id' => $param2))->row()->created_on); ?> &nbsp;&nbsp;&nbsp; <?php echo $this->lang->line('last_updated'); ?>: <?php echo date('d/m/Y H:i:s', $this->db->get_where('complaint', array('complaint_id' => $param2))->row()->timestamp); ?></p>
+<p><?php echo $this->lang->line('published_on'); ?>: <?php echo date('d M, Y', $this->db->get_where('complaint', array('complaint_id' => $param2))->row()->created_on); ?> &nbsp;&nbsp;&nbsp; <?php echo $this->lang->line('last_updated'); ?>: <?php echo date('d M, Y', $this->db->get_where('complaint', array('complaint_id' => $param2))->row()->timestamp); ?></p>
 <hr>
 <?php
 $complaint_details = $this->db->get_where('complaint_details', array('complaint_id' => $param2))->result_array();
@@ -17,7 +17,7 @@ foreach ($complaint_details as $row) :
     <?php if ($row['created_by'] == $this->session->userdata('user_id')) : ?>
         <div class="note note-info">
             <p><?php echo $row['content']; ?></p>
-            <p><?php echo date('d/m/Y H:i:s', $row['created_on']); ?></p>
+            <p><?php echo date('d M, Y', $row['created_on']); ?></p>
             <p>
                 <?php
                 $user_type =  $this->db->get_where('user', array('user_id' => $row['created_by']))->row()->user_type;
@@ -36,7 +36,7 @@ foreach ($complaint_details as $row) :
     <?php else : ?>
         <div class="note note-success note-with-right-icon">
             <p><?php echo $row['content']; ?></p>
-            <p><?php echo date('d/m/Y H:i:s', $row['created_on']); ?></p>
+            <p><?php echo date('d M, Y', $row['created_on']); ?></p>
             <p>
                 <?php
                 $user_type =  $this->db->get_where('user', array('user_id' => $row['created_by']))->row()->user_type;

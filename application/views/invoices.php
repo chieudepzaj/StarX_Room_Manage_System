@@ -34,9 +34,9 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('payment_method'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('sms'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('email'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('late_fee').': '; ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('updated_on').': '; ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('updated_by').': '; ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('late_fee'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('updated_on'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('updated_by'); ?></th>
                                 <?php if ($this->session->userdata('user_type') != 3) : ?>
                                     <th class="text-nowrap"><?php echo $this->lang->line('options'); ?></th>
                                 <?php endif; ?>
@@ -73,30 +73,30 @@
                                     </td>
                                     <td><?php echo html_escape($row['room_number']); ?></td>
                                     <td>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php
                                         $grand_total    =   0;
                                         $rent_total     =   0;
                                         $service_total  =   0;
-                                        
+
                                         $this->db->select_sum('amount');
                                         $this->db->from('tenant_rent');
                                         $this->db->where('invoice_id', $row['invoice_id']);
                                         $query = $this->db->get();
-                                        
+
                                         $rent_total = $query->row()->amount;
-                                        
+
                                         $service_costs = $this->db->get_where('invoice_service', array('invoice_id' => $row['invoice_id']))->result_array();
                                         foreach ($service_costs as $service_cost) {
                                             $service_total += $this->db->get_where('service', array('service_id' => $service_cost['service_id']))->row()->cost;
                                         }
-                                        
+
                                         $grand_total = $rent_total + $service_total;
-                                        
+
                                         echo number_format($grand_total);
                                         ?>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
-                                    <td><?php echo date('d/m/Y', $row['due_date']); ?></td>
+                                    <td><?php echo date('d M, Y', $row['due_date']); ?></td>
                                     <td>
                                         <?php
                                             if ($row['payment_method_id']) {
@@ -113,8 +113,8 @@
                                     </td>
                                     <td><?php echo $row['sms'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?></td>
                                     <td><?php echo $row['email'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?></td>
-                                    <td><?php echo html_escape(number_format($row['late_fee']) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content); ?></td>
-                                    <td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
+                                    <td><?php echo html_escape($this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($row['late_fee'])); ?></td>
+                                    <td><?php echo date('d M, Y', $row['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;

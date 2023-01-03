@@ -2,7 +2,6 @@
 $lang['english']    =    "English";
 $lang['spanish']    =    "Spanish";
 $lang['dutch']    =    "Dutch";
-$lang['vietnamese']    =    "Tieng Viet";
 $lang['french']    =    "French";
 $lang['german']    =    "German";
 $lang['greek']    =    "Greek";
@@ -90,7 +89,7 @@ $lang['new_password_placeholder']    =   "Enter new password";
 
 $lang['email_address']    =   "Email Address";
 $lang['password']    =   "Password";
-$lang['sign_me_in']    =   "Login";
+$lang['sign_me_in']    =   "Sign me in";
 $lang['all_rights_reserved']    =   "All rights reserved";
 
 $lang['account_header']    =   "Showing month wise account details of";

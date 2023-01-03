@@ -9,7 +9,7 @@
 			. $this->lang->line('sms_invoice_2') 
 			. date('d M, Y', $this->db->get_where('invoice', array('invoice_id' => $param2))->row()->due_date) 
 			. '. '
-			. $this->lang->line('sms_invoice_3') . number_format($param3)  . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content
+			. $this->lang->line('sms_invoice_3') . $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($param3) 
 			. ' - '
 			. $this->lang->line('from')
 			. $this->db->get_where('setting', array('setting_id' => 1))->row()->content;

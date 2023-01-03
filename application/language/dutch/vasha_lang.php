@@ -2,7 +2,7 @@
 $lang['english']    =    "Engels";
 $lang['spanish']    =    "Spaans";
 $lang['french']    =    "Frans";
-$lang['dutch']    =    "Vietnamese";
+$lang['dutch']    =    "Nederlands";
 $lang['german']    =    "Duits";
 $lang['greek']    =    "Grieks";
 $lang['icelandic']    =    "IJslands";

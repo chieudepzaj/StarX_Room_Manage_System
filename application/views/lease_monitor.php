@@ -103,7 +103,7 @@
                                     <td><?php echo $expired_lease['room_id'] ? html_escape($this->db->get_where('room', array('room_id' => $expired_lease['room_id']))->row()->room_number) : 'N/A'; ?></td>
                                     <td><?php echo $expired_lease['emergency_person'] ? html_escape($expired_lease['emergency_person']) : 'N/A'; ?></td>
                                     <td><?php echo $expired_lease['emergency_contact'] ? html_escape($expired_lease['emergency_contact']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d/m/Y', $expired_lease['timestamp']); ?></td>
+                                    <td><?php echo date('d M, Y', $expired_lease['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $expired_lease['updated_by']))->row()->user_type;
@@ -221,7 +221,7 @@
                                     <td><?php echo $less_than_30_lease['room_id'] ? html_escape($this->db->get_where('room', array('room_id' => $less_than_30_lease['room_id']))->row()->room_number) : 'N/A'; ?></td>
                                     <td><?php echo $less_than_30_lease['emergency_person'] ? html_escape($less_than_30_lease['emergency_person']) : 'N/A'; ?></td>
                                     <td><?php echo $less_than_30_lease['emergency_contact'] ? html_escape($less_than_30_lease['emergency_contact']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d/m/Y', $less_than_30_lease['timestamp']); ?></td>
+                                    <td><?php echo date('d M, Y', $less_than_30_lease['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $less_than_30_lease['updated_by']))->row()->user_type;
@@ -339,7 +339,7 @@
                                     <td><?php echo $less_than_60_lease['room_id'] ? html_escape($this->db->get_where('room', array('room_id' => $less_than_60_lease['room_id']))->row()->room_number) : 'N/A'; ?></td>
                                     <td><?php echo $less_than_60_lease['emergency_person'] ? html_escape($less_than_60_lease['emergency_person']) : 'N/A'; ?></td>
                                     <td><?php echo $less_than_60_lease['emergency_contact'] ? html_escape($less_than_60_lease['emergency_contact']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d/m/Y', $less_than_60_lease['timestamp']); ?></td>
+                                    <td><?php echo date('d M, Y', $less_than_60_lease['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $less_than_60_lease['updated_by']))->row()->user_type;
@@ -457,7 +457,7 @@
                                     <td><?php echo $less_than_90_lease['room_id'] ? html_escape($this->db->get_where('room', array('room_id' => $less_than_90_lease['room_id']))->row()->room_number) : 'N/A'; ?></td>
                                     <td><?php echo $less_than_90_lease['emergency_person'] ? html_escape($less_than_90_lease['emergency_person']) : 'N/A'; ?></td>
                                     <td><?php echo $less_than_90_lease['emergency_contact'] ? html_escape($less_than_90_lease['emergency_contact']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d/m/Y', $less_than_90_lease['timestamp']); ?></td>
+                                    <td><?php echo date('d M, Y', $less_than_90_lease['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $less_than_90_lease['updated_by']))->row()->user_type;

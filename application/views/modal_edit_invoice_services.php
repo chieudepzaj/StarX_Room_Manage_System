@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <span style="margin-bottom: 10px" class="btn btn-sm btn-primary pull-right" id="add-more">
                 <i class="fa fa-plus"></i>
-                <span>Bổ sung thêm</span>
+                <span>Add more</span>
             </span>
         </div>
     </div>

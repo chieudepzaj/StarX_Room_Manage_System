@@ -26,7 +26,7 @@
 				<tr>
 					<td><?php echo $count++; ?></td>
 					<td><?php echo $this->lang->line('lease_period'); ?></td>
-					<td><?php echo ($tenant['lease_start'] ? date('d M, Y', $tenant['lease_start']) : 'N/A') . ' đến ' . ($tenant['lease_end'] ? date('d M, Y', $tenant['lease_end']) : 'N/A'); ?></td>
+					<td><?php echo ($tenant['lease_start'] ? date('d M, Y', $tenant['lease_start']) : 'N/A') . ' to ' . ($tenant['lease_end'] ? date('d M, Y', $tenant['lease_end']) : 'N/A'); ?></td>
 				</tr>
 				<tr>
 					<td><?php echo $count++; ?></td>
@@ -46,7 +46,7 @@
 				<tr>
 					<td><?php echo $count++; ?></td>
 					<td><?php echo $this->lang->line('created_on'); ?></td>
-					<td><?php echo date('d/m/Y', $tenant['created_on']); ?></td>
+					<td><?php echo date('d M, Y', $tenant['created_on']); ?></td>
 				</tr>
 				<tr>
 					<td><?php echo $count++; ?></td>

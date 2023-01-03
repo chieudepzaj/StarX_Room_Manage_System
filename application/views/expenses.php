@@ -51,11 +51,11 @@
                                     <td><?php echo html_escape($this->lang->line(strtolower($expense['month']))); ?></td>
                                     <td><?php echo html_escape($expense['year']); ?></td>
                                     <td>
-                                        <?php echo html_escape(number_format($expense['amount'])); ?>
                                         <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+                                        <?php echo html_escape(number_format($expense['amount'])); ?>
                                     </td>
                                     <td><?php echo $expense['description'] ? html_escape($expense['description']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d/m/Y', $expense['created_on']); ?></td>
+                                    <td><?php echo date('d M, Y', $expense['created_on']); ?></td>
                                     <td>
                                         <?php
                                             $user_type =  $this->db->get_where('user', array('user_id' => $expense['created_by']))->row()->user_type;
@@ -67,7 +67,7 @@
                                             }
                                             ?>
                                     </td>
-                                    <td><?php echo date('d/m/Y', $expense['timestamp']); ?></td>
+                                    <td><?php echo date('d M, Y', $expense['timestamp']); ?></td>
                                     <td>
                                         <?php
                                             $user_type =  $this->db->get_where('user', array('user_id' => $expense['updated_by']))->row()->user_type;

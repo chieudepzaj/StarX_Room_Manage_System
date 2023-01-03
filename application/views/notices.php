@@ -29,7 +29,7 @@
 						<thead>
 							<tr>
 								<th width="1%">#</th>
-								<th><?php echo $this->lang->line('title'); ?></th>
+								<th>Title</th>
 								<th><?php echo $this->lang->line('created_on'); ?></th>
 								<th><?php echo $this->lang->line('created_by'); ?></th>
 								<th><?php echo $this->lang->line('updated_on'); ?></th>
@@ -53,7 +53,7 @@
 											<?php echo $row['title']; ?>
 										</a>
 									</td>
-									<td><?php echo date('d/m/Y', $row['created_on']); ?></td>
+									<td><?php echo date('d M, Y', $row['created_on']); ?></td>
 									<td>
 										<?php
 										$user_type =  $this->db->get_where('user', array('user_id' => $row['created_by']))->row()->user_type;
@@ -65,7 +65,7 @@
 										}
 										?>
 									</td>
-									<td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
+									<td><?php echo date('d M, Y', $row['timestamp']); ?></td>
 									<td>
 										<?php
 										$user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;

@@ -35,7 +35,7 @@
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/masked-input/masked-input.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/password-indicator/js/password-indicator.js?1"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/password-indicator/js/password-indicator.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
