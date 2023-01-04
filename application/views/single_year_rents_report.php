@@ -1,7 +1,12 @@
+<style>
+	@page {
+		size: A4
+	}
+</style>
 <!-- begin #content -->
 <div id="content" class="content">
     <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
+    <ol class="breadcrumb pull-right hidden-print">
         <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('dashboard'); ?></a></li>
         <li class="breadcrumb-item active"><?php echo $this->lang->line('reports'); ?></li>
     </ol>
@@ -20,6 +25,11 @@
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
                 <div class="panel-body">
+                    <span class="pull-right hidden-print">
+                        <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5 hidden-print">
+                            <i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> <?php echo $this->lang->line('print'); ?>
+                        </a>
+                    </span>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
@@ -47,7 +57,7 @@
                                         <td><?php echo $tenant_rent['month']; ?></td>
                                         <td><?php echo $tenant_rent['year']; ?></td>
                                         <td><?php echo number_format($tenant_rent['amount']); ?></td>
-                                        <td><?php echo date('d M, Y', $tenant_rent['timestamp']); ?></td>
+                                        <td><?php echo date('d/m/Y', $tenant_rent['timestamp']); ?></td>
                                         <td><?php echo $this->db->get_where('invoice', array('invoice_id' => $tenant_rent['invoice_id']))->row()->invoice_number; ?></td>
                                         <td><?php echo $this->db->get_where('tenant', array('tenant_id' => $tenant_rent['tenant_id']))->row()->name; ?></td>
                                         <td><?php echo $tenant_rent['status'] ? $this->lang->line('paid') : $this->lang->line('due'); ?></td>
@@ -83,7 +93,7 @@
         </div>
         <!-- end col-12 -->
         <!-- begin col-3 -->
-        <div class="col-lg-3">
+        <div class="col-lg-3 hidden-print">
             <!-- begin panel -->
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
@@ -107,8 +117,8 @@
                     </div>
 
                     <button onclick="showSingleYearRentsReport()" type="button" class="mb-sm btn btn-block btn-primary"><?php echo $this->lang->line('show'); ?></button>
-                    <hr>
-                    <button onclick="DownloadReport()" type="button" class="mb-sm btn btn-block btn-green"><?php echo $this->lang->line('download_report'); ?></button>
+                    <!-- <hr> -->
+                    <!-- <button onclick="DownloadReport()" type="button" class="mb-sm btn btn-block btn-green"><?php echo $this->lang->line('download_report'); ?></button> -->
                 </div>
                 <!-- end panel-body -->
             </div>
@@ -137,3 +147,46 @@
         window.location = url;
     }
 </script>
+
+<style>
+	@media print {
+		.hidden-print {
+			display: none;
+		}
+
+		.invoice-header {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+
+		.invoice-to {
+			margin-top: 0 !important;
+			text-align: center !important;
+		}
+
+		.invoice-date {
+			margin-top: 0 !important;
+			text-align: right !important;
+		}
+
+		.invoice-price {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: 10px;
+			grid-auto-rows: 100px;
+			grid-template-areas:
+				"a a a a b b b b"
+				"c c c c d d d d";
+			align-items: end;
+		}
+
+		.invoice-price-left {
+			grid-area: b;
+		}
+
+		.invoice-price-right {
+			grid-area: d;
+		}
+	}
+</style>
+

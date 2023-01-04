@@ -1,7 +1,12 @@
+<style>
+	@page {
+		size: A4
+	}
+</style>
 <!-- begin #content -->
 <div id="content" class="content">
     <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
+    <ol class="breadcrumb pull-right hidden-print">
         <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('dashboard'); ?></a></li>
         <li class="breadcrumb-item active"><?php echo $this->lang->line('account'); ?></li>
     </ol>
@@ -20,6 +25,11 @@
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
                 <div class="panel-body">
+                    <span class="pull-right hidden-print">
+                        <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5 hidden-print">
+                            <i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> <?php echo $this->lang->line('print'); ?>
+                        </a>
+                    </span>
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -51,7 +61,7 @@
                                         $this->db->where('year', $year);
 
                                         $overall_amount = $this->db->get()->row()->amount;
-                                        echo $overall_amount > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($overall_amount) : '-';
+                                        echo $overall_amount > 0 ? number_format($overall_amount) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
                                         ?>
                                     </td>
                                     <td>
@@ -63,11 +73,11 @@
                                         $this->db->where('year', $year);
 
                                         $paid_amount = $this->db->get()->row()->amount;
-                                        echo $paid_amount > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($paid_amount) : '-';
+                                        echo $paid_amount > 0 ? number_format($paid_amount) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo ($overall_amount - $paid_amount) > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($overall_amount - $paid_amount) : '-'; ?>
+                                        <?php echo ($overall_amount - $paid_amount) > 0 ? number_format($overall_amount - $paid_amount) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; ?>
                                     </td>
                                     <td>
                                         <?php
@@ -78,7 +88,7 @@
                                         $this->db->where('year', $year);
 
                                         $staff_salary = $this->db->get()->row()->amount;
-                                        echo $staff_salary > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($staff_salary) : '-';
+                                        echo $staff_salary > 0 ? number_format($staff_salary) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; 
                                         ?>
                                     </td>
                                     <td>
@@ -90,7 +100,7 @@
                                         $this->db->where('year', $year);
 
                                         $utility_bills = $this->db->get()->row()->amount;
-                                        echo $utility_bills > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($utility_bills) : '-';
+                                        echo $utility_bills > 0 ? number_format($utility_bills) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; 
                                         ?>
                                     </td>
                                     <td>
@@ -101,11 +111,11 @@
                                         $this->db->where('year', $year);
 
                                         $expenses = $this->db->get()->row()->amount;
-                                        echo $expenses > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($expenses) : '-';
+                                        echo $expenses > 0 ? number_format($expenses) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; 
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo ($paid_amount - $staff_salary - $utility_bills - $expenses) ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($paid_amount - $staff_salary - $utility_bills - $expenses) : '-'; ?>
+                                        <?php echo ($paid_amount - $staff_salary - $utility_bills - $expenses) ? number_format($paid_amount - $staff_salary - $utility_bills - $expenses) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -118,7 +128,7 @@
         </div>
         <!-- end col-12 -->
         <!-- begin col-3 -->
-        <div class="col-lg-3">
+        <div class="col-lg-3 hidden-print">
             <!-- begin panel -->
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
@@ -162,3 +172,45 @@
         window.location = url;
     }
 </script>
+
+<style>
+	@media print {
+		.hidden-print {
+			display: none;
+		}
+
+		.invoice-header {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+
+		.invoice-to {
+			margin-top: 0 !important;
+			text-align: center !important;
+		}
+
+		.invoice-date {
+			margin-top: 0 !important;
+			text-align: right !important;
+		}
+
+		.invoice-price {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: 10px;
+			grid-auto-rows: 100px;
+			grid-template-areas:
+				"a a a a b b b b"
+				"c c c c d d d d";
+			align-items: end;
+		}
+
+		.invoice-price-left {
+			grid-area: b;
+		}
+
+		.invoice-price-right {
+			grid-area: d;
+		}
+	}
+</style>

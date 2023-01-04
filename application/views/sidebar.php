@@ -65,7 +65,6 @@
         <!-- end sidebar user -->
         <!-- begin sidebar nav -->
         <ul class="nav">
-            <li class="nav-header"><?php echo $this->lang->line('navigation'); ?></li>
             <?php if (in_array($this->db->get_where('module', array('module_name' => 'dashboard'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                 <li class="<?php if ($page_name == 'dashboard') echo 'active'; ?>">
                     <a href="<?php echo base_url(); ?>">
@@ -201,7 +200,7 @@
                 'module_name' => 'staff'
             ))->row()->module_id, $this->session->userdata('permissions')) && !in_array($this->db->get_where('module', array(
                 'module_name' => 'staff_payroll'
-            ))->row()->module_id, $this->session->userdata('permissions'))) :
+            ))->row()->module_id, $this->session->userdata('permissions'))):
             ?>
 
             <?php else : ?>
@@ -217,10 +216,12 @@
                                 <a href="<?php echo base_url(); ?>staff"><?php echo $this->lang->line('staff'); ?></a>
                             </li>
                         <?php endif; ?>
-                        <?php if (in_array($this->db->get_where('module', array('module_name' => 'staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
+                        <?php if (in_array($this->db->get_where('module', array('module_name' => 'add_staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                             <li class="<?php if ($page_name == 'add_staff_payroll') echo 'active'; ?>">
                                 <a href="<?php echo base_url(); ?>add_staff_payroll"><?php echo $this->lang->line('add_staff_payroll'); ?></a>
                             </li>
+                        <?php endif; ?>
+                        <?php if (in_array($this->db->get_where('module', array('module_name' => 'staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                             <li class="<?php if ($page_name == 'staff_payroll' || $page_name == 'single_month_staff_payroll') echo 'active'; ?>">
                                 <a href="<?php echo base_url(); ?>staff_payroll"><?php echo $this->lang->line('staff_payroll'); ?></a>
                             </li>
@@ -228,12 +229,6 @@
                     </ul>
                 </li>
             <?php endif; ?>
-            <li class="<?php if ($page_name == 'board_members') echo 'active'; ?>">
-                <a href="<?php echo base_url(); ?>board_members">
-                    <i class="fa fa-user-circle"></i>
-                    <span><?php echo $this->lang->line('board_members'); ?></span>
-                </a>
-            </li>
             <?php if (in_array($this->db->get_where('module', array('module_name' => 'lease_monitor'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                 <li class="<?php if ($page_name == 'lease_monitor') echo 'active'; ?>">
                     <a href="<?php echo base_url(); ?>lease_monitor">
@@ -265,20 +260,11 @@
                         <li class="<?php if ($page_name == 'payment_method_settings') echo 'active'; ?>">
                             <a href="<?php echo base_url(); ?>payment_method_settings"><?php echo $this->lang->line('payment_method'); ?></a>
                         </li>
-                        <li class="<?php if ($page_name == 'board_member_settings') echo 'active'; ?>">
-                            <a href="<?php echo base_url(); ?>board_member_settings"><?php echo $this->lang->line('board_member'); ?></a>
-                        </li>
                     <?php endif; ?>
                     <li class="<?php if ($page_name == 'profile_settings') echo 'active'; ?>">
                         <a href="<?php echo base_url(); ?>profile_settings"><?php echo $this->lang->line('profile'); ?></a>
                     </li>
                 </ul>
-            </li>
-            <li class="">
-                <a href="https://support.t1m9m.com" target="_blank">
-                    <i class="fa fa-question-circle"></i>
-                    <span><?php echo $this->lang->line('support'); ?></span>
-                </a>
             </li>
         </ul>
         <!-- end sidebar nav -->

@@ -56,16 +56,16 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php echo html_escape(number_format($room['daily_rent'])); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php echo html_escape(number_format($room['monthly_rent'])); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td><?php echo $room['floor'] ? html_escape($room['floor']) : 'N/A'; ?></td>
                                     <td><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d M, Y', $room['timestamp']); ?></td>
+                                    <td><?php echo date('d/m/Y', $room['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $room['updated_by']))->row()->user_type;

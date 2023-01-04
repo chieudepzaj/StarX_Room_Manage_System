@@ -58,8 +58,8 @@
                                     <td><?php echo html_escape($this->lang->line(strtolower($utility_bill['month']))); ?></td>
                                     <td><?php echo html_escape($utility_bill['year']); ?></td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php echo html_escape(number_format($utility_bill['amount'])); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td>
                                         <?php
@@ -69,7 +69,7 @@
                                             echo '<span class="badge badge-warning">' . $this->lang->line('due') . '</span>';
                                         ?>
                                     </td>
-                                    <td><?php echo date('d M, Y', $utility_bill['created_on']); ?></td>
+                                    <td><?php echo date('d/m/Y', $utility_bill['created_on']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $utility_bill['created_by']))->row()->user_type;
@@ -81,7 +81,7 @@
                                         }
                                         ?>
                                     </td>
-                                    <td><?php echo date('d M, Y', $utility_bill['timestamp']); ?></td>
+                                    <td><?php echo date('d/m/Y', $utility_bill['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $utility_bill['updated_by']))->row()->user_type;

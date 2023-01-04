@@ -96,7 +96,7 @@
                                 <label><?php echo $this->lang->line('lease_period'); ?></label>
                                 <div class="input-group input-daterange">
                                     <input type="text" class="form-control" name="lease_start" placeholder="<?php echo $this->lang->line('date_start'); ?>" />
-                                    <span class="input-group-addon">to</span>
+                                    <span class="input-group-addon">đến</span>
                                     <input type="text" class="form-control" name="lease_end" placeholder="<?php echo $this->lang->line('date_end'); ?>" />
                                 </div>
                             </div>

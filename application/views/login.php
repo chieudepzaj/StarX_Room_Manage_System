@@ -6,7 +6,7 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title><?php echo $this->db->get_where('setting', array('name' => 'system_name'))->row()->content; ?> - <?php echo $this->db->get_where('setting', array('name' => 'tagline'))->row()->content; ?> | Login</title>
+	<title><?php echo $this->db->get_where('setting', array('name' => 'system_name'))->row()->content; ?> | Login</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="<?php echo $this->db->get_where('setting', array('name' => 'tagline'))->row()->content; ?>" name="description" />
 	<meta content="t1m9m.com" name="author" />
@@ -105,7 +105,7 @@
 					<?php echo form_close(); ?>
 					<hr />
 					<p class="text-center text-grey-darker">
-						&copy; 2018 - <?php echo date('Y'); ?> <a href="<?php echo $this->db->get_where('setting', array('setting_id' => 13))->row()->content; ?>" target="_blank"><?php echo $this->db->get_where('setting', array('setting_id' => 12))->row()->content; ?></a>, All rights reserved.
+						&copy; 2022 - <?php echo date('Y'); ?> <a href="<?php echo $this->db->get_where('setting', array('setting_id' => 13))->row()->content; ?>" target="_blank"><?php echo $this->db->get_where('setting', array('setting_id' => 12))->row()->content; ?></a> , All rights reserved.
 					</p>
 				</div>
 				<!-- end login-content -->

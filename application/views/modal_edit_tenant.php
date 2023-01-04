@@ -56,7 +56,7 @@ foreach ($tenant_info as $tenant) :
 				<label><?php echo $this->lang->line('lease_period'); ?></label>
 				<div class="input-group input-daterange">
 					<input type="text" class="form-control" value="<?php echo $tenant['lease_start'] ? date('m/d/Y', $tenant['lease_start']) : ''; ?>" name="lease_start" placeholder="<?php echo $this->lang->line('date_start'); ?>" />
-					<span class="input-group-addon">to</span>
+					<span class="input-group-addon">đến</span>
 					<input type="text" class="form-control" value="<?php echo $tenant['lease_end'] ? date('m/d/Y', $tenant['lease_end']) : ''; ?>" name="lease_end" placeholder="<?php echo $this->lang->line('date_end'); ?>" />
 				</div>
 			</div>

@@ -33,9 +33,9 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('due_date'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('sms'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('email'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('late_fee'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('updated_on'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('updated_by'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('late_fee').': '; ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('updated_on').': '; ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('updated_by').': '; ?></th>
                                 <?php if ($this->session->userdata('user_type') != 3) : ?>
                                     <th class="text-nowrap"><?php echo $this->lang->line('options'); ?></th>
                                 <?php endif; ?>
@@ -91,34 +91,34 @@
                                     </td>
                                     <td><?php echo html_escape($row['room_number']); ?></td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php
                                         $grand_total    =   0;
                                         $rent_total     =   0;
                                         $service_total  =   0;
-
+                                        
                                         $this->db->select_sum('amount');
                                         $this->db->from('tenant_rent');
                                         $this->db->where('invoice_id', $row['invoice_id']);
                                         $query = $this->db->get();
-
+                                        
                                         $rent_total = $query->row()->amount;
-
+                                        
                                         $service_costs = $this->db->get_where('invoice_service', array('invoice_id' => $row['invoice_id']))->result_array();
                                         foreach ($service_costs as $service_cost) {
                                             $service_total += $this->db->get_where('service', array('service_id' => $service_cost['service_id']))->row()->cost;
                                         }
-
+                                        
                                         $grand_total = $rent_total + $service_total;
-
+                                        
                                         echo number_format($grand_total);
                                         ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
-                                    <td><?php echo date('d M, Y', $row['due_date']); ?></td>
+                                    <td><?php echo date('d/m/Y', $row['due_date']); ?></td>
                                     <td><?php echo $row['sms'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?></td>
                                     <td><?php echo $row['email'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?></td>
-                                    <td><?php echo html_escape($this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($row['late_fee'])); ?></td>
-                                    <td><?php echo date('d M, Y', $row['timestamp']); ?></td>
+                                    <td><?php echo html_escape(number_format($row['late_fee']) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content); ?></td>
+                                    <td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;
@@ -223,31 +223,31 @@
                     <div class="stats-info">
                         <h4><b><?php echo $this->lang->line('due_rents_of'); ?> <?php echo $this->lang->line(strtolower(date('F'))) . ', ' . date('Y'); ?></b></h4>
                         <p>
-                            <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                             <?php
                             $due_rent_total     =   0;
                             $due_service_total  =   0;
-
+                            
                             $this->db->select_sum('amount');
                             $this->db->from('tenant_rent');
                             $this->db->where('status', 0);
                             $this->db->where('month', date('F'));
                             $this->db->where('year', date('Y'));
                             $query = $this->db->get();
-
+                            
                             $due_rent_total = $query->row()->amount;
-
+                            
                             $due_invoices = $this->db->get_where('tenant_rent', array('month' => date('F'), 'year' => date('Y'), 'status' => 0))->result_array();
                             foreach ($due_invoices as $due_invoice) {
                                 $due_services = $this->db->get_where('invoice_service', array('invoice_id' => $due_invoice['invoice_id']))->result_array();
-
+                                
                                 foreach ($due_services as $due_service) {
                                     $due_service_total += $this->db->get_where('service', array('service_id' => $due_service['service_id']))->row()->cost;
                                 }
                             }                            
-
+                            
                             echo $query->row()->amount > 0 ? number_format($due_rent_total + $due_service_total) : number_format(0 + $due_service_total);
                             ?>
+                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                         </p>
                     </div>
                 </div>
@@ -256,30 +256,30 @@
                     <div class="stats-info">
                         <h4><b><?php echo $this->lang->line('total_rents_of'); ?> <?php echo $this->lang->line(strtolower(date('F'))) . ', ' . date('Y'); ?></b></h4>
                         <p>
-                            <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                             <?php
                             $total_rent_total     =   0;
                             $total_service_total  =   0;
-
+                            
                             $this->db->select_sum('amount');
                             $this->db->from('tenant_rent');
                             $this->db->where('month', date('F'));
                             $this->db->where('year', date('Y'));
                             $query = $this->db->get();
-
+                            
                             $total_rent_total = $query->row()->amount;
 
                             $total_invoices = $this->db->get_where('tenant_rent', array('month' => date('F'), 'year' => date('Y')))->result_array();
                             foreach ($total_invoices as $total_invoice) {
                                 $total_services = $this->db->get_where('invoice_service', array('invoice_id' => $total_invoice['invoice_id']))->result_array();
-
+                                
                                 foreach ($total_services as $total_service) {
                                     $total_service_total += $this->db->get_where('service', array('service_id' => $total_service['service_id']))->row()->cost;
                                 }
                             }                            
-
+                            
                             echo $query->row()->amount > 0 ? number_format($total_rent_total + $total_service_total) : number_format(0 + $total_service_total);
                             ?>
+                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                         </p>
                     </div>
                 </div>

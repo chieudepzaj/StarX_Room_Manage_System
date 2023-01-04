@@ -124,57 +124,57 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="January" value="January" name="months[]" data-parsley-required="true" />
+                                        <input type="checkbox" id="January" value="Tháng 1" name="months[]" data-parsley-required="true" />
                                         <label for="January"><?php echo $this->lang->line('january'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="May" value="May" name="months[]" />
+                                        <input type="checkbox" id="May" value="Tháng 5" name="months[]" />
                                         <label for="May"><?php echo $this->lang->line('may'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="September" value="September" name="months[]" />
+                                        <input type="checkbox" id="September" value="Tháng 9" name="months[]" />
                                         <label for="September"><?php echo $this->lang->line('september'); ?></label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="February" value="February" name="months[]" />
+                                        <input type="checkbox" id="February" value="Tháng 2" name="months[]" />
                                         <label for="February"><?php echo $this->lang->line('february'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="June" value="June" name="months[]" />
+                                        <input type="checkbox" id="June" value="Tháng 6" name="months[]" />
                                         <label for="June"><?php echo $this->lang->line('june'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="October" value="October" name="months[]" />
+                                        <input type="checkbox" id="October" value="Tháng 10" name="months[]" />
                                         <label for="October"><?php echo $this->lang->line('october'); ?></label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="March" value="March" name="months[]" />
+                                        <input type="checkbox" id="March" value="Tháng 3" name="months[]" />
                                         <label for="March"><?php echo $this->lang->line('march'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="July" value="July" name="months[]" />
+                                        <input type="checkbox" id="July" value="Tháng 7" name="months[]" />
                                         <label for="July"><?php echo $this->lang->line('july'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="November" value="November" name="months[]" />
+                                        <input type="checkbox" id="November" value="Tháng 11" name="months[]" />
                                         <label for="November"><?php echo $this->lang->line('november'); ?></label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="April" value="April" name="months[]" />
+                                        <input type="checkbox" id="April" value="Tháng 4" name="months[]" />
                                         <label for="April"><?php echo $this->lang->line('april'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="August" value="August" name="months[]" />
+                                        <input type="checkbox" id="August" value="Tháng 8" name="months[]" />
                                         <label for="August"><?php echo $this->lang->line('august'); ?></label>
                                     </div>
                                     <div class="checkbox checkbox-css">
-                                        <input type="checkbox" id="December" value="December" name="months[]" />
+                                        <input type="checkbox" id="December" value="Tháng 12" name="months[]" />
                                         <label for="December"><?php echo $this->lang->line('december'); ?></label>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@
                         <div class="form-group">
                             <label><?php echo $this->lang->line('tenant'); ?> *</label>
                             <div>
-                                <select class="multiple-select2 form-control" multiple="multiple" name="tenants[]" data-parsley-required="true" style="width: 100%">
+                                <select class="multiple-select2 form-control" multiple="multiple" name="tenants[]" data-parsley-required="true" style="width: 100%; padding: 0 20px 0 12px;">
                                     <option value="All"><?php echo $this->lang->line('all_tenants'); ?></option>
                                     <?php foreach ($tenants as $tenant) : ?>
                                         <option value="<?php echo html_escape($tenant['tenant_id']); ?>"><?php echo html_escape($tenant['name'] . ' - ' . $this->db->get_where('room', array('room_id' => $tenant['room_id']))->row()->room_number); ?></option>
@@ -233,18 +233,18 @@
                             <div>
                                 <select style="width: 100%" class="form-control default-select2" data-parsley-required="true" name="month">
                                     <option value=""><?php echo $this->lang->line('select_month'); ?></option>
-                                    <option value="January"><?php echo $this->lang->line('january'); ?></option>
-                                    <option value="February"><?php echo $this->lang->line('february'); ?></option>
-                                    <option value="March"><?php echo $this->lang->line('march'); ?></option>
-                                    <option value="April"><?php echo $this->lang->line('april'); ?></option>
-                                    <option value="May"><?php echo $this->lang->line('may'); ?></option>
-                                    <option value="June"><?php echo $this->lang->line('june'); ?></option>
-                                    <option value="July"><?php echo $this->lang->line('july'); ?></option>
-                                    <option value="August"><?php echo $this->lang->line('august'); ?></option>
-                                    <option value="September"><?php echo $this->lang->line('september'); ?></option>
-                                    <option value="October"><?php echo $this->lang->line('october'); ?></option>
-                                    <option value="November"><?php echo $this->lang->line('november'); ?></option>
-                                    <option value="December"><?php echo $this->lang->line('december'); ?></option>
+                                    <option value="Tháng 1"><?php echo $this->lang->line('january'); ?></option>
+                                    <option value="Tháng 2"><?php echo $this->lang->line('february'); ?></option>
+                                    <option value="Tháng 3"><?php echo $this->lang->line('march'); ?></option>
+                                    <option value="Tháng 4"><?php echo $this->lang->line('april'); ?></option>
+                                    <option value="Tháng 5"><?php echo $this->lang->line('may'); ?></option>
+                                    <option value="Tháng 6"><?php echo $this->lang->line('june'); ?></option>
+                                    <option value="Tháng 7"><?php echo $this->lang->line('july'); ?></option>
+                                    <option value="Tháng 8"><?php echo $this->lang->line('august'); ?></option>
+                                    <option value="Tháng 9"><?php echo $this->lang->line('september'); ?></option>
+                                    <option value="Tháng 10"><?php echo $this->lang->line('october'); ?></option>
+                                    <option value="Tháng 11"><?php echo $this->lang->line('november'); ?></option>
+                                    <option value="Tháng 12"><?php echo $this->lang->line('december'); ?></option>
                                 </select>
                             </div>
                         </div>

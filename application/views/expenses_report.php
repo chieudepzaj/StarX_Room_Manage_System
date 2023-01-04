@@ -1,7 +1,12 @@
+<style>
+	@page {
+		size: A4
+	}
+</style>
 <!-- begin #content -->
 <div id="content" class="content">
     <!-- begin breadcrumb -->
-    <ol class="breadcrumb pull-right">
+    <ol class="breadcrumb pull-right hidden-print">
         <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('dashboard'); ?></a></li>
         <li class="breadcrumb-item active"><?php echo $this->lang->line('expenses'); ?></li>
     </ol>
@@ -10,7 +15,7 @@
     <h1 class="page-header">
     <?php echo $this->lang->line('expenses_report_header'); ?> <?php echo $year = date('Y'); ?>
     </h1>
-    <!-- end page-header -->
+    <!-- end page-header --> 
 
     <!-- begin row -->
     <div class="row">
@@ -20,6 +25,11 @@
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
                 <div class="panel-body">
+                    <span class="pull-right hidden-print">
+                        <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5 hidden-print">
+                            <i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> <?php echo $this->lang->line('print'); ?>
+                        </a>
+                    </span>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
@@ -44,7 +54,7 @@
                                         <td><?php echo $expense['month']; ?></td>
                                         <td><?php echo $expense['year']; ?></td>
                                         <td><?php echo $expense['amount']; ?></td>
-                                        <td><?php echo date('d M, Y', $expense['timestamp']); ?></td>
+                                        <td><?php echo date('d/m/Y', $expense['timestamp']); ?></td>
                                         <td><?php echo $expense['name']; ?></td>
                                         <td><?php echo $expense['description'] ? $expense['description'] : '-'; ?></td>
                                     </tr>
@@ -59,7 +69,7 @@
         </div>
         <!-- end col-12 -->
         <!-- begin col-3 -->
-        <div class="col-lg-3">
+        <div class="col-lg-3 hidden-print">
             <!-- begin panel -->
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
@@ -83,8 +93,8 @@
                     </div>
 
                     <button onclick="showSingleYearExpensesReport()" type="button" class="mb-sm btn btn-block btn-primary"><?php echo $this->lang->line('show'); ?></button>
-                    <hr>
-                    <button onclick="DownloadReport()" type="button" class="mb-sm btn btn-block btn-green"><?php echo $this->lang->line('download_report'); ?></button>
+                    <!-- <hr> -->
+                    <!-- <button onclick="DownloadReport()" type="button" class="mb-sm btn btn-block btn-green"><?php echo $this->lang->line('download_report'); ?></button> -->
                 </div>
                 <!-- end panel-body -->
             </div>
@@ -113,3 +123,46 @@
         window.location = url;
     }
 </script>
+
+
+<style>
+	@media print {
+		.hidden-print {
+			display: none;
+		}
+
+		.invoice-header {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+
+		.invoice-to {
+			margin-top: 0 !important;
+			text-align: center !important;
+		}
+
+		.invoice-date {
+			margin-top: 0 !important;
+			text-align: right !important;
+		}
+
+		.invoice-price {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: 10px;
+			grid-auto-rows: 100px;
+			grid-template-areas:
+				"a a a a b b b b"
+				"c c c c d d d d";
+			align-items: end;
+		}
+
+		.invoice-price-left {
+			grid-area: b;
+		}
+
+		.invoice-price-right {
+			grid-area: d;
+		}
+	}
+</style>

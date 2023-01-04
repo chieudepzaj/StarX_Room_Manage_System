@@ -7,7 +7,7 @@
 <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>assets/plugins/font-awesome/5.0/css/fontawesome-all.min.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>assets/plugins/animate/animate.min.css" rel="stylesheet" />
-<link href="<?php echo base_url(); ?>assets/css/material/style.min.css" rel="stylesheet" />
+<link href="<?php echo base_url(); ?>assets/css/material/style.min.css?1" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>assets/css/material/style-responsive.min.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>assets/css/material/theme/blue.css" rel="stylesheet" id="theme" />
 <!-- ================== END BASE CSS STYLE ================== -->

@@ -114,11 +114,11 @@
                                         echo number_format($grand_total);
                                         ?>
                                     </td>
-                                    <td><?php echo date('d M, Y', $row['due_date']); ?></td>
+                                    <td><?php echo date('d/m/Y', $row['due_date']); ?></td>
                                     <td><?php echo $row['sms'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?></td>
                                     <td><?php echo $row['email'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?></td>
                                     <td><?php echo html_escape($this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($row['late_fee'])); ?></td>
-                                    <td><?php echo date('d M, Y', $row['timestamp']); ?></td>
+                                    <td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;

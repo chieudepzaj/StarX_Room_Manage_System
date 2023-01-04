@@ -34,11 +34,11 @@
                             <input type="password" name="old_password" placeholder="<?php echo $this->lang->line('current_password_placeholder'); ?>" class="form-control" data-parsley-required="true">
                         </div>
                         <div class="form-group">
-                            <label><?php echo $this->lang->line('new_password'); ?></label>
+                            <label><?php echo $this->lang->line('new_password'); ?> *</label>
                             <input type="password" name="new_password" placeholder="<?php echo $this->lang->line('new_password_placeholder'); ?>" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label><?php echo $this->lang->line('confirm_password'); ?></label>
+                            <label><?php echo $this->lang->line('confirm_password'); ?> *</label>
                             <input type="password" name="confirm_password" placeholder="<?php echo $this->lang->line('confirm_password_placeholder'); ?>" class="form-control">
                         </div>
 

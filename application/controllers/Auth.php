@@ -29,10 +29,11 @@ class Auth extends CI_Controller
 				$this->session->set_userdata('user_type', $query->row()->user_type);
 				$this->session->set_userdata('user_id', $query->row()->user_id);
 				$this->session->set_userdata('permissions', explode(",", $query->row()->permissions));
-
+				
 				if ($query->row()->user_type == 3) {
 					redirect(base_url() . 'monthly_invoices', 'refresh');
 				} else {
+					$this->session->set_flashdata('success', $this->lang->line('auth_successful_login'));
 					redirect(base_url(), 'refresh');
 				}
 			} else {

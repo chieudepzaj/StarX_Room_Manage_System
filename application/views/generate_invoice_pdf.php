@@ -123,7 +123,7 @@
                                 <?php echo $this->lang->line('created_on'); ?>: <?php echo date('F d, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->created_on); ?><br>
                                 <?php echo $this->lang->line('due'); ?>: <?php echo date('F d, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->due_date); ?><br>
                                 <?php echo $this->lang->line('status'); ?>: <?php echo $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->status ? $this->lang->line('paid') : $this->lang->line('due'); ?><br>
-                                <?php echo $this->lang->line('late_fee'); ?>: <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->late_fee); ?>
+                                <?php echo $this->lang->line('late_fee'); ?>: <?php number_format($this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->late_fee . ' ' . echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content); ?>
                                 <?php $late_fee = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->late_fee; ?>
                             </td>
                         </tr>
@@ -166,8 +166,8 @@
                 ?>
                 <tr class="item">
                     <td><?php echo $this->lang->line('date_range_rent'); ?></td>
-                    <td><?php echo date('d M, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->start_date); ?></td>
-                    <td><?php echo date('d M, Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->end_date); ?></td>
+                    <td><?php echo date('d/m/Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->start_date); ?></td>
+                    <td><?php echo date('d/m/Y', $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->end_date); ?></td>
                     <td>
                         <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                         <?php
@@ -205,7 +205,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><?php echo $this->lang->line('total'); ?>: <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($invoice_total + $late_fee); ?></td>
+                <td><?php echo $this->lang->line('total'); ?>: <?php echo number_format($invoice_total + $late_fee . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content); ?></td>
             </tr>
         </table>
     </div>

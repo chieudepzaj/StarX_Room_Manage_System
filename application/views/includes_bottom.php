@@ -35,7 +35,7 @@
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/masked-input/masked-input.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/password-indicator/js/password-indicator.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/password-indicator/js/password-indicator.js?1"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
@@ -49,7 +49,7 @@
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/clipboard/clipboard.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/demo/form-plugins.demo.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/demo/form-plugins.demo.min.js?1"></script>
 
 <script src="<?php echo base_url(); ?>assets/plugins/parsley/dist/parsley.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/highlight/highlight.common.js"></script>

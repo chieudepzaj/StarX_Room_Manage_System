@@ -323,7 +323,7 @@ class Landlord extends CI_Controller
 		if (!$this->session->userdata('user_type'))
 			redirect(base_url() . 'login', 'refresh');
 
-		if (in_array($this->db->get_where('module', array('module_name' => 'staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) {
+		if (in_array($this->db->get_where('module', array('module_name' => 'add_staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) {
 			$page_data['page_title']	=	'Add Staff Payroll';
 			$page_data['page_name'] 	= 	'add_staff_payroll';
 			$this->load->view('index', $page_data);

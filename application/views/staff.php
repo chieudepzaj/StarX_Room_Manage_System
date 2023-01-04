@@ -69,7 +69,7 @@
                                         ?>
                                     </td>
                                     <td><?php echo $row['remarks'] ? html_escape($row['remarks']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d M, Y', $row['created_on']); ?></td>
+                                    <td><?php echo date('d/m/Y', $row['created_on']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $row['created_by']))->row()->user_type;
@@ -81,7 +81,7 @@
                                         }
                                         ?>
                                     </td>
-                                    <td><?php echo date('d M, Y', $row['timestamp']); ?></td>
+                                    <td><?php echo date('d/m/Y', $row['timestamp']); ?></td>
                                     <td>
                                         <?php
                                         $user_type =  $this->db->get_where('user', array('user_id' => $row['updated_by']))->row()->user_type;
