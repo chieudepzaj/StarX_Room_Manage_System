@@ -188,7 +188,7 @@ class Landlord extends CI_Controller
 		if (!$this->session->userdata('user_type'))
 			redirect(base_url() . 'login', 'refresh');
 
-		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions'))) {
+		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills','module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))) {
 			$page_data['page_title']	=	'Add Utility Bill';
 			$page_data['page_name'] 	= 	'add_utility_bill';
 			$this->load->view('index', $page_data);
@@ -204,7 +204,7 @@ class Landlord extends CI_Controller
 		if (!$this->session->userdata('user_type'))
 			redirect(base_url() . 'login', 'refresh');
 
-		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions'))) {
+		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills','module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))) {
 			if ($param1 == 'add') $this->model->add_utility_bill();
 			elseif ($param1 == 'update') $this->model->update_utility_bill($param2);
 			elseif ($param1 == 'remove') $this->model->remove_utility_bill($param2);
@@ -231,6 +231,25 @@ class Landlord extends CI_Controller
 			elseif ($param1 == 'update') $this->model->update_utility_bill_category($param2);
 			elseif ($param1 == 'remove') $this->model->remove_utility_bill_category($param2);
 
+			$page_data['navbar_status']	=	'aside-collapsed';
+			$page_data['page_title']	=	'Utility Bill Categories';
+			$page_data['page_name'] 	= 	'utility_bill_categories';
+			$this->load->view('index', $page_data);
+		}
+		else if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))){
+			if ($param1 == 'add'){
+				$page_data['page_title']	=	'Permission Denied';
+				$page_data['page_name'] 	= 	'permission_denied';
+				$this->load->view('index', $page_data);}
+			elseif ($param1 == 'update') {
+				$page_data['page_title']	=	'Permission Denied';
+				$page_data['page_name'] 	= 	'permission_denied';
+				$this->load->view('index', $page_data);}
+			elseif ($param1 == 'remove') {
+				$page_data['page_title']	=	'Permission Denied';
+				$page_data['page_name'] 	= 	'permission_denied';
+				$this->load->view('index', $page_data);}
+			
 			$page_data['navbar_status']	=	'aside-collapsed';
 			$page_data['page_title']	=	'Utility Bill Categories';
 			$page_data['page_name'] 	= 	'utility_bill_categories';

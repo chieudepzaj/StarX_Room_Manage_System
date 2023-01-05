@@ -66,6 +66,7 @@
                                         }
                                         ?>
                                     </td>
+                                    <?php if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-white btn-xs"><?php echo $this->lang->line('action'); ?></button>
@@ -83,6 +84,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -94,6 +96,7 @@
         </div>
         <!-- end col-9 -->
         <!-- begin col-3 -->
+        <?php if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
         <div class="col-md-3">
             <!-- begin panel -->
             <div class="panel panel-inverse">
@@ -113,6 +116,7 @@
             <!-- end panel -->
         </div>
         <!-- end col-3 -->
+        <?php endif; ?>
     </div>
     <!-- end row -->
 </div>

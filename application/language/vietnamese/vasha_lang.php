@@ -84,6 +84,7 @@ $lang['profile_settings']    =   "Cài Đặt Profile";
 $lang['email']    =   "Email";
 $lang['email_placeholder']    =   "Nhập email";
 $lang['current_password']    =   "Mật Khẩu Hiện Tại";
+$lang['enter_password'] = "Nhập mật khẩu";
 $lang['current_password_placeholder']    =   "Nhập mật khẩu hiện tại";
 $lang['new_password']    =   "Mật Khẩu Mới";
 $lang['new_password_placeholder']    =   "Nhập mật khẩu mới";
@@ -336,7 +337,7 @@ $lang['monthly_rent']    =   "Tiền Thuê Hàng Tháng";
 $lang['total']    =   "Tổng Tiền Thanh Toán";
 
 $lang['tenant_invoices_header']    =   "Hóa đơn của";
-
+$lang['utility_bills_no_add_category'] = "Hóa Đơn Tiện Ích Không Danh Mục";
 $lang['all_rents']    =   "Tổng Tiền Thuê";
 $lang['print']    =   "Print";
 $lang['from']    =   "Từ";

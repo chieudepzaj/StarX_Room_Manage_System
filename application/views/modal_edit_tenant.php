@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <?php echo form_open('tenants/update/' . $param2, array('id' => 'edit_tenant', 'method' => 'post', 'data-parsley-validate' => 'true')); ?>
 <?php
 $tenant_info = $this->db->get_where('tenant', array('tenant_id' => $param2))->result_array();
@@ -24,10 +25,10 @@ foreach ($tenant_info as $tenant) :
 				?>
 				<input value="<?php echo html_escape($tenant['email']); ?>" type="email" name="email" placeholder="<?php echo $this->lang->line('enter_email'); ?>" class="form-control">
 			</div>
-			<?php if (!$tenant_email) : ?>
+			<?php if ($tenant_email) : ?>
 				<div class="form-group">
 					<label><?php echo $this->lang->line('password'); ?> (<?php echo $this->lang->line('for_tenant_login'); ?>)</label>
-					<input type="text" name="password" id="password-indicator-visible" class="form-control m-b-5">
+					<input type="password" placeholder="<?php echo $this->lang->line('enter_password'); ?>" name="password" id="password-indicator-visible" class="form-control m-b-5 remove_red_eye">
 					<div id="passwordStrengthDiv2" class="is0 m-t-5"></div>
 				</div>
 				<div class="note note-yellow m-b-15">

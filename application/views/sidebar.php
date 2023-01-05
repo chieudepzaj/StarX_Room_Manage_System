@@ -126,7 +126,7 @@
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
+            <?php if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions')) || in_array($this->db->get_where('module', array('module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                 <li class="has-sub <?php if ($page_name == 'add_utility_bill' || $page_name == 'utility_bills' || $page_name == 'utility_bill_categories') echo 'active'; ?>">
                     <a href="javascript:;">
                         <b class="caret"></b>
