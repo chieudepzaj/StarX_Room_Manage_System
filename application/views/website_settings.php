@@ -9,8 +9,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
         <?php echo $this->lang->line('website_settings_header'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -245,52 +246,7 @@
             <!-- end panel -->          
         </div>
         <!-- end col-6 -->
-        <div class="col-lg-6">
-            <div class="panel panel-inverse">
-				<!-- begin panel-heading -->
-				<div class="panel-heading">
-					<div class="panel-heading-btn">
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-					</div>
-					<h4 class="panel-title"><?php echo $this->lang->line('twilio_settings'); ?></h4>
-				</div>
-				<!-- end panel-heading -->
-                <!-- begin panel-body -->
-                <div class="panel-body">
-					<div class="note note-yellow m-b-15">
-                        <ul style="margin-bottom: 0">
-                            <li><?php echo $this->lang->line('twilio_note_1'); ?></li>
-                            <li><?php echo $this->lang->line('twilio_note_2'); ?>: <a href="https://www.twilio.com/" target="_blank">twilio.com <i class="fa fa-external-link-alt"></i></a></li>
-                            <li><?php echo $this->lang->line('twilio_note_3'); ?></li>
-                        </ul>
-                    </div>
-                    <?php echo form_open('website_settings/update_twilio', array('method' => 'post', 'data-parsley-validate' => 'true')); ?>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('twilio_account_sid'); ?></label>
-                        <input value="<?php echo html_escape($this->db->get_where('setting', array('name' => 'account_sid'))->row()->content); ?>" type="text" name="account_sid" placeholder="<?php echo $this->lang->line('twilio_account_sid_ph'); ?>" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('twilio_auth_token'); ?></label>
-                        <input value="<?php echo html_escape($this->db->get_where('setting', array('name' => 'auth_token'))->row()->content); ?>" type="password" name="auth_token" placeholder="<?php echo $this->lang->line('twilio_auth_token_ph'); ?>" class="form-control">
-                    </div>
-					<div class="form-group">
-                        <label><?php echo $this->lang->line('twilio_number'); ?></label>
-                        <input value="<?php echo html_escape($this->db->get_where('setting', array('name' => 'number'))->row()->content); ?>" type="text" name="number" placeholder="<?php echo $this->lang->line('twilio_number_ph'); ?>" class="form-control">
-                    </div>                    
-
-                    <button type="submit" class="mb-sm btn btn-primary"><?php echo $this->lang->line('update'); ?></button>
-                    <?php echo form_close(); ?>
-                    <hr>
-                    <?php echo form_open('website_settings/delete_twilio', array('method' => 'post')); ?>
-                    <button type="submit" class="mb-sm btn btn-warning"><?php echo $this->lang->line('remove'); ?></button>
-                    <?php echo form_close(); ?>
-                </div>
-                <!-- end panel-body -->
-            </div>
-        </div>
+        
     </div>
     <!-- end row -->
 </div>

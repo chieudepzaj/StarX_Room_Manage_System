@@ -9,8 +9,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('invoices_header'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -70,15 +71,15 @@
                                     </td>
                                     <td><?php echo html_escape($row['room_number']); ?></td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php
                                         $this->db->select_sum('amount');
                                         $this->db->from('tenant_rent');
                                         $this->db->where('invoice_id', $row['invoice_id']);
                                         $query = $this->db->get();
-
+                                        
                                         echo ($row['late_fee'] > 0) ? number_format($query->row()->amount + $row['late_fee']) : number_format($query->row()->amount);
                                         ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td><?php echo date('d/m/Y', $row['due_date']); ?></td>
                                     <td><?php echo html_escape($this->db->get_where('setting', array('name' => 'currency'))->row()->content . ' ' . number_format($row['late_fee'])); ?></td>

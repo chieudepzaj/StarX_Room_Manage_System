@@ -135,6 +135,7 @@ class Landlord extends CI_Controller
 			elseif ($param1 == 'change_image') $this->model->change_tenant_image($param2);
 			elseif ($param1 == 'change_id_image') $this->model->change_tenant_id_image($param2);
 			elseif ($param1 == 'update') $this->model->update_tenant($param2);
+			elseif ($param1 == 'edit_tenant_account') $this->model->edit_tenant_account($param2);
 			elseif ($param1 == 'deactivate') $this->model->deactivate_tenant($param2);
 			elseif ($param1 == 'remove') $this->model->remove_tenant($param2);
 
@@ -187,8 +188,11 @@ class Landlord extends CI_Controller
 	{
 		if (!$this->session->userdata('user_type'))
 			redirect(base_url() . 'login', 'refresh');
-
-		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills','module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))) {
+		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions'))) {
+			$page_data['page_title']	=	'Add Utility Bill';
+			$page_data['page_name'] 	= 	'add_utility_bill';
+			$this->load->view('index', $page_data);
+		}elseif(in_array($this->db->get_where('module', array('module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))) {
 			$page_data['page_title']	=	'Add Utility Bill';
 			$page_data['page_name'] 	= 	'add_utility_bill';
 			$this->load->view('index', $page_data);
@@ -204,7 +208,7 @@ class Landlord extends CI_Controller
 		if (!$this->session->userdata('user_type'))
 			redirect(base_url() . 'login', 'refresh');
 
-		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills','module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))) {
+		if (in_array($this->db->get_where('module', array('module_name' => 'utility_bills'))->row()->module_id, $this->session->userdata('permissions'))) {
 			if ($param1 == 'add') $this->model->add_utility_bill();
 			elseif ($param1 == 'update') $this->model->update_utility_bill($param2);
 			elseif ($param1 == 'remove') $this->model->remove_utility_bill($param2);
@@ -214,7 +218,18 @@ class Landlord extends CI_Controller
 			$page_data['page_title']	=	'Utility Bills';
 			$page_data['page_name'] 	= 	'utility_bills';
 			$this->load->view('index', $page_data);
-		} else {
+		}
+		elseif (in_array($this->db->get_where('module', array('module_name' => 'utility_bills_no_add_category'))->row()->module_id, $this->session->userdata('permissions'))) {
+			if ($param1 == 'add') $this->model->add_utility_bill();
+			elseif ($param1 == 'update') $this->model->update_utility_bill($param2);
+			elseif ($param1 == 'remove') $this->model->remove_utility_bill($param2);
+			elseif ($param1 == 'change_image') $this->model->change_utility_image($param2);
+
+			$page_data['navbar_status']	=	'aside-collapsed';
+			$page_data['page_title']	=	'Utility Bills';
+			$page_data['page_name'] 	= 	'utility_bills';
+			$this->load->view('index', $page_data);
+		}else {
 			$page_data['page_title']	=	'Permission Denied';
 			$page_data['page_name'] 	= 	'permission_denied';
 			$this->load->view('index', $page_data);
@@ -545,6 +560,7 @@ class Landlord extends CI_Controller
 	function generate_invoice_pdf($param = '')
 	{
 		$page_data['invoice_id'] = $param;
+		define("DOMPDF_ENABLE_REMOTE", false);
 		$this->load->view('generate_invoice_pdf', $page_data);
 		$html = $this->output->get_output();
 		$this->load->library('pdf');
@@ -556,8 +572,9 @@ class Landlord extends CI_Controller
 		// exit(0);
 
 		$pdf = $this->pdf->output();
-		$file_location = $_SERVER['DOCUMENT_ROOT'] . '/uploads/invoices/' . $this->db->get_where('invoice', array('invoice_id' => $param))->row()->invoice_number . '.pdf';
+		$file_location = $_SERVER['DOCUMENT_ROOT'] . '/mars/uploads/invoices/' . $this->db->get_where('invoice', array('invoice_id' => $param))->row()->invoice_number . '.pdf';
 		file_put_contents($file_location, $pdf);
+		
 	}
 
 	function email_invoice($param = '')

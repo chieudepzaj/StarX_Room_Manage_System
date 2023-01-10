@@ -13,8 +13,9 @@
     ?>
     <h1 class="page-header">
     <?php echo $this->lang->line('tenant_invoices_header'); ?> <?php echo $tenant_name; ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">

@@ -9,9 +9,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('generate_invoice_header'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
-
+    <hr class="no-margin-top">
     <!-- begin row -->
     <div class="row">
         <!-- begin col-6 -->
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label><?php echo $this->lang->line('due_date'); ?> (mm/dd/yyyy) *</label>
+                            <label><?php echo $this->lang->line('due_date'); ?> (dd/mm/yyyy) *</label>
                             <input name="due_date" type="text" class="form-control" id="datepicker-default" placeholder="<?php echo $this->lang->line('due_date'); ?>" data-parsley-required="true" />
                         </div>
 
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label><?php echo $this->lang->line('due_date'); ?> (mm/dd/yyyy) *</label>
+                            <label><?php echo $this->lang->line('due_date'); ?> (dd/mm/yyyy) *</label>
                             <input name="due_date" type="text" class="form-control" id="datepicker-inline" placeholder="<?php echo $this->lang->line('due_date'); ?>" data-parsley-required="true" />
                         </div>
 
@@ -249,7 +249,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label><?php echo $this->lang->line('due_date'); ?> (mm/dd/yyyy) *</label>
+                            <label><?php echo $this->lang->line('due_date'); ?> (dd/mm/yyyy) *</label>
                             <input name="due_date" type="text" class="form-control" id="datepicker-autoClose" placeholder="<?php echo $this->lang->line('due_date'); ?>" data-parsley-required="true" />
                         </div>
 

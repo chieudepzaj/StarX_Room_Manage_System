@@ -11,8 +11,9 @@
         <a href="<?php echo base_url(); ?>add_expense">
             <button type="button" class="btn btn-inverse"><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_expense'); ?></button>
         </a>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -48,7 +49,7 @@
                                 <tr>
                                     <td width="1%"><?php echo $count++; ?></td>
                                     <td><?php echo html_escape($expense['name']); ?></td>
-                                    <td><?php echo html_escape($this->lang->line(strtolower($expense['month']))); ?></td>
+                                    <td><?php echo html_escape($this->lang->line($expense['month'])); ?></td>
                                     <td><?php echo html_escape($expense['year']); ?></td>
                                     <td>
                                         <?php echo html_escape(number_format($expense['amount'])); ?>

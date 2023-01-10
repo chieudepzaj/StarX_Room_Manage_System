@@ -1466,7 +1466,7 @@ hr {
 	color: #333
 }
 .breadcrumb-item+.breadcrumb-item::before {
-	color: #ccc
+	color: #fff
 }
 .footer {
 	z-index: 1020;

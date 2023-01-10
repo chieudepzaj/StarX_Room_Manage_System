@@ -9,8 +9,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
         No Access
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <div class="maincontainer">
   <div class="bat">

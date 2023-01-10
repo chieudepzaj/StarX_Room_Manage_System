@@ -149,7 +149,7 @@ class Model extends CI_Model
 			redirect(base_url() . 'add_tenant', 'refresh');
 		} else {
 			if ($ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'JPEG' || $ext == 'JPG' || $ext == 'PNG') {
-				$data['image_link'] 			= 	strtolower(explode(" ", $this->input->post('name'))[0]) . '_' . time() . '.' . $ext;
+				$data['image_link'] 			= 	strtolower(explode(" ", $this->input->post('mobile_number'))[0]) . '_' . time() . '.' . $ext;
 
 				move_uploaded_file($_FILES['image_link']['tmp_name'], 'uploads/tenants/' . $data['image_link']);
 			}
@@ -231,9 +231,9 @@ class Model extends CI_Model
 
 			if (isset($image_link)) unlink('uploads/tenants/' . $image_link);
 
-			$tenant_name 				=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->name;
+			$tenant_mobile_number 				=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->mobile_number;
 
-			$data['image_link'] 		= 	strtolower(explode(" ", $tenant_name)[0]) . '_' . time() . '.' . $ext;
+			$data['image_link'] 		= 	strtolower(explode(" ", $tenant_mobile_number)[0]) . '_' . time() . '.' . $ext;
 			$data['timestamp']			=	time();
 			$data['updated_by']			=	$this->session->userdata('user_id');
 
@@ -262,9 +262,9 @@ class Model extends CI_Model
 
 			if (isset($image_link)) unlink('uploads/tenants/' . $image_link);
 
-			$tenant_name 				=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->name;
+			$tenant_mobile_number 				=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->mobile_number;
 
-			$data['id_front_image_link'] = 	strtolower(explode(" ", $tenant_name)[0]) . '_id_front_' . time() . '.' . $ext_id_front;
+			$data['id_front_image_link'] = 	strtolower(explode(" ", $tenant_mobile_number)[0]) . '_id_front_' . time() . '.' . $ext_id_front;
 			$data['timestamp']			=	time();
 			$data['updated_by']			=	$this->session->userdata('user_id');
 
@@ -283,9 +283,9 @@ class Model extends CI_Model
 
 			if (isset($image_link)) unlink('uploads/tenants/' . $image_link);
 
-			$tenant_name 				=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->name;
+			$tenant_mobile_number 				=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->mobile_number;
 
-			$data['id_back_image_link'] = 	strtolower(explode(" ", $tenant_name)[0]) . '_id_back_' . time() . '.' . $ext_id_back;
+			$data['id_back_image_link'] = 	strtolower(explode(" ", $tenant_mobile_number)[0]) . '_id_back_' . time() . '.' . $ext_id_back;
 			$data['timestamp']			=	time();
 			$data['updated_by']			=	$this->session->userdata('user_id');
 
@@ -371,7 +371,7 @@ class Model extends CI_Model
 		if ($this->input->post('email')) {
 			if ($this->db->get_where('user', array('user_type' => 3, 'person_id' => $tenant_id))->num_rows() > 0) {
 				$data2['email']					=	$this->input->post('email');
-				$data2['password']				=	$this->input->post('password') ? password_hash($this->input->post('password'), PASSWORD_DEFAULT) : password_hash(123456, PASSWORD_DEFAULT);
+//				$data2['password']				=	$this->input->post('password') ? password_hash($this->input->post('password'), PASSWORD_DEFAULT) : password_hash(123456, PASSWORD_DEFAULT);
 				$data2['status']				=	$this->input->post('status');
 				$data2['timestamp']				=	time();
 				$data2['updated_by']			=	$this->session->userdata('user_id');
@@ -398,6 +398,45 @@ class Model extends CI_Model
 		$this->session->set_flashdata('success', $this->lang->line('tenant_updated_successfully'));
 
 		redirect(base_url() . 'tenants', 'refresh');
+	}
+
+	function edit_tenant_account($tenant_id = '')
+	{
+		$existing_email 				= 	$this->db->get_where('user', array('user_type' => 3, 'person_id' => $tenant_id))->row()->email;
+		$user_id 				= 	$this->db->get_where('user', array('user_type' => 3, 'person_id' => $tenant_id))->row()->user_id;
+		
+			if ($existing_email != $this->input->post('email')) {
+				$users = $this->db->get('user')->result_array();
+				foreach ($users as $user) {
+					if ($user['email'] == $this->input->post('email')) {
+						$this->session->set_flashdata('warning', $this->lang->line('tenant_email_already_registered'));
+
+						redirect(base_url() . 'tenants', 'refresh');
+					}
+				}
+			}
+
+			$data['email']				=	$this->input->post('email');
+			$data1['email']				=	$this->input->post('email');
+			if ($this->input->post('new_password') && ($this->input->post('new_password') == $this->input->post('confirm_password'))) {
+				$data['password']			=	$this->input->post('new_password') ? password_hash($this->input->post('new_password'), PASSWORD_DEFAULT) : password_hash(123456, PASSWORD_DEFAULT);
+			} else {
+				$this->session->set_flashdata('warning', $this->lang->line('new_passwords_do_not_match'));
+
+	//			redirect(base_url() . 'profile_settings', 'refresh');
+			}
+			// Update User Table
+			$array = array('user_type' => 3, 'person_id' => $tenant_id);
+			$this->db->where($array);
+			$this->db->update('user', $data);
+			// Update Tenant Table
+			$this->db->where('tenant_id', $tenant_id);
+			$this->db->update('tenant', $data1);
+
+			$this->session->set_flashdata('success', $this->lang->line('profile_updated_successfully'));
+
+			redirect(base_url() . 'tenants', 'refresh');
+
 	}
 
 	function deactivate_tenant($tenant_id = '')
@@ -473,9 +512,11 @@ class Model extends CI_Model
 			move_uploaded_file($_FILES['image_link']['tmp_name'], 'uploads/bills/' . $data['image_link']);
 		}
 
+		$month = $this->input->post('month');
+		$month = $this->check_month($month);
 		$data['utility_bill_category_id']	=	$this->input->post('utility_bill_category_id');
 		$data['year']						=	$this->input->post('year');
-		$data['month']						=	$this->input->post('month');
+		$data['month']						=	$month;
 		$data['amount']						=	$this->input->post('amount');
 		$data['status']						=	$this->input->post('status');
 		$data['created_on']					=	time();
@@ -492,9 +533,11 @@ class Model extends CI_Model
 
 	function update_utility_bill($utility_bill_id = '')
 	{
+		$month = $this->input->post('month');
+		$month = $this->check_month($month);
 		$data['utility_bill_category_id']	=	$this->input->post('utility_bill_category_id');
 		$data['year']						=	$this->input->post('year');
-		$data['month']						=	$this->input->post('month');
+		$data['month']						=	$month;
 		$data['amount']						=	$this->input->post('amount');
 		$data['status']						=	$this->input->post('status');
 		$data['timestamp']					=	time();
@@ -593,11 +636,13 @@ class Model extends CI_Model
 
 	function add_expense()
 	{
+		$month = $this->input->post('month');
+		$month = $this->check_month($month);
 		$data['name']						=	$this->input->post('name');
 		$data['amount']						=	$this->input->post('amount');
 		$data['description']				=	$this->input->post('description');
 		$data['year']						=	$this->input->post('year');
-		$data['month']						=	$this->input->post('month');
+		$data['month']						=	$month;
 		$data['created_on']					=	time();
 		$data['created_by']					=	$this->session->userdata('user_id');
 		$data['timestamp']					=	time();
@@ -612,11 +657,13 @@ class Model extends CI_Model
 
 	function update_expense($expense_id = '')
 	{
+		$month = $this->input->post('month');
+		$month = $this->check_month($month);
 		$data['name']						=	$this->input->post('name');
 		$data['amount']						=	$this->input->post('amount');
 		$data['description']				=	$this->input->post('description');
 		$data['year']						=	$this->input->post('year');
-		$data['month']						=	$this->input->post('month');
+		$data['month']						=	$month;
 		$data['timestamp']					=	time();
 		$data['updated_by']					=	$this->session->userdata('user_id');
 
@@ -794,20 +841,23 @@ class Model extends CI_Model
 
 	function add_staff_salary()
 	{
+		$month = $this->input->post('month');
+		$month = $this->check_month($month);
 		$data['staff_id']				=	$this->input->post('staff_id');
 		$data['year']					=	$this->input->post('year');
-		$data['month']					=	$this->input->post('month');
+		$data['month']					=	$month;
 		$data['amount']					=	$this->input->post('amount');
 		$data['status']					=	$this->input->post('status');
 		$data['created_on']				= 	time();
 		$data['created_by']				=	$this->session->userdata('user_id');
 		$data['timestamp']				=	time();
 		$data['updated_by']				=	$this->session->userdata('user_id');
-
+		
 		$this->db->insert('staff_salary', $data);
 
 		$this->session->set_flashdata('success', $this->lang->line('staff_salary_added_successfully'));
-
+		$month = $this->input->post('month');
+		$data['month']					=	$month;
 		redirect(base_url('single_month_staff_payroll' . '/' . $data['year'] . '/' . $data['month']), 'refresh');
 	}
 
@@ -892,6 +942,7 @@ class Model extends CI_Model
 				} elseif ($i == $end_month) {
 					$days = $end_day;
 				}
+				$month = $this->check_month($month);
 
 				$data['month']			=	$month;
 				$data['year']			=	$year;
@@ -903,7 +954,6 @@ class Model extends CI_Model
 				$data['timestamp']		=	time();
 				$data['updated_by']		=	$this->session->userdata('user_id');
 				$data['status']			=	$this->input->post('status');
-
 				$this->db->insert('tenant_rent', $data);
 			}
 		} else {
@@ -911,7 +961,7 @@ class Model extends CI_Model
 				$year = $start_year;
 				$month = date('F', strtotime($year . '-' . $i . '-01'));
 				$days = date('t', strtotime($year . '-' . $month));
-
+				
 				if ($start_month == $end_month) {
 					$days = $end_day - $start_day + 1;
 				} elseif ($i == $start_month) {
@@ -919,6 +969,8 @@ class Model extends CI_Model
 				} elseif ($i == $end_month) {
 					$days = $end_day;
 				}
+
+				$month = $this->check_month($month);
 
 				$data['month']			=	$month;
 				$data['year']			=	$year;
@@ -938,6 +990,50 @@ class Model extends CI_Model
 		$this->session->set_flashdata('success', $this->lang->line('rent_date_range_generated_successfully'));
 
 		redirect(base_url() . 'invoices', 'refresh');
+	}
+	
+	public function check_month($month){
+
+		$month = strtolower($month);
+		switch($month){
+			case "january":
+				$month = "Tháng 1";
+				break;
+			case 'february':
+				$month = 'Tháng 2';
+				break;
+			case 'march':
+				$month = 'Tháng 3';
+				break;
+			case 'april':
+				$month = 'Tháng 4';
+				break;
+			case 'may':
+				$month = 'Tháng 5';
+				break;
+			case 'june':
+				$month = 'Tháng 6';
+				break;
+			case 'july':
+				$month = 'Tháng 7';
+				break;
+			case 'august':
+				$month = 'Tháng 8';
+				break;
+			case 'september':
+				$month = 'Tháng 9';
+				break;
+			case 'october':
+				$month = 'Tháng 10';
+				break;
+			case 'november':
+				$month = 'Tháng 11';
+				break;
+			case 'december':
+				$month = 'Tháng 12';
+				break;
+			}			
+		return $month;
 	}
 
 	function generate_multiple_months_rent()

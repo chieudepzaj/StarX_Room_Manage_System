@@ -11,8 +11,9 @@
         <a href="<?php echo base_url(); ?>add_room">
             <button type="button" class="btn btn-inverse"><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_room'); ?></button>
         </a>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -56,12 +57,12 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php echo html_escape(number_format($room['daily_rent'])); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php echo html_escape(number_format($room['monthly_rent'])); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td><?php echo $room['floor'] ? html_escape($room['floor']) : 'N/A'; ?></td>
                                     <td><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>

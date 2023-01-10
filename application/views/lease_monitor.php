@@ -1,3 +1,9 @@
+<style>
+    .table-responsive{
+        min-height: 350px;  
+    }
+</style>
+
 <!-- begin #content -->
 <div id="content" class="content">
     <!-- begin breadcrumb -->
@@ -44,8 +50,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
         <?php echo $this->lang->line('expired_leases'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -162,8 +169,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('less_than_30_leases'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -280,8 +288,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
         <?php echo $this->lang->line('less_than_60_leases'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -398,8 +407,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
         <?php echo $this->lang->line('less_than_90_leases'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">

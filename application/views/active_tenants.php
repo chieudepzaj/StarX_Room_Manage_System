@@ -11,8 +11,9 @@
         <a href="<?php echo base_url(); ?>add_tenant">
             <button type="button" class="btn btn-inverse"><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_tenant'); ?></button>
         </a>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">

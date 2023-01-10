@@ -39,7 +39,7 @@
                 }
 
                 $open_complaints = [];
-
+                $notices = $this->db->get_where('notice')->result_array();
                 if ($this->session->userdata('user_type') != 3) {
                     $open_complaints = $this->db->get_where('complaint', array('status' => 0))->result_array();
                 } else {
@@ -49,7 +49,7 @@
             ?>
             <a href="#" data-toggle="dropdown" class="dropdown-toggle icon">
                 <i class="material-icons">inbox</i>
-                <span class="label"><?php echo count($expired_leases) + count($open_complaints); ?></span>
+                <span class="label"><?php echo count($expired_leases) + count($open_complaints) + count($notices); ?></span>
             </a>
 
             <div class="dropdown-menu media-list dropdown-menu-right" style="max-height: 350px; overflow-y: auto;">
@@ -78,6 +78,18 @@
                     </div>
                 </a>
                 <?php endforeach; ?>
+
+                <div class="dropdown-header"><?php echo $this->lang->line('notice'); ?> (<?php echo count($notices); ?>)</div>
+                <?php foreach ($notices as $notice): ?>
+                    <a class="dropdown-item media" style="white-space: unset" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_view_notice_details/<?php echo $notice['notice_id']; ?>');" href="javascript:;">			
+                    <div class="media-body">
+                        <p style="min-width: 270px">
+                            <?php echo $notice['notice_id'] . ' - ' . $notice['title']; ?>  
+                        </p>
+                    </div>
+                </a>
+                <?php endforeach; ?>
+
             </div>
         </li>
         <li class="dropdown navbar-user">

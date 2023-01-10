@@ -9,8 +9,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('profile_settings_header'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -27,7 +28,11 @@
                         ?>
                         <div class="form-group">
                             <label><?php echo $this->lang->line('email'); ?> *</label>
-                            <input value="<?php echo html_escape($row['email']); ?>" type="email" name="email" placeholder="<?php echo $this->lang->line('email_placeholder'); ?>" class="form-control" data-parsley-required="true">
+                            <?php if($row['user_type'] != 1):?>
+                                <input value="<?php echo html_escape($row['email']); ?>" type="email" name="email" placeholder="<?php echo $this->lang->line('email_placeholder'); ?>" class="form-control" data-parsley-required="true" readonly>
+                            <?php else :?>
+                                <input value="<?php echo html_escape($row['email']); ?>" type="email" name="email" placeholder="<?php echo $this->lang->line('email_placeholder'); ?>" class="form-control" data-parsley-required="true">
+                            <?php endif;?>
                         </div>
                         <div class="form-group">
                             <label><?php echo $this->lang->line('current_password'); ?> *</label>

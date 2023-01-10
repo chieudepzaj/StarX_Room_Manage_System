@@ -11,8 +11,9 @@
         <a href="<?php echo base_url(); ?>add_tenant">
             <button type="button" class="btn btn-inverse"><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_tenant'); ?></button>
         </a>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -104,6 +105,9 @@
                                                 </a>
                                                 <a class="dropdown-item" href="javascript:;" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_edit_tenant/<?php echo $tenant['tenant_id']; ?>');">
                                                     <?php echo $this->lang->line('edit'); ?>
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:;" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_forgot_password/<?php echo $tenant['tenant_id']; ?>');">
+                                                    <?php echo $this->lang->line('forgot_password'); ?>
                                                 </a>
                                                 <div class="dropdown-divider"></div>
                                                 <?php if ($tenant['status']) : ?>

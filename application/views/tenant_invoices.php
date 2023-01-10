@@ -14,8 +14,9 @@
     ?>
     <h1 class="page-header">
     <?php echo $this->lang->line('tenant_invoices_header'); ?> <?php echo $tenant_name; ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -75,6 +76,7 @@
                                         <?php
                                         $grand_total    =   0;
                                         $rent_total     =   0;
+                                        $late_fee       =   0;
                                         $service_total  =   0;
                                         
                                         $this->db->select_sum('amount');
@@ -88,8 +90,9 @@
                                         foreach ($service_costs as $service_cost) {
                                             $service_total += $this->db->get_where('service', array('service_id' => $service_cost['service_id']))->row()->cost;
                                         }
-                                        
-                                        $grand_total = $rent_total + $service_total;
+                                        $late_fee = $this->db->get_where('invoice', array('invoice_id' => $row['invoice_id']))->row()->late_fee;
+
+                                        $grand_total = $rent_total + $service_total + $late_fee;
                                         
                                         echo number_format($grand_total);
                                         ?>
@@ -181,7 +184,7 @@
                             <?php
                             $due_rent_total     =   0;
                             $due_service_total  =   0;
-                            
+                            $due_late_fee       =   0;
                             $this->db->select_sum('amount');
                             $this->db->from('tenant_rent');
                             $this->db->where('status', 0);
@@ -198,8 +201,16 @@
                                     $due_service_total += $this->db->get_where('service', array('service_id' => $due_service['service_id']))->row()->cost;
                                 }
                             }                            
-                            
-                            echo $query->row()->amount > 0 ? number_format($due_rent_total + $due_service_total) : number_format(0 + $due_service_total);
+                           
+                            $this->db->select_sum('late_fee');
+                            $this->db->from('invoice');
+                            $this->db->where('status', 0);
+                            $this->db->where('tenant_id', $tenant_id);
+                            $late_fee_query = $this->db->get();
+
+                            $due_late_fee = $late_fee_query->row()->late_fee;
+
+                            echo $query->row()->amount > 0 ? number_format($due_rent_total + $due_service_total + $due_late_fee) : number_format(0 + $due_late_fee + $due_service_total);
                             ?>
                             <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                         </p>
@@ -213,7 +224,8 @@
                             <?php
                             $total_rent_total     =   0;
                             $total_service_total  =   0;
-                            
+                            $total_late_fee       =   0;
+
                             $this->db->select_sum('amount');
                             $this->db->from('tenant_rent');
                             $this->db->where('tenant_id', $tenant_id);
@@ -230,7 +242,14 @@
                                 }
                             }                            
                             
-                            echo $query->row()->amount > 0 ? number_format($total_rent_total + $total_service_total) : number_format(0 + $total_service_total);
+                            $this->db->select_sum('late_fee');
+                            $this->db->from('invoice');
+                            $this->db->where('tenant_id', $tenant_id);
+                            $late_fee_querys = $this->db->get();
+
+                            $total_late_fee = $late_fee_querys->row()->late_fee;
+
+                            echo $query->row()->amount > 0 ? number_format($total_rent_total + $total_service_total + $total_late_fee) : number_format(0 + $total_service_total + $total_late_fee);
                             ?>
                             <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                         </p>

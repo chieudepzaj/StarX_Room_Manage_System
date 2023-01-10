@@ -9,8 +9,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('staff_payroll_header'); ?> <?php echo $this->lang->line(strtolower($month)) . ', ' .  $year; ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -33,7 +34,9 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('created_by'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_on'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_by'); ?></th>
+                                <?php if (in_array($this->db->get_where('module', array('module_name' => 'add_staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                                 <th class="text-nowrap"><?php echo $this->lang->line('options'); ?></th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,10 +44,22 @@
                             $count = 1;
                             $this->db->order_by('timestamp', 'desc');
                             $staff_payroll = [];
+                            
+                            $month = $this->model->check_month($month);
+                            
+                            $staff_id =  $this->db->get_where('user', array('user_id' => $this->session->userdata('user_id')))->row()->person_id;
                             $result_array = $this->db->get('staff_salary')->result_array();
+                            if (in_array($this->db->get_where('module', array('module_name' => 'add_staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))){
                             foreach ($result_array as $result) {
                                 if ($result['month'] == $month && $result['year'] == $year) {
                                     array_push($staff_payroll, $result);
+                                }
+                            }
+                            }else{
+                                foreach ($result_array as $result) {
+                                    if ($result['month'] == $month && $result['year'] == $year && $result['staff_id'] == $staff_id) {
+                                        array_push($staff_payroll, $result);
+                                    }
                                 }
                             }
                             foreach ($staff_payroll as $row) :
@@ -52,11 +67,11 @@
                                 <tr>
                                     <td><?php echo $count++; ?></td>
                                     <td><?php echo html_escape($this->db->get_where('staff', array('staff_id' => $row['staff_id']))->row()->name); ?></td>
-                                    <td><?php echo html_escape($this->lang->line(strtolower($row['month']))); ?></td>
+                                    <td><?php echo html_escape($this->lang->line($row['month'])); ?></td>
                                     <td><?php echo html_escape($row['year']); ?></td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php echo html_escape(number_format($row['amount'])); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td>
                                         <?php
@@ -90,6 +105,7 @@
                                         }
                                         ?>
                                     </td>
+                                    <?php if (in_array($this->db->get_where('module', array('module_name' => 'add_staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-white btn-xs"><?php echo $this->lang->line('action'); ?></button>
@@ -107,6 +123,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -167,6 +184,7 @@
                 <!-- end panel-body -->
             </div>
             <!-- end panel -->
+            <?php if (in_array($this->db->get_where('module', array('module_name' => 'add_staff_payroll'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
             <div class="widget widget-stats bg-orange">
                 <div class="stats-icon"><i class="fa fa-money-bill-alt"></i></div>
                 <div class="stats-info">
@@ -204,6 +222,7 @@
                     </p>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
         <!-- end col-3 -->
     </div>

@@ -14,13 +14,42 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('account_header'); ?> <?php echo $year = date('Y'); ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
+    <div class="col-lg-3 hidden-print" style="padding-left: 0;">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <!-- begin panel-body -->
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label><?php echo $this->lang->line('year'); ?> *</label>
+                        <div>
+                            <select style="width: 100%" class="form-control default-select2" data-parsley-required="true" name="year" id="year">
+                                <option value=""><?php echo $this->lang->line('select_year'); ?></option>
+                                <option <?php if ($year  == (date('Y') - 4)) echo 'selected'; ?> value="<?php echo date('Y') - 4; ?>"><?php echo date('Y') - 4; ?></option>
+                                <option <?php if ($year  == (date('Y') - 3)) echo 'selected'; ?> value="<?php echo date('Y') - 3; ?>"><?php echo date('Y') - 3; ?></option>
+                                <option <?php if ($year  == (date('Y') - 2)) echo 'selected'; ?> value="<?php echo date('Y') - 2; ?>"><?php echo date('Y') - 2; ?></option>
+                                <option <?php if ($year  == (date('Y') - 1)) echo 'selected'; ?> value="<?php echo date('Y') - 1; ?>"><?php echo date('Y') - 1; ?></option>
+                                <option <?php if ($year  == (date('Y'))) echo 'selected'; ?> value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
+                                <option <?php if ($year  == (date('Y') + 1)) echo 'selected'; ?> value="<?php echo date('Y') + 1; ?>"><?php echo date('Y') + 1; ?></option>
+                                <option <?php if ($year  == (date('Y') + 2)) echo 'selected'; ?> value="<?php echo date('Y') + 2; ?>"><?php echo date('Y') + 2; ?></option>
+                                <option <?php if ($year  == (date('Y') + 3)) echo 'selected'; ?> value="<?php echo date('Y') + 3; ?>"><?php echo date('Y') + 3; ?></option>
+                                <option <?php if ($year  == (date('Y') + 4)) echo 'selected'; ?> value="<?php echo date('Y') + 4; ?>"><?php echo date('Y') + 4; ?></option>
+                            </select>
+                        </div>
+                    </div>
 
+                    <button onclick="showSingleYearAccount()" type="button" class="mb-sm btn btn-block btn-primary"><?php echo $this->lang->line('show'); ?></button>
+                </div>
+                <!-- end panel-body -->
+            </div>
+            <!-- end panel -->
+        </div>
     <!-- begin row -->
     <div class="row">
         <!-- begin col-12 -->
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <!-- begin panel -->
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
@@ -47,7 +76,8 @@
                         <tbody>
                             <?php
                             $count = 1;
-                            $months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+                            $balance = 0;
+                            $months = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
                             foreach ($months as $month) :
                             ?>
                                 <tr>
@@ -115,10 +145,84 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo ($paid_amount - $staff_salary - $utility_bills - $expenses) ? number_format($paid_amount - $staff_salary - $utility_bills - $expenses) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; ?>
+                                        <?php 
+                                        $balance += $paid_amount - $staff_salary - $utility_bills - $expenses;
+                                        echo ($paid_amount - $staff_salary - $utility_bills - $expenses) ? number_format($paid_amount - $staff_salary - $utility_bills - $expenses) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-'; 
+                                        ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Tổng</td>
+                                    <td>
+                                        <?php
+                                            $this->db->select_sum('amount');
+                                            $this->db->from('tenant_rent');
+                                            $this->db->where('year', $year);
+
+                                            $total_tenant_rent = $this->db->get()->row()->amount;
+                                            echo $total_tenant_rent > 0 ? number_format($total_tenant_rent) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            $this->db->select_sum('amount');
+                                            $this->db->from('tenant_rent');
+                                            $this->db->where('status', 1);
+                                            $this->db->where('year', $year);
+
+                                            $total_tenant_rent_paid = $this->db->get()->row()->amount;
+                                            echo $total_tenant_rent_paid > 0 ? number_format($total_tenant_rent_paid) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            $this->db->select_sum('amount');
+                                            $this->db->from('tenant_rent');
+                                            $this->db->where('status', 0);
+                                            $this->db->where('year', $year);
+
+                                            $total_tenant_rent_paid = $this->db->get()->row()->amount;
+                                            echo $total_tenant_rent_paid > 0 ? number_format($total_tenant_rent_paid) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
+                                        ?>
+                                    </td>
+                                    <td>
+                                    <?php
+                                            $this->db->select_sum('amount');
+                                            $this->db->from('staff_salary');
+                                            $this->db->where('year', $year);
+
+                                            $total_staff_salary = $this->db->get()->row()->amount;
+                                            echo $total_staff_salary > 0 ? number_format($total_staff_salary) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            $this->db->select_sum('amount');
+                                            $this->db->from('utility_bill');
+                                            $this->db->where('year', $year);
+
+                                            $total_utility_bill = $this->db->get()->row()->amount;
+                                            echo $total_utility_bill > 0 ? number_format($total_utility_bill) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            $this->db->select_sum('amount');
+                                            $this->db->from('expense');
+                                            $this->db->where('year', $year);
+
+                                            $total_expense = $this->db->get()->row()->amount;
+                                            echo $total_expense > 0 ? number_format($total_expense) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content : '-';
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            echo number_format($balance) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content;
+                                        ?>
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -128,35 +232,7 @@
         </div>
         <!-- end col-12 -->
         <!-- begin col-3 -->
-        <div class="col-lg-3 hidden-print">
-            <!-- begin panel -->
-            <div class="panel panel-inverse">
-                <!-- begin panel-body -->
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label><?php echo $this->lang->line('year'); ?> *</label>
-                        <div>
-                            <select style="width: 100%" class="form-control default-select2" data-parsley-required="true" name="year" id="year">
-                                <option value=""><?php echo $this->lang->line('select_year'); ?></option>
-                                <option <?php if ($year  == (date('Y') - 4)) echo 'selected'; ?> value="<?php echo date('Y') - 4; ?>"><?php echo date('Y') - 4; ?></option>
-                                <option <?php if ($year  == (date('Y') - 3)) echo 'selected'; ?> value="<?php echo date('Y') - 3; ?>"><?php echo date('Y') - 3; ?></option>
-                                <option <?php if ($year  == (date('Y') - 2)) echo 'selected'; ?> value="<?php echo date('Y') - 2; ?>"><?php echo date('Y') - 2; ?></option>
-                                <option <?php if ($year  == (date('Y') - 1)) echo 'selected'; ?> value="<?php echo date('Y') - 1; ?>"><?php echo date('Y') - 1; ?></option>
-                                <option <?php if ($year  == (date('Y'))) echo 'selected'; ?> value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
-                                <option <?php if ($year  == (date('Y') + 1)) echo 'selected'; ?> value="<?php echo date('Y') + 1; ?>"><?php echo date('Y') + 1; ?></option>
-                                <option <?php if ($year  == (date('Y') + 2)) echo 'selected'; ?> value="<?php echo date('Y') + 2; ?>"><?php echo date('Y') + 2; ?></option>
-                                <option <?php if ($year  == (date('Y') + 3)) echo 'selected'; ?> value="<?php echo date('Y') + 3; ?>"><?php echo date('Y') + 3; ?></option>
-                                <option <?php if ($year  == (date('Y') + 4)) echo 'selected'; ?> value="<?php echo date('Y') + 4; ?>"><?php echo date('Y') + 4; ?></option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button onclick="showSingleYearAccount()" type="button" class="mb-sm btn btn-block btn-primary"><?php echo $this->lang->line('show'); ?></button>
-                </div>
-                <!-- end panel-body -->
-            </div>
-            <!-- end panel -->
-        </div>
+        
         <!-- end col-3 -->
     </div>
     <!-- end row -->

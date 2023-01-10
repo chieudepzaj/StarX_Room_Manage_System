@@ -14,8 +14,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('expenses_report_header'); ?> <?php echo $year = date('Y'); ?>
-    </h1>
-    <!-- end page-header --> 
+ </h1>
+    <!-- end page-header -->
+    <hr class="no-margin-top"> 
 
     <!-- begin row -->
     <div class="row">
@@ -53,7 +54,10 @@
                                         <td><?php echo $count++; ?></td>
                                         <td><?php echo $expense['month']; ?></td>
                                         <td><?php echo $expense['year']; ?></td>
-                                        <td><?php echo $expense['amount']; ?></td>
+                                        <td>
+                                            <?php echo $expense['amount']; ?>
+                                            <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+                                        </td>
                                         <td><?php echo date('d/m/Y', $expense['timestamp']); ?></td>
                                         <td><?php echo $expense['name']; ?></td>
                                         <td><?php echo $expense['description'] ? $expense['description'] : '-'; ?></td>

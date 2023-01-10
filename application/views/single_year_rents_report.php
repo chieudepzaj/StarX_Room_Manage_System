@@ -14,8 +14,9 @@
     <!-- begin page-header -->
     <h1 class="page-header">
     <?php echo $this->lang->line('rents_report_header'); ?> <?php echo $year; ?>
-    </h1>
+ </h1>
     <!-- end page-header -->
+    <hr class="no-margin-top">
 
     <!-- begin row -->
     <div class="row">
@@ -56,7 +57,10 @@
                                         <td><?php echo $count++; ?></td>
                                         <td><?php echo $tenant_rent['month']; ?></td>
                                         <td><?php echo $tenant_rent['year']; ?></td>
-                                        <td><?php echo number_format($tenant_rent['amount']); ?></td>
+                                        <td>
+                                            <?php echo number_format($tenant_rent['amount']); ?>
+                                            <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+                                        </td>
                                         <td><?php echo date('d/m/Y', $tenant_rent['timestamp']); ?></td>
                                         <td><?php echo $this->db->get_where('invoice', array('invoice_id' => $tenant_rent['invoice_id']))->row()->invoice_number; ?></td>
                                         <td><?php echo $this->db->get_where('tenant', array('tenant_id' => $tenant_rent['tenant_id']))->row()->name; ?></td>
@@ -80,7 +84,10 @@
                                                     echo '-';
                                             ?>
                                         </td>
-                                        <td><?php echo $service_costs > 0 ? number_format($service_costs) : '-'; ?></td>
+                                        <td>
+                                            <?php echo $service_costs > 0 ? number_format($service_costs) : '-'; ?>
+                                            <?php echo $service_costs > 0 ? $this->db->get_where('setting', array('name' => 'currency'))->row()->content : ''; ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
