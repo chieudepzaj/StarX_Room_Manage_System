@@ -118,6 +118,14 @@
                     </a>
                 </li>
             <?php endif; ?>
+            <?php if ($this->session->userdata('user_type') == 3) : ?>
+                <li class="<?php if ($page_name == 'rooms') echo 'active'; ?>">
+                    <a href="<?php echo base_url(); ?>rooms">
+                        <i class="fa fa-building"></i>
+                        <span><?php echo $this->lang->line('rooms'); ?></span>
+                    </a>
+                </li>
+            <?php endif; ?>
             <?php if (in_array($this->db->get_where('module', array('module_name' => 'tenants'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
                 <li class="<?php if ($page_name == 'add_tenant' || $page_name == 'tenants' || $page_name == 'active_tenants' || $page_name == 'inactive_tenants') echo 'active'; ?>">
                     <a href="<?php echo base_url(); ?>tenants">
@@ -156,6 +164,22 @@
                     <a href="<?php echo base_url(); ?>notices">
                         <i class="fa fa-podcast"></i>
                         <span><?php echo $this->lang->line('notices'); ?></span>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php if (in_array($this->db->get_where('module', array('module_name' => 'contact'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
+                <li class="<?php if ($page_name == 'contact') echo 'active'; ?>">
+                    <a href="<?php echo base_url(); ?>contact">
+                        <i class="fa fa-address-book"></i>
+                        <span><?php echo $this->lang->line('contact'); ?></span>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php if (in_array($this->db->get_where('module', array('module_name' => 'booking'))->row()->module_id, $this->session->userdata('permissions'))) : ?>
+                <li class="<?php if ($page_name == 'booking') echo 'active'; ?>">
+                    <a href="<?php echo base_url(); ?>booking">
+                    <i class="fa fa-calendar-check"></i>
+                        <span><?php echo $this->lang->line('booking'); ?></span>
                     </a>
                 </li>
             <?php endif; ?>

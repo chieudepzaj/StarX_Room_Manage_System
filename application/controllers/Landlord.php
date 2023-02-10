@@ -68,11 +68,25 @@ class Landlord extends CI_Controller
 			$page_data['page_title']	=	'Rooms';
 			$page_data['page_name'] 	= 	'rooms';
 			$this->load->view('index', $page_data);
+		}
+		elseif ($this->session->userdata('user_type') == 3) {
+			$page_data['navbar_status']	=	'aside-collapsed';
+			$page_data['page_title']	=	'Rooms';
+			$page_data['page_name'] 	= 	'rooms';
+			$this->load->view('index', $page_data);
 		} else {
 			$page_data['page_title']	=	'Permission Denied';
 			$page_data['page_name'] 	= 	'permission_denied';
 			$this->load->view('index', $page_data);
 		}
+	}
+
+	function detail_room($room_id='')
+	{
+		$page_data['page_title']	=	'Detail Room';
+		$page_data['page_name'] 	= 	'detail_room';
+		$page_data['room_id']		= $room_id;
+		$this->load->view('detail_room', $page_data);
 	}
 
 	function occupied_rooms()
@@ -572,9 +586,75 @@ class Landlord extends CI_Controller
 		// exit(0);
 
 		$pdf = $this->pdf->output();
-		$file_location = $_SERVER['DOCUMENT_ROOT'] . '/mars/uploads/invoices/' . $this->db->get_where('invoice', array('invoice_id' => $param))->row()->invoice_number . '.pdf';
+		$file_location = $_SERVER['DOCUMENT_ROOT'] . '/starx/uploads/invoices/' . $this->db->get_where('invoice', array('invoice_id' => $param))->row()->invoice_number . '.pdf';
 		file_put_contents($file_location, $pdf);
 		
+	}
+
+	function home(){
+		$this->load->view('home');
+	}
+
+	function gioithieu(){
+		$this->load->view('gioithieu');
+	}
+
+	function loaiphong(){
+		$this->load->view('loaiphong');
+	}
+
+	function dichvu(){
+		$this->load->view('dichvu');
+	}
+
+	function tuyendung(){
+		$this->load->view('tuyendung');
+	}
+	function datphong($param=''){
+		if($param=='add') $this->model->book_room();
+		$this->load->view('datphong');
+	}
+
+	function lienhe($param=''){
+		if($param=='add') $this->model->add_contact();
+		$this->load->view('lienhe');
+	}
+	function contact($param1 = '', $param2 = ''){
+
+		if (!$this->session->userdata('user_type'))
+		redirect(base_url() . 'login', 'refresh');
+
+		if (in_array($this->db->get_where('module', array('module_name' => 'contact'))->row()->module_id, $this->session->userdata('permissions'))) {
+			if ($param1 == 'update') $this->model->update_contact($param2);
+			elseif ($param1 == 'remove') $this->model->remove_contact($param2);
+			
+			$page_data['page_title']	=	'Contacts';
+			$page_data['page_name'] 	=	'contact';
+			$this->load->view('index', $page_data);
+		}else {
+			$page_data['page_title']	=	'Permission Denied';
+			$page_data['page_name'] 	= 	'permission_denied';
+			$this->load->view('index', $page_data);
+		}
+	}
+
+	function booking($param1 = '', $param2 = ''){
+
+		if (!$this->session->userdata('user_type'))
+		redirect(base_url() . 'login', 'refresh');
+
+		if (in_array($this->db->get_where('module', array('module_name' => 'booking'))->row()->module_id, $this->session->userdata('permissions'))) {
+			if ($param1 == 'update') $this->model->update_booking($param2);
+			elseif ($param1 == 'remove') $this->model->remove_booking($param2);
+			
+			$page_data['page_title']	=	'Booking';
+			$page_data['page_name'] 	=	'booking';
+			$this->load->view('index', $page_data);
+		}else {
+			$page_data['page_title']	=	'Permission Denied';
+			$page_data['page_name'] 	= 	'permission_denied';
+			$this->load->view('index', $page_data);
+		}
 	}
 
 	function email_invoice($param = '')

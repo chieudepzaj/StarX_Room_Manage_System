@@ -79,7 +79,8 @@
                                         $rent_total     =   0;
                                         $service_total  =   0;
                                         $late_fee   =   0;
-                                        
+                                        $deposit    =   0;
+   
                                         $this->db->select_sum('amount');
                                         $this->db->from('tenant_rent');
                                         $this->db->where('invoice_id', $row['invoice_id']);
@@ -92,8 +93,9 @@
                                             $service_total += $this->db->get_where('service', array('service_id' => $service_cost['service_id']))->row()->cost;
                                         }
                                         $late_fee = $this->db->get_where('invoice', array('invoice_id' => $row['invoice_id']))->row()->late_fee;
+                                        $deposit    = $this->db->get_where('invoice', array('invoice_id' => $row['invoice_id']))->row()->deposit;
 
-                                        $grand_total = $rent_total + $service_total + $late_fee;
+                                        $grand_total = $rent_total + $service_total + $late_fee - $deposit;
                                         
                                         echo number_format($grand_total);
                                         ?>
@@ -161,7 +163,7 @@
                                             </a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="javascript:;"
-                                                onclick="confirm_modal('<?php echo base_url(); ?>invoices/remove/<?php echo $row['invoice_id']; ?>');">
+                                                onclick="confirm_modal_invoice('<?php echo base_url(); ?>invoices/remove/<?php echo $row['invoice_id']; ?>');">
                                                 <?php echo $this->lang->line('remove'); ?>
                                             </a>
                                         </div>

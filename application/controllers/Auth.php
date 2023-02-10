@@ -32,7 +32,24 @@ class Auth extends CI_Controller
 				
 				if ($query->row()->user_type == 3) {
 					redirect(base_url() . 'monthly_invoices', 'refresh');
-				} else {
+				}
+				elseif(in_array($this->db->get_where('module', array('module_name' => 'dashboard'))->row()->module_id, $this->session->userdata('permissions'))) {
+					redirect(base_url(), 'refresh');
+
+				}
+				elseif(in_array($this->db->get_where('module', array('module_name' => 'invoices'))->row()->module_id, $this->session->userdata('permissions'))) {
+					redirect(base_url() . 'invoices', 'refresh');
+
+				}
+				elseif(in_array($this->db->get_where('module', array('module_name' => 'rooms'))->row()->module_id, $this->session->userdata('permissions'))) {
+					redirect(base_url() . 'rooms', 'refresh');
+
+				}
+				elseif(in_array($this->db->get_where('module', array('module_name' => 'tenants'))->row()->module_id, $this->session->userdata('permissions'))) {
+					redirect(base_url() . 'tenants', 'refresh');
+
+				}
+				else {
 					$this->session->set_flashdata('success', $this->lang->line('auth_successful_login'));
 					redirect(base_url(), 'refresh');
 				}

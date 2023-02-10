@@ -23,14 +23,14 @@
 <script src="<?php echo base_url(); ?>assets/plugins/sparkline/jquery.sparkline.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-jvectormap/jquery-jvectormap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js?1"></script>
 <script src="<?php echo base_url(); ?>assets/js/demo/dashboard.min.js"></script>
 
 <script src="<?php echo base_url(); ?>assets/plugins/gritter/js/jquery.gritter.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-sweetalert/sweetalert.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/demo/ui-modal-notification.demo.min.js"></script>
 
-<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js?1"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/masked-input/masked-input.min.js"></script>

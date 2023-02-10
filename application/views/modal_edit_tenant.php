@@ -87,7 +87,7 @@ foreach ($tenant_info as $tenant) :
 							<option value="<?php echo html_escape($tenant['room_id']); ?>" selected><?php echo html_escape($this->db->get_where('room', array('room_id' => $tenant['room_id']))->row()->room_number); ?></option>
 						<?php
 						endif;
-						$rooms = $this->db->get_where('room', array('status' => 0))->result_array();
+						$rooms = $this->db->get_where('room', array('status' => 0,'room_status' => 1))->result_array();
 						foreach ($rooms as $room) :
 						?>
 							<option value="<?php echo html_escape($room['room_id']); ?>"><?php echo html_escape($room['room_number']); ?></option>
@@ -98,6 +98,10 @@ foreach ($tenant_info as $tenant) :
 			<div class="note note-yellow m-b-15">
 				<span><?php echo $this->lang->line('to_assign_room'); ?>.</span>
 			</div>
+			<div class="form-group">
+                <label><?php echo $this->lang->line('deposit'); ?></label>
+                <input name="deposit" type="text" placeholder="<?php echo $this->lang->line('enter_deposit'); ?>" class="form-control">
+            </div>
 			<div class="form-group">
 				<label><?php echo $this->lang->line('profession'); ?></label>
 				<div>

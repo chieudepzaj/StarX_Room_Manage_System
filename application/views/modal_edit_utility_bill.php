@@ -34,18 +34,18 @@ foreach ($utility_bill_details as $row) :
 		<label><?php echo $this->lang->line('month'); ?> *</label>
 		<select style="width: 100%" class="form-control default-select2" data-parsley-required="true" name="month">
 			<option value=""><?php echo $this->lang->line('select_month'); ?></option>
-			<option <?php if ($row['month'] == 'January') echo 'selected'; ?> value="January"><?php echo $this->lang->line('january'); ?></option>
-			<option <?php if ($row['month'] == 'February') echo 'selected'; ?> value="February"><?php echo $this->lang->line('february'); ?></option>
-			<option <?php if ($row['month'] == 'March') echo 'selected'; ?> value="March"><?php echo $this->lang->line('march'); ?></option>
-			<option <?php if ($row['month'] == 'April') echo 'selected'; ?> value="April"><?php echo $this->lang->line('april'); ?></option>
-			<option <?php if ($row['month'] == 'May') echo 'selected'; ?> value="May"><?php echo $this->lang->line('may'); ?></option>
-			<option <?php if ($row['month'] == 'June') echo 'selected'; ?> value="June"><?php echo $this->lang->line('june'); ?></option>
-			<option <?php if ($row['month'] == 'July') echo 'selected'; ?> value="July"><?php echo $this->lang->line('july'); ?></option>
-			<option <?php if ($row['month'] == 'August') echo 'selected'; ?> value="August"><?php echo $this->lang->line('august'); ?></option>
-			<option <?php if ($row['month'] == 'September') echo 'selected'; ?> value="September"><?php echo $this->lang->line('september'); ?></option>
-			<option <?php if ($row['month'] == 'October') echo 'selected'; ?> value="October"><?php echo $this->lang->line('october'); ?></option>
-			<option <?php if ($row['month'] == 'November') echo 'selected'; ?> value="November"><?php echo $this->lang->line('november'); ?></option>
-			<option <?php if ($row['month'] == 'December') echo 'selected'; ?> value="December"><?php echo $this->lang->line('december'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 1') echo 'selected'; ?> value="January"><?php echo $this->lang->line('january'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 2') echo 'selected'; ?> value="February"><?php echo $this->lang->line('february'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 3') echo 'selected'; ?> value="March"><?php echo $this->lang->line('march'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 4') echo 'selected'; ?> value="April"><?php echo $this->lang->line('april'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 5') echo 'selected'; ?> value="May"><?php echo $this->lang->line('may'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 6') echo 'selected'; ?> value="June"><?php echo $this->lang->line('june'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 7') echo 'selected'; ?> value="July"><?php echo $this->lang->line('july'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 8') echo 'selected'; ?> value="August"><?php echo $this->lang->line('august'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 9') echo 'selected'; ?> value="September"><?php echo $this->lang->line('september'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 10') echo 'selected'; ?> value="October"><?php echo $this->lang->line('october'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 11') echo 'selected'; ?> value="November"><?php echo $this->lang->line('november'); ?></option>
+			<option <?php if ($row['month'] == 'Tháng 12') echo 'selected'; ?> value="December"><?php echo $this->lang->line('december'); ?></option>
 		</select>
 	</div>
 	<div class="form-group">

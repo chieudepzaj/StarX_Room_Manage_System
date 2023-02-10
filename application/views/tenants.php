@@ -36,6 +36,7 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('room'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('emergency_person'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('emergency_contact'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('deposit'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_on'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_by'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('options'); ?></th>
@@ -72,6 +73,10 @@
                                     <td><?php echo $tenant['room_id'] ? html_escape($this->db->get_where('room', array('room_id' => $tenant['room_id']))->row()->room_number) : 'N/A'; ?></td>
                                     <td><?php echo $tenant['emergency_person'] ? html_escape($tenant['emergency_person']) : 'N/A'; ?></td>
                                     <td><?php echo $tenant['emergency_contact'] ? html_escape($tenant['emergency_contact']) : 'N/A'; ?></td>
+                                    <td>
+                                        <?php echo html_escape($tenant['deposit']); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+                                    </td>
                                     <td><?php echo date('d/m/Y', $tenant['timestamp']); ?></td>
                                     <td>
                                         <?php

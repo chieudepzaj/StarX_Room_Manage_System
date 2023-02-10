@@ -105,7 +105,7 @@
         font-weight: 600;
     }
     .logo{
-        background-image: url(/mars/uploads/website/pdf-icon.png);
+        background-image: url(/starx/uploads/website/pdf-icon.png);
         background-position: center;
         background-repeat: no-repeat;
         position: relative;
@@ -118,6 +118,7 @@
     $tenant_id = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->tenant_id;
     $invoice_type = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->invoice_type;
     $tenant_rents = $this->db->get_where('tenant_rent', array('invoice_id' => $invoice_id))->result_array();
+    $deposit    = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->deposit;
 
     $invoice_total = 0;
     ?>
@@ -252,13 +253,21 @@
             </tr>
             <?php endforeach; ?>
             <?php endif; ?>
-
+            <tr class = "item">
+				<td><span class="text-inverse"><?php echo $this->lang->line('deposit'); ?></span></td>
+				<td class="text-center">-</td>
+				<td class="text-center">-</td>
+				<td class="text-right">
+					<?php echo number_format($deposit); ?>
+					<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+				</td>
+			</tr>
             <tr class="total">
                 <td></td>
                 <td></td>
                 <td></td>
                 <td><?php echo $this->lang->line('total'); ?>:
-                    <?php echo number_format($invoice_total + $late_fee + $invoice_services_total) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+                    <?php echo number_format($invoice_total + $late_fee + $invoice_services_total-$deposit) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                 </td>
             </tr>
         </table>

@@ -57,7 +57,7 @@
                                 <tr>
                                     <td><?php echo $count++; ?></td>
                                     <td><?php echo html_escape($this->db->get_where('staff', array('staff_id' => $row['staff_id']))->row()->name); ?></td>
-                                    <td><?php echo html_escape($this->lang->line(strtolower($row['month']))); ?></td>
+                                    <td><?php echo html_escape($this->lang->line($row['month'])); ?></td>
                                     <td><?php echo html_escape($row['year']); ?></td>
                                     <td>
                                         <?php echo html_escape(number_format($row['amount'])); ?>

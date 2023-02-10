@@ -110,7 +110,7 @@
                                                     <?php echo $this->lang->line('update_status'); ?>
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="javascript:;" onclick="confirm_modal('<?php echo base_url(); ?>invoices/remove/<?php echo $row['invoice_id']; ?>');">
+                                                    <a class="dropdown-item" href="javascript:;" onclick="confirm_modal_invoice('<?php echo base_url(); ?>invoices/remove/<?php echo $row['invoice_id']; ?>');">
                                                     <?php echo $this->lang->line('remove'); ?>
                                                     </a>
                                                 </div>

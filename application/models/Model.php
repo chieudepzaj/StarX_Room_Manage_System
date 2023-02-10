@@ -5,15 +5,53 @@ class Model extends CI_Model
 {
 	function add_room()
 	{
+		$room_number_pic					=	$this->random_strings(11);
+		$ext1 								= 	pathinfo($_FILES['picture_room_1']['name'], PATHINFO_EXTENSION);
+		$ext2 								= 	pathinfo($_FILES['picture_room_2']['name'], PATHINFO_EXTENSION);
+		$ext3 								= 	pathinfo($_FILES['picture_room_3']['name'], PATHINFO_EXTENSION);
+		$ext4 								= 	pathinfo($_FILES['picture_room_4']['name'], PATHINFO_EXTENSION);
+		$ext5 								= 	pathinfo($_FILES['room_video']['name'], PATHINFO_EXTENSION);
+
 		$rooms 							= 	$this->db->get('room')->result_array();
 		foreach ($rooms as $room) {
 			if ($room['room_number'] == $this->input->post('room_number') && $room['floor'] == $this->input->post('floor')) {
 				$this->session->set_flashdata('warning', $this->lang->line('room_already_exists'));
-
+				
 				redirect(base_url() . 'add_room', 'refresh');
 			}
 		}
+		if ($ext1 == 'pdf' || $ext1 == 'PDF' || $ext1 == 'jpeg' || $ext1 == 'JPEG' || $ext1 == 'png' || $ext1 == 'PNG' || $ext1 == 'jpg' || $ext1 == 'JPG') {
+			$data['picture_room_1']	= 	$room_number_pic . '_picture_room_1.' . $ext1;
 
+			move_uploaded_file($_FILES['picture_room_1']['tmp_name'], 'uploads/rooms/' . $data['picture_room_1']);
+		}
+	
+		if ($ext2 == 'pdf' || $ext2 == 'PDF' || $ext2 == 'jpeg' || $ext2 == 'JPEG' || $ext2 == 'png' || $ext2 == 'PNG' || $ext2 == 'jpg' || $ext2 == 'JPG') {
+			$data['picture_room_2'] 	= 	$room_number_pic . '_picture_room_2.' . $ext2;
+
+			move_uploaded_file($_FILES['picture_room_2']['tmp_name'], 'uploads/rooms/' . $data['picture_room_2']);
+		}
+		
+		if ($ext3 == 'pdf' || $ext3 == 'PDF' || $ext3 == 'jpeg' || $ext3 == 'JPEG' || $ext3 == 'png' || $ext3 == 'PNG' || $ext3 == 'jpg' || $ext3 == 'JPG') {
+			$data['picture_room_3']	= 	$room_number_pic . '_picture_room_3.' . $ext3;
+
+			move_uploaded_file($_FILES['picture_room_3']['tmp_name'], 'uploads/rooms/' . $data['picture_room_3']);
+		}
+		
+		if ($ext4 == 'pdf' || $ext4 == 'PDF' || $ext4 == 'jpeg' || $ext4 == 'JPEG' || $ext4 == 'png' || $ext4 == 'PNG' || $ext4 == 'jpg' || $ext4 == 'JPG') {
+			$data['picture_room_4']	= 	$room_number_pic . '_picture_room_4.' . $ext4;
+
+			move_uploaded_file($_FILES['picture_room_4']['tmp_name'], 'uploads/rooms/' . $data['picture_room_4']);
+		}
+
+		if ($ext5 == 'mp4' || $ext5 == 'MP4') {
+			$data['room_video']		= 	$room_number_pic . '_room_video.' . $ext5;
+
+			move_uploaded_file($_FILES['room_video']['tmp_name'], 'uploads/rooms/' . $data['room_video']);
+		}
+
+		$data['room_status']			=	$this->input->post('id_room_status');
+		$data['room_type']				=	$this->input->post('id_room_type');
 		$data['room_number']			=	$this->input->post('room_number');
 		$data['daily_rent']				=	$this->input->post('daily_rent');
 		$data['monthly_rent']			=	$this->input->post('monthly_rent');
@@ -32,10 +70,82 @@ class Model extends CI_Model
 		redirect(base_url() . 'rooms', 'refresh');
 	}
 
+	function add_contact(){
+		$data['name']	= $this->input->post('ten_lienhe');
+		$data['address']	= $this->input->post('diachi_lienhe');
+		$data['phone']	= $this->input->post('dienthoai_lienhe');
+		$data['email']	= $this->input->post('email_lienhe');
+		$data['content']	= $this->input->post('noidung_lienhe');
+		$this->db->insert('contact', $data);
+
+		$this->session->set_flashdata('success', $this->lang->line('room_added_successfully'));
+
+		redirect(base_url() . 'lienhe', 'refresh');
+	}
+
+	function book_room(){
+		$data['name']	= $this->input->post('ten');
+		$data['phone']	= $this->input->post('dienthoai');
+		$data['email']	= $this->input->post('email');
+		$data['address']	= $this->input->post('diachi');
+		$data['start']	= strtotime(str_replace('/', '-', $this->input->post('den')));
+		$data['end']	= strtotime(str_replace('/', '-', $this->input->post('di')) . '11:59:59 pm');
+		$data['adult']	= $this->input->post('nguoilon');
+		$data['child']	= $this->input->post('treem');
+		$data['room_type_id']	= $this->input->post('loaiphong');
+		$data['content']	= $this->input->post('noidung');
+		$this->db->insert('book_room', $data);
+
+		redirect(base_url() . 'datphong', 'refresh');
+	}
+
+	function update_booking($id_book_room=''){
+		$this->db->where('id_book_room', $id_book_room);
+		$data['status']	= '0';
+		$this->db->update('book_room',$data);
+
+		$this->session->set_flashdata('success', $this->lang->line('booking_update_successfully'));
+
+		redirect(base_url() . 'booking', 'refresh');
+	}
+
+	function remove_booking($id_book_room=''){
+		$this->db->where('id_book_room', $id_book_room);
+		$this->db->delete('book_room');
+
+		$this->session->set_flashdata('success', $this->lang->line('booking_deleted_successfully'));
+
+		redirect(base_url() . 'booking', 'refresh');
+	}
+
+	function update_contact($id_contact=''){
+		$this->db->where('id_contact', $id_contact);
+		$data['status']	= '0';
+		$this->db->update('contact',$data);
+
+		$this->session->set_flashdata('success', $this->lang->line('contact_update_successfully'));
+
+		redirect(base_url() . 'contact', 'refresh');
+	}
+
+	function remove_contact($id_contact=''){
+		$this->db->where('id_contact', $id_contact);
+		$this->db->delete('contact');
+
+		$this->session->set_flashdata('success', $this->lang->line('contact_deleted_successfully'));
+
+		redirect(base_url() . 'contact', 'refresh');
+	}
 	function update_room($room_id = '')
 	{
 		$existing_room_number 			=	$this->db->get_where('room', array('room_id' => $room_id))->row()->room_number;
 		$existing_floor_number			=	$this->db->get_where('room', array('room_id' => $room_id))->row()->floor;
+		$room_number_pic					=	$this->random_strings(11);
+		$ext1 								= 	pathinfo($_FILES['picture_room_1']['name'], PATHINFO_EXTENSION);
+		$ext2 								= 	pathinfo($_FILES['picture_room_2']['name'], PATHINFO_EXTENSION);
+		$ext3 								= 	pathinfo($_FILES['picture_room_3']['name'], PATHINFO_EXTENSION);
+		$ext4 								= 	pathinfo($_FILES['picture_room_4']['name'], PATHINFO_EXTENSION);
+		$ext5 								= 	pathinfo($_FILES['room_video']['name'], PATHINFO_EXTENSION);
 
 		if ($existing_room_number != $this->input->post('room_number') || $existing_floor_number != $this->input->post('floor')) {
 			$rooms 							= 	$this->db->get('room')->result_array();
@@ -48,6 +158,38 @@ class Model extends CI_Model
 			}
 		}
 
+		if ($ext1 == 'pdf' || $ext1 == 'PDF' || $ext1 == 'jpeg' || $ext1 == 'JPEG' || $ext1 == 'png' || $ext1 == 'PNG' || $ext1 == 'jpg' || $ext1 == 'JPG') {
+			$data['picture_room_1']	= 	$room_number_pic . '_picture_room_1.' . $ext1;
+
+			move_uploaded_file($_FILES['picture_room_1']['tmp_name'], 'uploads/rooms/' . $data['picture_room_1']);
+		}
+	
+		if ($ext2 == 'pdf' || $ext2 == 'PDF' || $ext2 == 'jpeg' || $ext2 == 'JPEG' || $ext2 == 'png' || $ext2 == 'PNG' || $ext2 == 'jpg' || $ext2 == 'JPG') {
+			$data['picture_room_2'] 	= 	$room_number_pic . '_picture_room_2.' . $ext2;
+
+			move_uploaded_file($_FILES['picture_room_2']['tmp_name'], 'uploads/rooms/' . $data['picture_room_2']);
+		}
+		
+		if ($ext3 == 'pdf' || $ext3 == 'PDF' || $ext3 == 'jpeg' || $ext3 == 'JPEG' || $ext3 == 'png' || $ext3 == 'PNG' || $ext3 == 'jpg' || $ext3 == 'JPG') {
+			$data['picture_room_3']	= 	$room_number_pic . '_picture_room_3.' . $ext3;
+
+			move_uploaded_file($_FILES['picture_room_3']['tmp_name'], 'uploads/rooms/' . $data['picture_room_3']);
+		}
+		
+		if ($ext4 == 'pdf' || $ext4 == 'PDF' || $ext4 == 'jpeg' || $ext4 == 'JPEG' || $ext4 == 'png' || $ext4 == 'PNG' || $ext4 == 'jpg' || $ext4 == 'JPG') {
+			$data['picture_room_4']	= 	$room_number_pic . '_picture_room_4.' . $ext4;
+
+			move_uploaded_file($_FILES['picture_room_4']['tmp_name'], 'uploads/rooms/' . $data['picture_room_4']);
+		}
+
+		if ($ext5 == 'mp4' || $ext5 == 'MP4') {
+			$data['room_video']		= 	$room_number_pic . '_room_video.' . $ext5;
+
+			move_uploaded_file($_FILES['room_video']['tmp_name'], 'uploads/rooms/' . $data['room_video']);
+		}
+
+		$data['room_status']			=	$this->input->post('id_room_status');
+		$data['room_type']				=	$this->input->post('id_room_type');
 		$data['room_number']			=	$this->input->post('room_number');
 		$data['daily_rent']				=	$this->input->post('daily_rent');
 		$data['monthly_rent']			=	$this->input->post('monthly_rent');
@@ -189,7 +331,9 @@ class Model extends CI_Model
 			$data['created_by']			=	$this->session->userdata('user_id');
 			$data['timestamp']			=	time();
 			$data['updated_by']			=	$this->session->userdata('user_id');
-
+			if($this->input->post('deposit')){
+				$data['deposit']	=	$this->input->post('deposit');
+			}
 			$this->db->insert('tenant', $data);
 
 			if ($this->input->post('email')) {
@@ -359,6 +503,10 @@ class Model extends CI_Model
 		$data['extra_note']				=	$this->input->post('extra_note');
 		$data['timestamp']				=	time();
 		$data['updated_by']				=	$this->session->userdata('user_id');
+		
+		if($this->input->post('deposit')){
+			$data['deposit']	=	$this->input->post('deposit');
+		}
 
 		if ($this->input->post('lease_start') && $this->input->post('lease_end')) {
 			$data['lease_start']		=	strtotime($this->input->post('lease_start'));
@@ -839,6 +987,32 @@ class Model extends CI_Model
 		redirect(base_url() . 'staff', 'refresh');
 	}
 
+	function update_notice_seen($notice_id = '')
+	{
+		$row	=	$this->db->get_where('notice',array('notice_id'	=>	$notice_id))->row()->has_seen;
+		$user_id	= strval($this->session->userdata('user_id'));
+		$pos = strstr($row, $user_id);
+		if(empty($row)){
+			$row .= $user_id;
+			$data['has_seen']			=	$row;
+
+			$array = array('notice_id' => $notice_id);
+			$this->db->where($array);
+			$this->db->update('notice', $data);
+
+		}elseif($pos == false){
+				$row .= ','.$user_id;
+				$data['has_seen']			=	$row;
+
+				$array = array('notice_id' => $notice_id);
+				$this->db->where($array);
+				$this->db->update('notice', $data);
+
+		}
+
+
+	}
+
 	function add_staff_salary()
 	{
 		$month = $this->input->post('month');
@@ -892,11 +1066,12 @@ class Model extends CI_Model
 	function generate_date_range_rents()
 	{
 		$tenant_id 						= 	$this->input->post('tenant_id');
-		$start_date						=	strtotime($this->input->post('start'));
-		$end_date						=	strtotime($this->input->post('end'));
+		$start_date						=	strtotime(str_replace('/', '-', $this->input->post('start')));
+		$end_date						=	strtotime(str_replace('/', '-', $this->input->post('end')));
 
 		$room_id 						=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->room_id;
 		$room_number					= 	$this->db->get_where('room', array('room_id' => $room_id))->row()->room_number;
+		$deposit    = $this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->deposit;
 
 		$start_year  					= 	date('Y', $start_date);
 		$end_year  						= 	date('Y', $end_date);
@@ -907,9 +1082,9 @@ class Model extends CI_Model
 
 		$invoice['tenant_name']			=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->name;
 		$invoice['status']				=	$this->input->post('status');
-		$invoice['start_date']			=	strtotime($this->input->post('start'));
-		$invoice['end_date']			=	strtotime($this->input->post('end') . '11:59:59 pm');
-		$invoice['due_date']			=	strtotime($this->input->post('due_date') . '11:59:59 pm');
+		$invoice['start_date']			=	strtotime(str_replace('/', '-', $this->input->post('start')));
+		$invoice['end_date']			=	strtotime(str_replace('/', '-', $this->input->post('end')) . '11:59:59 pm');
+		$invoice['due_date']			=	strtotime(str_replace('/', '-', $this->input->post('due_date')) . '11:59:59 pm');
 		$invoice['invoice_type']		=	0;
 		$invoice['tenant_mobile']		=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->mobile_number;
 		$invoice['room_number']			=	$room_number;
@@ -920,6 +1095,7 @@ class Model extends CI_Model
 		$invoice['created_by']			=	$this->session->userdata('user_id');
 		$invoice['timestamp']			=	time();
 		$invoice['updated_by']			=	$this->session->userdata('user_id');
+		$invoice['deposit']			=	$deposit;
 
 		$this->db->insert('invoice', $invoice);
 
@@ -986,6 +1162,10 @@ class Model extends CI_Model
 				$this->db->insert('tenant_rent', $data);
 			}
 		}
+		// Update deposit of tenant
+		$data_new['deposit']	=	0;
+		$this->db->where('tenant_id', $tenant_id);
+		$this->db->update('tenant', $data_new);
 
 		$this->session->set_flashdata('success', $this->lang->line('rent_date_range_generated_successfully'));
 
@@ -1044,12 +1224,13 @@ class Model extends CI_Model
 
 		$room_id 						=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->room_id;
 		$room_number					= 	$this->db->get_where('room', array('room_id' => $room_id))->row()->room_number;
+		$deposit    = $this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->deposit;
 
 		$invoice['tenant_name']			=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->name;
 		$invoice['status']				=	$this->input->post('status');
 		$invoice['start_date']			=	strtotime($months[0] . ' ' . '01' . ', ' . $year);
 		$invoice['end_date']			=	strtotime($months[count($months) - 1] . ' ' . date('t', strtotime($year . '-' . $months[count($months) - 1])) . ', ' . $year . '11:59:59 pm');
-		$invoice['due_date']			=	strtotime($this->input->post('due_date') . '11:59:59 pm');
+		$invoice['due_date']			=	strtotime(str_replace('/', '-', $this->input->post('due_date')) . '11:59:59 pm');
 		$invoice['invoice_type']		=	2;
 		$invoice['tenant_mobile']		=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->mobile_number;
 		$invoice['room_number']			=	$room_number;
@@ -1060,6 +1241,7 @@ class Model extends CI_Model
 		$invoice['created_by']			=	$this->session->userdata('user_id');
 		$invoice['timestamp']			=	time();
 		$invoice['updated_by']			=	$this->session->userdata('user_id');
+		$invoice['deposit']			=	$deposit;
 
 		$this->db->insert('invoice', $invoice);
 
@@ -1079,6 +1261,10 @@ class Model extends CI_Model
 
 			$this->db->insert('tenant_rent', $data);
 		}
+		// Update deposit of tenant
+		$data_new['deposit']	=	0;
+		$this->db->where('tenant_id', $tenant_id);
+		$this->db->update('tenant', $data_new);
 
 		$this->session->set_flashdata('success', $this->lang->line('rent_single_tenant_generated_successfully'));
 
@@ -1090,6 +1276,7 @@ class Model extends CI_Model
 		$tenants 						=	[];
 		$year 							= 	$this->input->post('year');
 		$month 							= 	$this->input->post('month');
+		$deposit    = $this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->deposit;
 
 		if ($this->input->post('tenants')[0] == 'All') {
 			$active_tenants = $this->db->get_where('tenant', array('status' => 1))->result_array();
@@ -1108,7 +1295,7 @@ class Model extends CI_Model
 			$invoice['status']			=	$this->input->post('status');
 			$invoice['start_date']		=	strtotime($month . ' ' . '01' . ', ' . $year);
 			$invoice['end_date']		=	strtotime($month . ' ' . date('t', strtotime($year . '-' . $month)) . ', ' . $year . '11:59:59 pm');
-			$invoice['due_date']		=	strtotime($this->input->post('due_date') . '11:59:59 pm');
+			$invoice['due_date']		=	strtotime(str_replace('/', '-', $this->input->post('due_date')) . '11:59:59 pm');
 			$invoice['invoice_type']	=	1;
 			$invoice['tenant_mobile']	=	$this->db->get_where('tenant', array('tenant_id' => $tenants[$i]))->row()->mobile_number;
 			$invoice['room_number']		=	$room_number;
@@ -1119,6 +1306,7 @@ class Model extends CI_Model
 			$invoice['created_by']		=	$this->session->userdata('user_id');
 			$invoice['timestamp']		=	time();
 			$invoice['updated_by']		=	$this->session->userdata('user_id');
+			$invoice['deposit']			=	$deposit;
 
 			$this->db->insert('invoice', $invoice);
 
@@ -1137,6 +1325,10 @@ class Model extends CI_Model
 
 			$this->db->insert('tenant_rent', $data);
 		}
+		// Update deposit of tenant
+		$data_new['deposit']	=	0;
+		$this->db->where('tenant_id', $tenant_id);
+		$this->db->update('tenant', $data_new);	
 
 		$this->session->set_flashdata('success', $this->lang->line('rent_monthly_generated_successfully'));
 
@@ -1351,10 +1543,6 @@ class Model extends CI_Model
 			$data['complaint_picture_1']	= 	$data['complaint_number'] . '_complaint_picture_1.' . $ext1;
 
 			move_uploaded_file($_FILES['complaint_picture_1']['tmp_name'], 'uploads/complaints/' . $data['complaint_picture_1']);
-		}
-		else{
-			
-		$this->session->set_flashdata('error', $this->lang->line('complaint_added_successfully'));
 		}
 
 		if ($ext2 == 'pdf' || $ext2 == 'PDF' || $ext2 == 'jpeg' || $ext2 == 'JPEG' || $ext2 == 'png' || $ext2 == 'PNG' || $ext2 == 'jpg' || $ext2 == 'JPG') {

@@ -242,10 +242,11 @@
                 <h5><b><?php echo $this->lang->line('due_rents_of'); ?> <?php echo $this->lang->line(strtolower(date('F'))) . ', ' . date('Y'); ?></b></h5>
                 <p>
                     <?php
+                    $month = $this->model->check_month(date('F'));
                     $this->db->select_sum('amount');
                     $this->db->from('tenant_rent');
                     $this->db->where('status', 0);
-                    $this->db->where('month', date('F'));
+                    $this->db->where('month', $month);
                     $this->db->where('year', date('Y'));
                     $query = $this->db->get();
                     
@@ -264,9 +265,10 @@
                 <h5><b><?php echo $this->lang->line('total_rents_of'); ?> <?php echo $this->lang->line(strtolower(date('F'))) . ', ' . date('Y'); ?></b></h5>
                 <p>
                     <?php
+                    $month = $this->model->check_month(date('F'));
                     $this->db->select_sum('amount');
                     $this->db->from('tenant_rent');
-                    $this->db->where('month', date('F'));
+                    $this->db->where('month', $month);
                     $this->db->where('year', date('Y'));
                     $query = $this->db->get();
                     
@@ -285,10 +287,11 @@
                 <h5><b><?php echo $this->lang->line('due_rents_of'); ?> <?php echo $this->lang->line(strtolower(date('F', strtotime("-1 months")))) . ', ' . date('Y', strtotime("-1 months")); ?></b></h5>
                 <p>
                     <?php
+                    $month = $this->model->check_month(date('F', strtotime("-1 months")));
                     $this->db->select_sum('amount');
                     $this->db->from('tenant_rent');
                     $this->db->where('status', 0);
-                    $this->db->where('month', date('F', strtotime("-1 months")));
+                    $this->db->where('month', $month);
                     $this->db->where('year', date('Y'));
                     $query = $this->db->get();
                     
@@ -307,9 +310,10 @@
                 <h5><b><?php echo $this->lang->line('total_rents_of'); ?> <?php echo $this->lang->line(strtolower(date('F', strtotime("-1 months")))) . ', ' . date('Y', strtotime("-1 months")); ?></b></h5>
                 <p>
                     <?php
+                    $month = $this->model->check_month(date('F', strtotime("-1 months")));
                     $this->db->select_sum('amount');
                     $this->db->from('tenant_rent');
-                    $this->db->where('month', date('F', strtotime("-1 months")));
+                    $this->db->where('month', $month);
                     $this->db->where('year', date('Y'));
                     $query = $this->db->get();
                     
@@ -334,11 +338,7 @@
                     
                     $overall_utility_bill = $query->row()->amount;
                     
-                    if ($overall_utility_bill > 1000000) {
-                        echo number_format(round($overall_utility_bill / 1000000)) . ' M';
-                    } else {
-                        echo number_format(round($overall_utility_bill  > 0 ? $overall_utility_bill : 0));
-                    }
+                    echo number_format($overall_utility_bill);
                     ?>
                     <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                 </p>
@@ -357,11 +357,7 @@
                     
                     $overall_expense = $query->row()->amount;
                     
-                    if ($overall_expense > 1000000) {
-                        echo number_format(round($overall_expense / 1000000)) . ' M';
-                    } else {
-                        echo number_format(round($overall_expense > 0 ? $overall_expense : 0));
-                    }
+                    echo number_format($overall_expense);
                     ?>
                     <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                 </p>

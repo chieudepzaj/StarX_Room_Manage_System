@@ -65,7 +65,7 @@
 
         this.locale = {
             direction: 'ltr',
-            format: 'DD/MM/YYYY',
+            format: 'MM/DD/YYYY',
             separator: ' - ',
             applyLabel: 'Apply',
             cancelLabel: 'Cancel',

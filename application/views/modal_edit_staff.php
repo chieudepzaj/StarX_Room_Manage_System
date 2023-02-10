@@ -66,7 +66,7 @@ foreach ($staff_details as $row) :
 	</div>
 	<div class="form-group">
 		<label><?php echo $this->lang->line('remarks'); ?></label>
-		<textarea style="resize: none" type="text" name="remarks" placeholder="<?php echo $this->lang->line('enter_remarks'); ?>" class="form-control"><?php echo html_escape($row['remarks']); ?></textarea>
+		<textarea style="resize: none" type="text" name="remarks" placeholder="<?php echo $this->lang->line('enter_remarks_tenant'); ?>" class="form-control"><?php echo html_escape($row['remarks']); ?></textarea>
 	</div>
 
 	<button type="submit" class="mb-sm btn btn-primary"><?php echo $this->lang->line('update'); ?></button>

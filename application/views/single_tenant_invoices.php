@@ -72,28 +72,31 @@
                                     </td>
                                     <td><?php echo html_escape($row['room_number']); ?></td>
                                     <td>
-                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                         <?php
                                         $grand_total    =   0;
                                         $rent_total     =   0;
                                         $service_total  =   0;
-                                        
+                                        $late_fee   =   0;
+                                        $deposit    =   0;
                                         $this->db->select_sum('amount');
                                         $this->db->from('tenant_rent');
                                         $this->db->where('invoice_id', $row['invoice_id']);
                                         $query = $this->db->get();
-
+                                        
                                         $rent_total = $query->row()->amount;
-
+                                        
                                         $service_costs = $this->db->get_where('invoice_service', array('invoice_id' => $row['invoice_id']))->result_array();
                                         foreach ($service_costs as $service_cost) {
                                             $service_total += $this->db->get_where('service', array('service_id' => $service_cost['service_id']))->row()->cost;
                                         }
+                                        $late_fee = $this->db->get_where('invoice', array('invoice_id' => $row['invoice_id']))->row()->late_fee;
+                                        $deposit    = $this->db->get_where('invoice', array('invoice_id' => $row['invoice_id']))->row()->deposit;
 
-                                        $grand_total = $rent_total + $service_total;
-
+                                        $grand_total = $rent_total + $service_total + $late_fee - $deposit;
+                                        
                                         echo number_format($grand_total);
                                         ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td><?php echo date('d/m/Y', $row['due_date']); ?></td>
                                     <td><?php echo $row['sms'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?></td>
@@ -132,7 +135,7 @@
                                                     <?php echo $this->lang->line('update_status'); ?>
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="javascript:;" onclick="confirm_modal('<?php echo base_url(); ?>invocies/remove/<?php echo $row['invoice_id']; ?>');">
+                                                    <a class="dropdown-item" href="javascript:;" onclick="confirm_modal_invoice('<?php echo base_url(); ?>invocies/remove/<?php echo $row['invoice_id']; ?>');">
                                                     <?php echo $this->lang->line('remove'); ?>
                                                     </a>
                                                 </div>

@@ -18,7 +18,8 @@
 	<?php echo $this->lang->line('invoice'); ?>#<?php echo $invoice_number = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->invoice_number; ?>
 	</h1>
 	<!-- end page-header -->
-	<?php $tenant_id = $this->db->get_where('tenant_rent', array('invoice_id' => $invoice_id))->row()->tenant_id; ?>
+	<?php $tenant_id = $this->db->get_where('tenant_rent', array('invoice_id' => $invoice_id))->row()->tenant_id;
+	echo 'tenant'.$tenant_id; ?>
 	<!-- begin invoice -->
 	<div class="invoice print-body">
 		<!-- begin invoice-company -->
@@ -179,6 +180,18 @@
 								</td>
 							</tr>
 						<?php endif; ?>
+						<tr>
+						<td><span class="text-inverse"><?php echo $this->lang->line('deposit'); ?></span></td>
+						<td class="text-center">-</td>
+						<td class="text-center">-</td>
+						<td class="text-right">
+							<?php 
+							$deposit    = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->deposit;
+							echo number_format($deposit); 
+							?>
+							<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
+						</td>
+			</tr>
 					</tbody>
 				</table>
 			</div>
@@ -196,7 +209,7 @@
 								$this->db->where('invoice_id', $invoice_id);
 								$query = $this->db->get();
 								
-								echo ($late_fee > 0) ? number_format($query->row()->amount + $invoice_services_total + $late_fee) : number_format($query->row()->amount + $invoice_services_total);
+								echo ($late_fee > 0) ? number_format($query->row()->amount + $invoice_services_total + $late_fee - $deposit) : number_format($query->row()->amount + $invoice_services_total - $deposit);
 								?>
 								<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 							</span>
@@ -212,7 +225,7 @@
 						$this->db->where('invoice_id', $invoice_id);
 						$query = $this->db->get();
 						
-						echo ($late_fee > 0) ? number_format($query->row()->amount + $invoice_services_total + $late_fee) : number_format($query->row()->amount + $invoice_services_total);
+						echo ($late_fee > 0) ? number_format($query->row()->amount + $invoice_services_total + $late_fee - $deposit) : number_format($query->row()->amount + $invoice_services_total - $deposit);
 						?>
 						<?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
 					</span>

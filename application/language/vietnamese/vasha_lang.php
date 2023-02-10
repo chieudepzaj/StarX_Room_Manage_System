@@ -14,7 +14,7 @@ $lang['polish']    =    "Polish";
 $lang['portuguese']    =    "Portuguese";
 $lang['thai']    =    "Thai";
 $lang['turkish']    =    "Turkish";
-
+$lang['for_new_video'] = "Thêm video mới";
 $lang['navigation']    =    "Navigation";
 $lang['rooms']    =    "Phòng";
 $lang['beds']    =    "Beds";
@@ -29,10 +29,13 @@ $lang['staff']    =   "Nhân Viên";
 $lang['add_staff_payroll']    =   "Thêm Bảng Lương Nhân Viên";
 $lang['staff_payroll']    =   "Bảng Lương Nhân Viên";
 $lang['notices']    =   "Thông Báo";
+$lang['contact']    =   "Liên Hệ";
 $lang['utility_bill']   =   "Hóa Đơn Tiện Ích";
 $lang['utility_bill_category']   =   "Danh Mục Hóa Đơn Tiện Ích";
 $lang['account']   =   "Kết Quả Kinh Doanh";
 $lang['settings']   =   "Cài Đặt";
+$lang['deposit']   =   "Tiền Cọc";
+$lang['enter_deposit']   =   "Nhập Tiền Cọc (Nếu Có)";
 $lang['website']   =   "Website";
 $lang['profession']   =   "Nghề Nghiệp";
 $lang['id_type']   =   "Loại Giấy Tờ Tùy Thân";
@@ -78,7 +81,9 @@ $lang['id_type_settings_header']    =   "Danh sách giấy tờ tùy thân";
 $lang['id_type_settings']    =   "Thiết Lập Giấy Tờ Tùy Thân";
 $lang['id_type_name']    =   "Tên loại giấy tờ tùy thân";
 $lang['id_type_name_placeholder']    =   "Nhập tên giấy tờ tùy thân";
+$lang['contact_update_successfully']    =   "Cập nhật liên hệ thành công";
 
+$lang['booking_update_successfully']    =   "Cập nhật liên hệ thành công";
 $lang['profile_settings_header']    =   "Cập nhật thông tin cá nhân";
 $lang['profile_settings']    =   "Cài Đặt Profile";
 $lang['email']    =   "Email";
@@ -149,10 +154,13 @@ $lang['vacant']   =   "OK";
 $lang['modal_deactivate_content']   =   "Bạn có muốn ngừng hoạt động tài khoản này không?";
 $lang['deactivate']   =   "Ngừng Hoạt Động";
 $lang['modal_delete_content']   =   "Bạn có muốn xóa mục này không?";
+$lang['modal_delete_invoice']   =   "Bạn có muốn xóa hóa đơn này không?";
+$lang['modal_delete_invoice_warning']   =   "(CHÚ Ý: XÓA HÓA ĐƠN SẼ LÀM MẤT TIỀN CỌC CỦA KHÁCH HÀNG)";
 $lang['delete']   =   "Xóa";
 $lang['cancel']   =   "Hủy";
 $lang['modal_close_content']   =   "Bạn có chắc muốn đóng khiếu nại này không?";
 $lang['close']   =   "Đóng";
+$lang['booking']   =   "Đặt phòng";
 
 $lang['utility_bill_category_header']   =   "Chi tiết danh mục hóa đơn tiện ích";
 $lang['utility_bill_categories']   =   "Danh mục hóa đơn tiện ích";
@@ -168,6 +176,8 @@ $lang['add_utility_bill_header']   =   "Thêm hóa đơn tiện ích mới";
 $lang['select_utility_bill_category']    =   "Chọn danh mục hóa đơn tiện ích";
 $lang['utility_bill_image']    =   "Ảnh hóa đơn tiện ích";
 $lang['select_status']    =   "Chọn trạng thái";
+$lang['room_type']      = "Loại phòng";
+$lang['elect_room_type']      = "Chọn loại phòng";
 
 $lang['existing_image']    =   "Ảnh hiện tại";
 $lang['no_preview_available']    =   "Không có sẵn bản xem trước";
@@ -196,12 +206,13 @@ $lang['for_staff_login']    =   "Dùng để đăng nhập hệ thống";
 $lang['default_password']    =    "Mật khẩu mặc định đăng nhập là: 123456";   
 $lang['enter_mobile_number']    =    "Nhập số điện thoại"; 
 $lang['enter_remarks']    =    "Nhập một số nhận xét về phòng";
+$lang['enter_remarks_tenant']    =    "Nhập một số nhận xét";
 $lang['active']    =    "Đang hoạt động";
 $lang['inactive']    =    "Ngừng hoạt động";
-
+$lang['pictures_rooms'] = "Hình ảnh review phòng";
 $lang['module']    =    "Module";
 $lang['permission']    =    "Quyền truy cập";
-
+$lang['room_status']    = "Tình trạng phòng";
 $lang['add_staff_payroll_header']    =   "Thêm bảng lương nhân viên";
 $lang['select_staff']    =   "Chọn nhân viên";
 
@@ -210,6 +221,8 @@ $lang['due_salary_of']    =   "Tiền lương nhân viên còn thiếu của";
 $lang['total_salary_of']    =   "Tổng tiền lương nhân viên của";
 
 $lang['single_month_staff_payroll']    =   "Bảng lương theo tháng";
+$lang['update_contact']    =   "Bạn có muốn đánh dấu là đã xử lý liên hệ này không?";
+$lang['update_booking']    =   "Bạn có muốn đánh dấu là đã xử lý đơn đặt phòng này không?";
 
 $lang['add_complaint']    =   "Tạo Khiếu Nại";
 $lang['complaint_number']    =   "Khiếu Nại Số";
@@ -255,7 +268,7 @@ $lang['due_rents_of']    =   "Tiền Thuê Đến Hạn Của";
 $lang['total_rents_of']    =   "Tổng Tiền Thuê Của";
 $lang['total_utility_bills_overall']    =   "Tổng Hóa Đơn Tiện Ích";
 $lang['total_expenses_overall']    =   "Tổng Chi Phí";
-$lang['total_due_rents_overall']    =   "Tiền Thuê Phải Trả";
+$lang['total_due_rents_overall']    =   "Tiền Thuê Đã Thanh Toán";
 $lang['total_rents_overall']    =   "Tổng Tiền Thuê";
 $lang['view_details']    =   "Xem chi tiết";
 
@@ -341,6 +354,10 @@ $lang['enter_late_fee']    =   "Nhập phí trễ hạn";
 
 $lang['invoice_preview']    =   "Xem Lại Hóa Đơn";
 $lang['send_email']    =   "Gửi Email";
+$lang['start']    =   "Ngày Đến";
+$lang['end']    =   "Ngày Đi";
+$lang['adult']    =   "Số Người Lớn";
+$lang['child']    =   "Số Trẻ Em";
 
 $lang['starting_date']    =   "Ngày Bắt Đầu";
 $lang['ending_date']    =   "Ngày Kết Thúc";
@@ -374,6 +391,8 @@ $lang['room_deleted_successfully']    =   "Phòng đã được xóa thành côn
 $lang['room_assigned_successfully']    =   "Phòng đã được chỉ định cho khách hàng thành công.";
 $lang['room_vacant_now']    =   "Phòng hiện đang trống.";
 
+$lang['contact_deleted_successfully']    =   "Liên hệ đã được xóa thành công.";
+$lang['booking_deleted_successfully']    =   "Đặt phòng đã được xóa thành công.";
 $lang['tenant_email_already_registered']    =   "Địa chỉ email đã tồn tại.";
 $lang['tenant_activate_assign_room']    =   "Để kích hoạt đối tượng thuê, Bạn phải chỉ định một phòng.";
 $lang['tenant_assign_room_must_activate']    =   "Để chỉ định phòng, Bạn phải kích hoạt đối tượng thuê.";
@@ -448,8 +467,12 @@ $lang['expired_leases_notification']    =   "Hợp Đồng Hết Hạn";
 $lang['pictures_related_to_complaint']    =   "Hình ảnh liên quan đến khiếu nại (PDF/JPEG/PNG)";
 $lang['add_picture_1']    =   "Thêm ảnh 1";
 $lang['add_picture_2']    =   "Thêm ảnh 2";
+$lang['add_picture_3']    =   "Thêm ảnh 3";
+$lang['add_picture_4']    =   "Thêm ảnh 4";
+$lang['room_video']    =   "Thêm video";
 $lang['video_related_to_complaint']    =   "Video liên quan đến khiếu nại (MP4)";
 $lang['add_video']    =   "Thêm video";
+$lang['existing_video'] = "Video hiện tại";
 
 $lang['copyright']          =   "Copyright";
 $lang['copyright_url']      =   "Copyright URL";

@@ -1,6 +1,7 @@
 <!-- begin #content -->
 <div id="content" class="content">
     <!-- begin breadcrumb -->
+    <?php if ($this->session->userdata['user_type'] != 3) : ?>
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>"><?php echo $this->lang->line('dashboard'); ?></a></li>
         <li class="breadcrumb-item active"><?php echo $this->lang->line('rooms'); ?></li>
@@ -11,9 +12,10 @@
         <a href="<?php echo base_url(); ?>add_room">
             <button type="button" class="btn btn-inverse"><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_room'); ?></button>
         </a>
- </h1>
+    </h1>
     <!-- end page-header -->
     <hr class="no-margin-top">
+        <?php endif;?>
 
     <!-- begin row -->
     <div class="row">
@@ -33,6 +35,8 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('monthly_rent'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('floor'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('remarks'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('room_status'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('room_type'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_on'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_by'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('options'); ?></th>
@@ -42,7 +46,13 @@
                             <?php
                             $count = 1;
                             $this->db->order_by('timestamp', 'desc');
+                            if($this->session->userdata['user_type'] != 3){
                             $rooms = $this->db->get('room')->result_array();
+                            }else{
+                                $person_id= $this->db->get_where('user', array('user_id' => $this->session->userdata['user_id']))->row()->person_id;
+                                $room_id= $this->db->get_where('tenant', array('tenant_id' => $person_id))->row()->room_id;
+                                $rooms = $this->db->get_where('room', array('room_id' => $room_id))->result_array();
+                            }
                             foreach ($rooms as $room) :
                             ?>
                                 <tr>
@@ -66,6 +76,22 @@
                                     </td>
                                     <td><?php echo $room['floor'] ? html_escape($room['floor']) : 'N/A'; ?></td>
                                     <td><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>
+                                    <td>
+                                        <?php 
+                                        if($room['room_status'] == 1)
+                                        echo '<span class="badge badge-success">' . $this->db->get_where('room_status', array('id_room_status' => $room['room_status']))->row()->name . '</span>'; 
+                                        elseif($room['room_status'] == 2)
+                                        echo '<span class="badge badge-danger">' . $this->db->get_where('room_status', array('id_room_status' => $room['room_status']))->row()->name . '</span>'; 
+                                        if($room['room_status'] == 3)
+                                        echo '<span class="badge badge-warning">' . $this->db->get_where('room_status', array('id_room_status' => $room['room_status']))->row()->name . '</span>'; 
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                            $room_type = $this->db->get_where('room_type', array('id_room_type' => $room['room_type']))->row()->content;
+                                            echo $room_type? html_escape($room_type) : 'N/A'; 
+                                        ?>
+                                    </td>
                                     <td><?php echo date('d/m/Y', $room['timestamp']); ?></td>
                                     <td>
                                         <?php
@@ -85,6 +111,10 @@
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="javascript:;" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_detail_room/<?php echo $room['room_id']; ?>');">
+                                                <?php echo $this->lang->line('details'); ?>
+                                                </a>
+                                                <?php if($this->session->userdata['user_type'] != 3) : ?>    
                                                 <a class="dropdown-item" href="javascript:;" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_edit_room/<?php echo $room['room_id']; ?>');">
                                                 <?php echo $this->lang->line('edit'); ?>
                                                 </a>
@@ -101,6 +131,7 @@
                                                     <a class="dropdown-item" href="javascript:;" onclick="confirm_modal('<?php echo base_url(); ?>rooms/remove/<?php echo $room['room_id']; ?>');">
                                                     <?php echo $this->lang->line('remove'); ?>
                                                     </a>
+                                                <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
@@ -119,3 +150,11 @@
     <!-- end row -->
 </div>
 <!-- end #content -->
+<script>
+    function showdetailroom($room_id) {
+
+        url = "<?php echo base_url(); ?>detail_room/" + $room_id;
+
+        window.location = url;
+    }
+</script>

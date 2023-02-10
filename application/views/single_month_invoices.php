@@ -54,7 +54,7 @@
                                 foreach ($invoices as $invoice) {
                                     $tenant_rents = $this->db->get_where('tenant_rent', array('invoice_id' => $invoice['invoice_id']))->result_array();
                                     foreach ($tenant_rents as $tenant_rent) {
-                                        if ($tenant_rent['month'] == $month && $tenant_rent['year'] == $year) {
+                                        if ($tenant_rent['month'] == $this->model->check_month($month) && $tenant_rent['year'] == $year) {
                                             array_push($bill_info, $invoice);
                                         }
                                     }
@@ -97,6 +97,8 @@
                                         $grand_total    =   0;
                                         $rent_total     =   0;
                                         $service_total  =   0;
+                                        $late_fee   =   0;
+                                        $deposit    =   0;
 
                                         $this->db->select_sum('amount');
                                         $this->db->from('tenant_rent');
@@ -109,8 +111,10 @@
                                         foreach ($service_costs as $service_cost) {
                                             $service_total += $this->db->get_where('service', array('service_id' => $service_cost['service_id']))->row()->cost;
                                         }
+                                        $late_fee = $this->db->get_where('invoice', array('invoice_id' => $row['invoice_id']))->row()->late_fee;
+                                        $deposit    = $this->db->get_where('invoice', array('invoice_id' => $row['invoice_id']))->row()->deposit;
 
-                                        $grand_total = $rent_total + $service_total;
+                                        $grand_total = $rent_total + $service_total + $late_fee - $deposit;
 
                                         echo number_format($grand_total);
                                         ?>
@@ -152,7 +156,7 @@
                                                     <?php echo $this->lang->line('update_status'); ?>
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="javascript:;" onclick="confirm_modal('<?php echo base_url(); ?>invoices/remove/<?php echo $row['invoice_id']; ?>');">
+                                                    <a class="dropdown-item" href="javascript:;" onclick="confirm_modal_invoice('<?php echo base_url(); ?>invoices/remove/<?php echo $row['invoice_id']; ?>');">
                                                     <?php echo $this->lang->line('remove'); ?>
                                                     </a>
                                                 </div>

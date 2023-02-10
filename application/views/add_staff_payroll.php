@@ -21,7 +21,7 @@
             <div class="panel panel-inverse">
                 <!-- begin panel-body -->
                 <div class="panel-body">
-                    <?php echo form_open('staff_payroll/add', array('method' => 'post', 'data-parsley-validate' => 'ture')); ?>
+                    <?php echo form_open('staff_payroll/add', array('method' => 'post', 'data-parsley-validate' => 'true')); ?>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('name'); ?> *</label>
                         <select style="width: 100%" class="form-control default-select2" data-parsley-required="true" name="staff_id">

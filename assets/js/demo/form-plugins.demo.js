@@ -184,7 +184,7 @@ var handleJqueryTagIt = function() {
 var handleDateRangePicker = function() {
     $('#default-daterange').daterangepicker({
         opens: 'right',
-        format: 'DD/MM/YYYY',
+        format: 'MM/DD/YYYY',
         separator: ' to ',
         startDate: moment().subtract(29, 'days'),
         endDate: moment(),
@@ -198,7 +198,7 @@ var handleDateRangePicker = function() {
     $('#advance-daterange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
 
     $('#advance-daterange').daterangepicker({
-        format: 'DD/MM/YYYY',
+        format: 'MM/DD/YYYY',
         startDate: moment().subtract(29, 'days'),
         endDate: moment(),
         minDate: '01/01/2012',

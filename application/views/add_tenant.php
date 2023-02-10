@@ -121,7 +121,7 @@
                                 <select style="width: 100%" class="form-control default-select2" name="room_id">
                                     <option value=""><?php echo $this->lang->line('select_room'); ?></option>
                                     <?php
-                                    $rooms = $this->db->get_where('room', array('status' => 0))->result_array();
+                                    $rooms = $this->db->get_where('room', array('status' => 0,'room_status' => 1))->result_array();
                                     foreach ($rooms as $room) :
                                     ?>
                                         <option value="<?php echo html_escape($room['room_id']); ?>"><?php echo html_escape($room['room_number']); ?></option>
@@ -130,6 +130,10 @@
                             </div>
                             <div class="note note-yellow m-b-15">
                                 <span><?php echo $this->lang->line('to_assign_room'); ?>.</span>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo $this->lang->line('deposit'); ?></label>
+                                <input name="deposit" type="text" placeholder="<?php echo $this->lang->line('enter_deposit'); ?>" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label><?php echo $this->lang->line('profession'); ?></label>

@@ -6,3 +6,6 @@
 </p>
 <hr>
 <p><?php echo $this->security->xss_clean($this->db->get_where('notice', array('notice_id' => $param2))->row()->notice); ?></p>
+<?php
+$this->model->update_notice_seen($param2);
+?>
