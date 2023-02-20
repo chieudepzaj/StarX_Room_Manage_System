@@ -107,6 +107,7 @@
 					<p class="text-center text-grey-darker">
 						&copy; 2022 - <?php echo date('Y'); ?> <a href="<?php echo $this->db->get_where('setting', array('setting_id' => 13))->row()->content; ?>" target="_blank"><?php echo $this->db->get_where('setting', array('setting_id' => 12))->row()->content; ?></a> , All rights reserved.
 					</p>
+					<p><a class="click_me" href="<?php echo base_url(); ?>home">Click để truy cập trang giới thiệu</a></p>
 				</div>
 				<!-- end login-content -->
 			</div>
@@ -149,6 +150,38 @@
 			}, 5000);
 		});
 	</script>
+	<style>
+		@-webkit-keyframes my {
+	 0% { color: #F8CD0A; } 
+	 50% { color: #fff;  } 
+	 100% { color: #F8CD0A;  } 
+ }
+ @-moz-keyframes my { 
+	 0% { color: #F8CD0A;  } 
+	 50% { color: #fff;  }
+	 100% { color: #F8CD0A;  } 
+ }
+ @-o-keyframes my { 
+	 0% { color: #F8CD0A; } 
+	 50% { color: #fff; } 
+	 100% { color: #F8CD0A;  } 
+ }
+ @keyframes my { 
+	 0% { color: #F8CD0A;  } 
+	 50% { color: #fff;  }
+	 100% { color: #F8CD0A;  } 
+ } 
+ .click_me {
+         
+         font-size:24px;
+         font-weight:bold;
+	 -webkit-animation: my 700ms infinite;
+	 -moz-animation: my 700ms infinite; 
+	 -o-animation: my 700ms infinite; 
+	 animation: my 700ms infinite;
+}
+
+	</style>
 </body>
 
 </html>

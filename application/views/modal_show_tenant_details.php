@@ -63,6 +63,26 @@
 						?>
 					</td>
 				</tr>
+				<tr>
+					<td><?php echo $count++; ?></td>
+					<td><?php echo $this->lang->line('updated_on'); ?></td>
+					<td><?php echo date('d/m/Y', $tenant['timestamp']); ?></td>
+				</tr>
+				<tr>
+					<td><?php echo $count++; ?></td>
+					<td><?php echo $this->lang->line('updated_by'); ?></td>
+					<td>
+						<?php
+							$user_type =  $this->db->get_where('user', array('user_id' => $tenant['updated_by']))->row()->user_type;
+							if ($user_type == 1) {
+								echo 'Admin';
+							} else {
+								$person_id = $this->db->get_where('user', array('user_id' => $tenant['updated_by']))->row()->person_id;
+								echo html_escape($this->db->get_where('staff', array('staff_id' => $person_id))->row()->name);
+							}
+						?>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

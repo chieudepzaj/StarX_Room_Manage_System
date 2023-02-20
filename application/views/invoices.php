@@ -33,7 +33,7 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('amount'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('due_date'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('payment_method'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('sms'); ?></th>
+                                
                                 <th class="text-nowrap"><?php echo $this->lang->line('email'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('late_fee').': '; ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_on').': '; ?></th>
@@ -116,8 +116,7 @@
                                             }
                                         ?>
                                 </td>
-                                <td><?php echo $row['sms'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?>
-                                </td>
+                               
                                 <td><?php echo $row['email'] ? $this->lang->line('sent') : $this->lang->line('not_sent'); ?>
                                 </td>
                                 <td><?php echo html_escape(number_format($row['late_fee']) . ' ' . $this->db->get_where('setting', array('name' => 'currency'))->row()->content); ?>
@@ -148,10 +147,6 @@
                                             <a class="dropdown-item" href="javascript:;"
                                                 onclick="showInvoiceModal(<?php echo $row['invoice_id']; ?>)">
                                                 <?php echo $this->lang->line('show_invoice_pdf'); ?>
-                                            </a>
-                                            <a class="dropdown-item" href="javascript:;"
-                                                onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_show_invoice_sms/<?php echo $row['invoice_id']; ?>/<?php echo $grand_total; ?>')">
-                                                <?php echo $this->lang->line('send_sms'); ?>
                                             </a>
                                             <a class="dropdown-item" href="javascript:;"
                                                 onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_edit_invoice_services/<?php echo $row['invoice_id']; ?>')">

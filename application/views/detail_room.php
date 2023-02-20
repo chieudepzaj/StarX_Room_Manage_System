@@ -634,7 +634,7 @@
                         src="<?php echo base_url(); ?>uploads/website/<?php echo $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>"
                         alt="logo"></a>
                 <div class="hd-info">
-                <a href="/starx/lienhe" class="tuvan">Tư vấn ngay</a>
+                <a href="/starx/login" class="tuvan">Đăng nhập</a>
                     <a href="/starx/datphong" class="datphong">Đặt phòng</a>
                 </div>
                 <!--END #lang-->
@@ -646,11 +646,9 @@
                     <li class=""><a href="/starx/home">Trang chủ</a></li>
                     <li class=""><a href="/starx/gioithieu">Giới thiệu</a> </li>
                     <li class="active"><a href="/starx/loaiphong">Loại phòng</a> </li>
-                    <li class=""><a href="/starx/nhahang">Nhà hàng</a> </li>
                 </ul>
                 <ul class="mn-right">
                     <li class=""><a href="/starx/dichvu">Dịch vụ</a></li>
-                    <li class=""><a href="/starx/thuvien">Thư viện</a></li>
                     <li class=""><a href="/starx/tuyendung">Tuyển dụng</a></li>
                     <li class=""><a href="/starx/lienhe">Liên hệ</a></li>
                 </ul>
@@ -730,7 +728,7 @@
                     alt="<?php echo $this->db->get_where('setting', array('name' => 'system_name'))->row()->content.' - ' .$this->db->get_where('room_type', array('id_room_type' => $room_id))->row()->content;?>">
             </div>
             <div class="column">
-                <img class="demo cursor" src="<?php echo base_url(); ?>uploads/website/<?php echo $this->db->get_where('room_type', array('id_room_type' => $room_id))->row()->image_link;?>" style="width:98%;height: 12.5vw;"
+                <img class="demo cursor" src="<?php echo base_url(); ?>uploads/website/video_preview.png" style="width:98%;height: 12.5vw;"
                     onclick="currentSlide(5)"
                     alt="<?php echo $this->db->get_where('setting', array('name' => 'system_name'))->row()->content.' - ' .$this->db->get_where('room_type', array('id_room_type' => $room_id))->row()->content;?>">
             </div>

@@ -621,7 +621,7 @@
     }
     </style>
     <link rel="icon" type="image/*" href="<?php echo base_url() . 'uploads/website/' . $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>">
-    <title>Trang chủ</title>
+    <title>Loại Phòng</title>
 </head>
 
 <body>
@@ -633,7 +633,7 @@
                         src="<?php echo base_url(); ?>uploads/website/<?php echo $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>"
                         alt="logo"></a>
                 <div class="hd-info">
-                <a href="/starx/lienhe" class="tuvan">Tư vấn ngay</a>
+                <a href="/starx/login" class="tuvan">Đăng nhập</a>
                     <a href="/starx/datphong" class="datphong">Đặt phòng</a>
                 </div>
                 <!--END #lang-->

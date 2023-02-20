@@ -674,7 +674,7 @@
     }
     </style>
     <link rel="icon" type="image/*" href="<?php echo base_url() . 'uploads/website/' . $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>">
-    <title>Trang chủ</title>
+    <title>Liên hệ</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         function validateForm() {
@@ -721,7 +721,7 @@
                         src="<?php echo base_url(); ?>uploads/website/<?php echo $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>"
                         alt="logo"></a>
                 <div class="hd-info">
-                    <a href="/starx/lienhe" class="tuvan">Tư vấn ngay</a>
+                    <a href="/starx/login" class="tuvan">Đăng nhập</a>
                     <a href="/starx/datphong" class="datphong">Đặt phòng</a>
                 </div>
                 <!--END #lang-->
@@ -778,7 +778,7 @@
                 <div class="item_lienhe">
                     <p>&nbsp;</p>
                     <input type="submit" style="margin-right:10px;" value="Gửi">
-                    <input type="button" value="Nhập lại" onclick="document.frm.reset();">
+                    <input type="button" value="Nhập lại" onclick="document.frm.reset();grecaptcha.reset();">
                 </div>
             </form>
             </div>

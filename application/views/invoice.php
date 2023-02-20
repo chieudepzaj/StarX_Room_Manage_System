@@ -18,8 +18,7 @@
 	<?php echo $this->lang->line('invoice'); ?>#<?php echo $invoice_number = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->row()->invoice_number; ?>
 	</h1>
 	<!-- end page-header -->
-	<?php $tenant_id = $this->db->get_where('tenant_rent', array('invoice_id' => $invoice_id))->row()->tenant_id;
-	echo 'tenant'.$tenant_id; ?>
+	<?php $tenant_id = $this->db->get_where('tenant_rent', array('invoice_id' => $invoice_id))->row()->tenant_id;?>
 	<!-- begin invoice -->
 	<div class="invoice print-body">
 		<!-- begin invoice-company -->

@@ -671,7 +671,34 @@
     </script>
     <link rel="icon" type="image/*" href="<?php echo base_url() . 'uploads/website/' . $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <title>Trang chủ</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+ $(document).ready(function(){
+    $( "#datepicker1" ).datepicker({ 
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        showAnim: "clip",
+        dateFormat: 'dd-mm-yy', 
+        minDate: '-0d',
+        changeMonth: true,
+        changeYear: true 
+    });
+    
+    $( "#datepicker2" ).datepicker({ 
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        showAnim: "clip",
+        dateFormat: 'dd-mm-yy', 
+        minDate: '-0d',
+        changeMonth: true,
+        changeYear: true 
+    });
+  } );
+  </script>
+    <title>Đặt phòng</title>
 </head>
 
 <body>
@@ -683,7 +710,7 @@
                         src="<?php echo base_url(); ?>uploads/website/<?php echo $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>"
                         alt="logo"></a>
                 <div class="hd-info">
-                <a href="/starx/lienhe" class="tuvan">Tư vấn ngay</a>
+                <a href="/starx/login" class="tuvan">Đăng nhập</a>
                     <a href="/starx/datphong" class="datphong">Đặt phòng</a>
                 </div>
                 <!--END #lang-->
@@ -864,21 +891,21 @@
             <div class="form-box">
                 <div class="form-group">
                     <label for="">Ngày đến</label>
-                    <input type="date" name="den" class="form-control" placeholder="dd-mm-yyyy">
+                    <input type="text" id="datepicker1" name="den" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Ngày đi</label>
-                    <input type="date" placeholder="dd-mm-yyyy" name="di" class="form-control">
+                    <input type="text" id="datepicker2" name="di" class="form-control">
                 </div>
             </div>
             <div class="form-box">
                 <div class="form-group">
                     <label for="">Người lớn</label>
-                    <input type="text" name="nguoilon" class="form-control">
+                    <input type="number" name="nguoilon" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Trẻ em</label>
-                    <input type="text" name="treem" class="form-control">
+                    <input type="number" name="treem" class="form-control">
                 </div>
             </div>
             <div class="form-group">

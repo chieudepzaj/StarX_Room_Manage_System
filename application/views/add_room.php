@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('remarks'); ?></label>
-                        <textarea style="resize: none" type="text" name="remarks" placeholder="<?php echo $this->lang->line('enter_remarks'); ?>" class="form-control"></textarea>
+                        <textarea style="resize: none" rows="5" type="text" name="remarks" placeholder="<?php echo $this->lang->line('enter_remarks'); ?>" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <label><?php echo $this->lang->line('room_status'); ?></label>

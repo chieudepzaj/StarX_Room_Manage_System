@@ -633,7 +633,7 @@
     }
     </style>
     <link rel="icon" type="image/*" href="<?php echo base_url() . 'uploads/website/' . $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>">
-    <title>Trang chủ</title>
+    <title>Dịch vụ</title>
 </head>
 
 <body>
@@ -645,7 +645,7 @@
                         src="<?php echo base_url(); ?>uploads/website/<?php echo $this->db->get_where('setting', array('name' => 'favicon'))->row()->content;?>"
                         alt="logo"></a>
                 <div class="hd-info">
-                    <a href="/starx/lienhe" class="tuvan">Tư vấn ngay</a>
+                    <a href="/starx/login" class="tuvan">Đăng nhập</a>
                     <a href="/starx/datphong" class="datphong">Đặt phòng</a>
                 </div>
                 <!--END #lang-->
@@ -673,54 +673,52 @@
     <div class="box-container">
         <div class="wap_box_new">
             <div class="box_news">
-                <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
+                <a href="<?php echo base_url(); ?>dichvu/khachsan" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
                     <img src="<?php echo base_url(); ?>uploads/website/img_33667370_380x280.jpeg" alt="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
                 </a>
                 <h3>
-                    <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI</a>
+                    <a href="<?php echo base_url(); ?>dichvu/khachsan" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI</a>
                 </h3>
                 <div class="mota">
-                    Tại Hoàng Yến Hotel, mọi sự cố gắng đều nhằm mục đích khiến cho du khách hài lòng. 
+                    Tại <?php echo $this->db->get_where('setting', array('name' => 'system_name'))->row()->content;?> Hotel, mọi sự cố gắng đều nhằm mục đích khiến cho du khách hài lòng. 
                     Để làm được điều đó, khách sạn sẽ cung cấp dịch vụ và tiện nghi tốt nhất.
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="box_news">
-                <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
-                    <img src="<?php echo base_url(); ?>uploads/website/img_33667370_380x280.jpeg" alt="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
+                <a href="<?php echo base_url(); ?>dichvu/letan" title="QUẦY LỄ TÂN">
+                    <img src="<?php echo base_url(); ?>uploads/website/untitled_panorama14870_380x280.jpg" alt="QUẦY LỄ TÂN">
                 </a>
                 <h3>
-                    <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI</a>
+                    <a href="<?php echo base_url(); ?>dichvu/letan" title="QUẦY LỄ TÂN">QUẦY LỄ TÂN</a>
                 </h3>
                 <div class="mota">
-                    Tại Hoàng Yến Hotel, mọi sự cố gắng đều nhằm mục đích khiến cho du khách hài lòng. 
-                    Để làm được điều đó, khách sạn sẽ cung cấp dịch vụ và tiện nghi tốt nhất.
+                <?php echo $this->db->get_where('setting', array('name' => 'system_name'))->row()->content;?> Hotel được khánh thành và chính thức hoạt động với đội ngũ nhân viên hiện nay gần 60 người. Tọa lạc tại trung tâm quận Hai Bà Trưng, Hà Nội, mặt tiền đường Trần Đại Nghĩa với vị trí đắc địa được đông đảo khách hàng không chỉ trong nước mà còn ngoài nước quan tâm và đón nhận.
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="box_news">
-                <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
-                    <img src="<?php echo base_url(); ?>uploads/website/img_33667370_380x280.jpeg" alt="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
+                <a href="<?php echo base_url(); ?>dichvu/spa" title="PHÒNG THƯ GIÃN SPA- MASSAGE">
+                    <img src="<?php echo base_url(); ?>uploads/website/dsc_36723933_380x280.jpg" alt="PHÒNG THƯ GIÃN SPA- MASSAGE">
                 </a>
                 <h3>
-                    <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI</a>
+                    <a href="<?php echo base_url(); ?>dichvu/spa" title="PHÒNG THƯ GIÃN SPA- MASSAGE">PHÒNG THƯ GIÃN SPA- MASSAGE</a>
                 </h3>
                 <div class="mota">
-                    Tại Hoàng Yến Hotel, mọi sự cố gắng đều nhằm mục đích khiến cho du khách hài lòng. 
-                    Để làm được điều đó, khách sạn sẽ cung cấp dịch vụ và tiện nghi tốt nhất.
+                Massage là một hình thức dịch vụ giúp chăm sóc sức khỏe và tinh thần 1 cách hiệu quả, giải tỏa áp lực và căng thẳng trong cuộc sống,
+                Là cách nạp lại năng lượng cho tinh thần sau chuỗi ngày dài bận rộn, có thể nói Spa- Massage là một dịch vụ không thể thiếu trong xã hội hiện đại ngày nay
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="box_news">
-                <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
-                    <img src="<?php echo base_url(); ?>uploads/website/img_33667370_380x280.jpeg" alt="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">
+                <a href="<?php echo base_url(); ?>dichvu/hoinghi" title="PHÒNG HỘI NGHỊ">
+                    <img src="<?php echo base_url(); ?>uploads/website/img-51215506_380x280.jpg" alt="PHÒNG HỘI NGHỊ">
                 </a>
                 <h3>
-                    <a href="#" title="PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI">PHÒNG KHÁCH SẠN 3 SAO SANG TRỌNG HIỆN ĐẠI</a>
+                    <a href="<?php echo base_url(); ?>dichvu/hoinghi" title="PHÒNG HỘI NGHỊ">PHÒNG HỘI NGHỊ</a>
                 </h3>
                 <div class="mota">
-                    Tại Hoàng Yến Hotel, mọi sự cố gắng đều nhằm mục đích khiến cho du khách hài lòng. 
-                    Để làm được điều đó, khách sạn sẽ cung cấp dịch vụ và tiện nghi tốt nhất.
+                Cho thuê Phòng hội nghị hội thảo tại Hà Nội với đẳng cấp 3 sao, <?php echo $this->db->get_where('setting', array('name' => 'system_name'))->row()->content;?> Hotel tự tin giúp bạn tổ chức một chương trình thành công.
                 </div>
                 <div class="clear"></div>
             </div>
@@ -768,6 +766,21 @@
     max-width: 170px !important;
     transition: 1s;
     margin-right: 15px;
+    height: auto;
+    }
+    .box_news a img:hover{
+        opacity: 0.4;
+    }
+    .box_news h3 a {
+    font-size: 15px;
+    color: #1f1f1f;
+    margin: 5px 0;
+    transition: 0.4s;
+    text-decoration: none;
+    display: block;
+    }
+    .box_news h3 a:hover{
+        color: red;
     }
     .box_news h3 {
     margin: 0;

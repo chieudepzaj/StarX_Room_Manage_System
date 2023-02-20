@@ -17,7 +17,7 @@
 </div>
 <div class="form-group">
 	<label><?php echo $this->lang->line('remarks'); ?></label>
-	<textarea style="resize: none" type="text" name="remarks" placeholder="<?php echo $this->lang->line('enter_remarks'); ?>" class="form-control"><?php echo html_escape($this->db->get_where('room', array('room_id' => $param2))->row()->remarks); ?></textarea>
+	<textarea style="resize: none" rows="5" type="text" name="remarks" placeholder="<?php echo $this->lang->line('enter_remarks'); ?>" class="form-control"><?php echo html_escape($this->db->get_where('room', array('room_id' => $param2))->row()->remarks); ?></textarea>
 </div>
 <div class="form-group">
 	<label><?php echo $this->lang->line('room_status'); ?></label>

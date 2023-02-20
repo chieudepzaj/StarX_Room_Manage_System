@@ -78,9 +78,8 @@ class Model extends CI_Model
 		$data['content']	= $this->input->post('noidung_lienhe');
 		$this->db->insert('contact', $data);
 
-		$this->session->set_flashdata('success', $this->lang->line('room_added_successfully'));
-
-		redirect(base_url() . 'lienhe', 'refresh');
+		// redirect(base_url() . 'lienhe', 'refresh');
+		redirect('waitingpages');
 	}
 
 	function book_room(){
@@ -96,7 +95,8 @@ class Model extends CI_Model
 		$data['content']	= $this->input->post('noidung');
 		$this->db->insert('book_room', $data);
 
-		redirect(base_url() . 'datphong', 'refresh');
+		// redirect(base_url() . 'datphong', 'refresh');
+		redirect('waitingpage');
 	}
 
 	function update_booking($id_book_room=''){
@@ -1066,6 +1066,8 @@ class Model extends CI_Model
 	function generate_date_range_rents()
 	{
 		$tenant_id 						= 	$this->input->post('tenant_id');
+		// $start_date						=	strtotime($this->input->post('start'));
+		// $end_date						=	strtotime($this->input->post('end'));
 		$start_date						=	strtotime(str_replace('/', '-', $this->input->post('start')));
 		$end_date						=	strtotime(str_replace('/', '-', $this->input->post('end')));
 
@@ -1082,6 +1084,9 @@ class Model extends CI_Model
 
 		$invoice['tenant_name']			=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->name;
 		$invoice['status']				=	$this->input->post('status');
+		// $invoice['start_date']			=	strtotime($this->input->post('start'));
+		// $invoice['end_date']			=	strtotime($this->input->post('end') . '11:59:59 pm');
+		// $invoice['due_date']			=	strtotime($this->input->post('due_date') . '11:59:59 pm');
 		$invoice['start_date']			=	strtotime(str_replace('/', '-', $this->input->post('start')));
 		$invoice['end_date']			=	strtotime(str_replace('/', '-', $this->input->post('end')) . '11:59:59 pm');
 		$invoice['due_date']			=	strtotime(str_replace('/', '-', $this->input->post('due_date')) . '11:59:59 pm');
@@ -1230,6 +1235,7 @@ class Model extends CI_Model
 		$invoice['status']				=	$this->input->post('status');
 		$invoice['start_date']			=	strtotime($months[0] . ' ' . '01' . ', ' . $year);
 		$invoice['end_date']			=	strtotime($months[count($months) - 1] . ' ' . date('t', strtotime($year . '-' . $months[count($months) - 1])) . ', ' . $year . '11:59:59 pm');
+		// $invoice['due_date']			=	strtotime($this->input->post('due_date') . '11:59:59 pm');
 		$invoice['due_date']			=	strtotime(str_replace('/', '-', $this->input->post('due_date')) . '11:59:59 pm');
 		$invoice['invoice_type']		=	2;
 		$invoice['tenant_mobile']		=	$this->db->get_where('tenant', array('tenant_id' => $tenant_id))->row()->mobile_number;
@@ -1295,7 +1301,8 @@ class Model extends CI_Model
 			$invoice['status']			=	$this->input->post('status');
 			$invoice['start_date']		=	strtotime($month . ' ' . '01' . ', ' . $year);
 			$invoice['end_date']		=	strtotime($month . ' ' . date('t', strtotime($year . '-' . $month)) . ', ' . $year . '11:59:59 pm');
-			$invoice['due_date']		=	strtotime(str_replace('/', '-', $this->input->post('due_date')) . '11:59:59 pm');
+			// $invoice['due_date']			=	strtotime($this->input->post('due_date') . '11:59:59 pm');
+			$invoice['due_date']			=	strtotime(str_replace('/', '-', $this->input->post('due_date')) . '11:59:59 pm');
 			$invoice['invoice_type']	=	1;
 			$invoice['tenant_mobile']	=	$this->db->get_where('tenant', array('tenant_id' => $tenants[$i]))->row()->mobile_number;
 			$invoice['room_number']		=	$room_number;

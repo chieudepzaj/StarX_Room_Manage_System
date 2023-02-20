@@ -18,7 +18,7 @@ class Landlord extends CI_Controller
 	public function index()
 	{
 		if (!$this->session->userdata('user_type'))
-			redirect(base_url() . 'login', 'refresh');
+			redirect(base_url() . 'home', 'refresh');
 
 		if (in_array($this->db->get_where('module', array('module_name' => 'dashboard'))->row()->module_id, $this->session->userdata('permissions'))) {
 			$page_data['page_title']	=	'Dashboard';
@@ -603,10 +603,24 @@ class Landlord extends CI_Controller
 		$this->load->view('loaiphong');
 	}
 
-	function dichvu(){
-		$this->load->view('dichvu');
+	function waitingpage(){
+		$this->load->view('waitingpage');
 	}
 
+	function waitingpages(){
+		$this->load->view('waitingpages');
+	}
+
+	function dichvu($param=''){
+		if ($param == 'khachsan') $this->load->view('dichvu1');
+		elseif ($param == 'letan') $this->load->view('dichvu2');
+		elseif ($param == 'spa') $this->load->view('dichvu3');
+		elseif ($param == 'hoinghi') $this->load->view('dichvu4');	
+		else{
+		$this->load->view('dichvu');
+		}
+	}
+	
 	function tuyendung(){
 		$this->load->view('tuyendung');
 	}

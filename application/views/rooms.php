@@ -75,7 +75,7 @@
                                         <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td><?php echo $room['floor'] ? html_escape($room['floor']) : 'N/A'; ?></td>
-                                    <td><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>
+                                    <td class="limit-row"><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>
                                     <td>
                                         <?php 
                                         if($room['room_status'] == 1)
@@ -158,3 +158,12 @@
         window.location = url;
     }
 </script>
+<style>
+    .limit-row{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4; 
+        -webkit-box-orient: vertical;
+    }
+</style>
