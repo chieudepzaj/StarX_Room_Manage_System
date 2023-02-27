@@ -33,6 +33,8 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('monthly_rent'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('floor'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('remarks'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('room_status'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('room_type'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_on'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('updated_by'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('options'); ?></th>
@@ -65,7 +67,23 @@
                                         <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td><?php echo $room['floor'] ? html_escape($room['floor']) : 'N/A'; ?></td>
-                                    <td><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>
+                                    <td class="limit-row"><?php echo $room['remarks'] ? html_escape($room['remarks']) : 'N/A'; ?></td>
+                                    <td>
+                                        <?php 
+                                        if($room['room_status'] == 1)
+                                        echo '<span class="badge badge-success">' . $this->db->get_where('room_status', array('id_room_status' => $room['room_status']))->row()->name . '</span>'; 
+                                        elseif($room['room_status'] == 2)
+                                        echo '<span class="badge badge-danger">' . $this->db->get_where('room_status', array('id_room_status' => $room['room_status']))->row()->name . '</span>'; 
+                                        if($room['room_status'] == 3)
+                                        echo '<span class="badge badge-warning">' . $this->db->get_where('room_status', array('id_room_status' => $room['room_status']))->row()->name . '</span>'; 
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                            $room_type = $this->db->get_where('room_type', array('id_room_type' => $room['room_type']))->row()->content;
+                                            echo $room_type? html_escape($room_type) : 'N/A'; 
+                                        ?>
+                                    </td>
                                     <td><?php echo date('d/m/Y', $room['timestamp']); ?></td>
                                     <td>
                                         <?php

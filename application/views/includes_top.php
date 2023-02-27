@@ -73,4 +73,12 @@
     .no-margin-top{
         margin-top:0;
     }
+    .limit-row{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4; 
+        -webkit-box-orient: vertical;
+    }
 </style>
+<?php date_default_timezone_set('Asia/Ho_Chi_Minh'); ?>

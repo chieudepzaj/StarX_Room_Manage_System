@@ -34,10 +34,8 @@
                                 <th class="text-nowrap"><?php echo $this->lang->line('id_type'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('id_number'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('room'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('emergency_person'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('emergency_contact'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('updated_on'); ?></th>
-                                <th class="text-nowrap"><?php echo $this->lang->line('updated_by'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('email'); ?></th>
+                                <th class="text-nowrap"><?php echo $this->lang->line('deposit'); ?></th>
                                 <th class="text-nowrap"><?php echo $this->lang->line('options'); ?></th>
                             </tr>
                         </thead>
@@ -70,19 +68,10 @@
                                     <td><?php echo $tenant['id_number'] ? html_escape($this->db->get_where('id_type', array('id_type_id' => $tenant['id_type_id']))->row()->name) : 'N/A'; ?></td>
                                     <td><?php echo $tenant['id_number'] ? html_escape($tenant['id_number']) : 'N/A'; ?></td>
                                     <td><?php echo $tenant['room_id'] ? html_escape($this->db->get_where('room', array('room_id' => $tenant['room_id']))->row()->room_number) : 'N/A'; ?></td>
-                                    <td><?php echo $tenant['emergency_person'] ? html_escape($tenant['emergency_person']) : 'N/A'; ?></td>
-                                    <td><?php echo $tenant['emergency_contact'] ? html_escape($tenant['emergency_contact']) : 'N/A'; ?></td>
-                                    <td><?php echo date('d/m/Y', $tenant['timestamp']); ?></td>
+                                    <td><?php echo $tenant['email'] ? html_escape($tenant['email']) : 'N/A'; ?></td>
                                     <td>
-                                        <?php
-                                        $user_type =  $this->db->get_where('user', array('user_id' => $tenant['updated_by']))->row()->user_type;
-                                        if ($user_type == 1) {
-                                            echo 'Admin';
-                                        } else {
-                                            $person_id = $this->db->get_where('user', array('user_id' => $tenant['updated_by']))->row()->person_id;
-                                            echo html_escape($this->db->get_where('staff', array('staff_id' => $person_id))->row()->name);
-                                        }
-                                        ?>
+                                        <?php echo html_escape($tenant['deposit']); ?>
+                                        <?php echo $this->db->get_where('setting', array('name' => 'currency'))->row()->content; ?>
                                     </td>
                                     <td>
                                         <div class="btn-group">
