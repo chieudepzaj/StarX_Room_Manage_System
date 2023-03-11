@@ -106,9 +106,11 @@
                                                 <a class="dropdown-item" href="javascript:;" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_edit_room/<?php echo $room['room_id']; ?>');">
                                                 <?php echo $this->lang->line('edit'); ?>
                                                 </a>
+                                                <?php if ($room['room_status'] == '1') : ?>
                                                 <a class="dropdown-item" href="javascript:;" onclick="showAjaxModal('<?php echo base_url(); ?>modal/popup/modal_assign_room_to_tenant/<?php echo $room['room_id']; ?>');">
                                                 <?php echo $this->lang->line('assign_tenant'); ?>
                                                 </a>
+                                                <?php endif; ?>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="javascript:;" onclick="confirm_modal('<?php echo base_url(); ?>rooms/remove/<?php echo $room['room_id']; ?>');">
                                                 <?php echo $this->lang->line('remove'); ?>
